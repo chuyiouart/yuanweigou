@@ -239,13 +239,15 @@ figcaption {
 .scene-list,
 .value-grid,
 .mode-grid,
-.process {
+.process,
+.video-points {
   display: grid;
   gap: 14px;
 }
 
 .benefit-list article,
 .process article,
+.video-points article,
 .scene-list article,
 .value-grid article,
 .mode-grid article,
@@ -290,6 +292,44 @@ li,
 
 .process {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.video-section {
+  background: #fffaf2;
+}
+
+.video-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.video-card {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.video-card video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #111;
+  object-fit: cover;
+}
+
+.video-card figcaption {
+  padding: 14px 18px 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.video-points article {
+  min-height: 0;
 }
 
 .sample-layout {
@@ -472,7 +512,7 @@ ul {
 
 .contact {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
+  grid-template-columns: minmax(0, 1fr) 260px;
   gap: 28px;
   align-items: center;
   background: #fffaf2;
@@ -481,10 +521,34 @@ ul {
 .qr-card {
   margin: 0;
   text-align: center;
+  background: #fff;
+}
+
+.qr-title {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.qr-title strong {
+  font-size: 22px;
+}
+
+.qr-title span {
+  color: var(--muted);
 }
 
 .qr-card img {
+  width: min(100%, 190px);
+  aspect-ratio: 1;
+  object-fit: contain;
   border-radius: 6px;
+}
+
+.qr-card figcaption {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 14px;
 }
 
 .site-footer {
@@ -500,6 +564,7 @@ ul {
   .hero,
   .intro,
   .display-grid,
+  .video-layout,
   .sample-layout,
   .scene-board,
   .investor,
