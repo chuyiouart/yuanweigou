@@ -251,6 +251,7 @@ figcaption {
 .scene-list article,
 .value-grid article,
 .mode-grid article,
+.request-grid article,
 .case-card,
 .sample-copy,
 .qr-card {
@@ -261,7 +262,8 @@ figcaption {
 }
 
 .benefit-list span,
-.process span {
+.process span,
+.request-grid span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -510,12 +512,40 @@ ul {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.request {
+  background: #fffaf2;
+}
+
+.request-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.request-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.request-actions p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
 .contact {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 260px;
   gap: 28px;
   align-items: center;
   background: #fffaf2;
+}
+
+.contact-actions {
+  margin-top: 22px;
 }
 
 .qr-card {
@@ -573,6 +603,7 @@ ul {
   }
 
   .process,
+  .request-grid,
   .value-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -609,6 +640,7 @@ ul {
   }
 
   .process,
+  .request-grid,
   .scene-list,
   .mode-grid,
   .case-grid,
