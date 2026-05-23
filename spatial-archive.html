@@ -88,12 +88,17 @@
             exposure="1"
             ar
             ar-modes="webxr scene-viewer quick-look"
+            ar-placement="floor"
+            ar-scale="auto"
             alt="You Can Call Me AI 的结构转译三维模型"
           >
             <div class="viewer-fallback" slot="poster">
               <strong>3D 模型加载中</strong>
               <span>如果长时间没有出现，请检查网络或稍后刷新。</span>
             </div>
+            <button class="ar-button" slot="ar-button">
+              在现实空间中查看模型
+            </button>
           </model-viewer>
           <div class="viewer-notes">
             <article>
@@ -112,6 +117,18 @@
               <p>同一个 GLB 模型后续可继续用于 AR / MR 空间放置、展厅导览和授权展示。</p>
             </article>
           </div>
+        </div>
+        <div class="mr-test-steps">
+          <div>
+            <p class="eyebrow">iPhone MR Test</p>
+            <h3>手机测试方式</h3>
+          </div>
+          <ol>
+            <li>用 iPhone 打开线上页面，建议使用 Safari；如果在微信里打开，请点右上角菜单选择“在 Safari 中打开”。</li>
+            <li>等待 3D 模型加载完成，点击“在现实空间中查看模型”。</li>
+            <li>手机对准桌面或地面缓慢移动，识别到平面后将模型放置到现实空间中。</li>
+            <li>用双指缩放、旋转，测试模型作为展览 MR 延展的观看效果。</li>
+          </ol>
         </div>
       </section>
 
@@ -180,7 +197,9 @@
             当 36 组测试样本、真实艺术家案例和未来授权作品都进入档案系统后，元维构会逐渐形成一个可检索、可展示、可授权、可进入 MR 展览的三维艺术档案库。
           </p>
         </div>
-        <a class="button primary" href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">提交作品判断</a>
+        <div class="hero-actions">
+          <a class="button secondary" href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">提交作品判断</a>
+        </div>
       </section>
     </main>
 
