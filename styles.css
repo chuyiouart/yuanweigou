@@ -1047,6 +1047,106 @@ ul {
   padding: 24px;
 }
 
+.archive-callout {
+  margin-top: 14px;
+}
+
+.archive-hero {
+  min-height: auto;
+}
+
+.archive-record-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+.archive-image-card {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 14px 40px rgba(31, 27, 21, 0.08);
+}
+
+.archive-image-card img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  background: #fff;
+}
+
+.archive-image-card figcaption {
+  padding: 14px 16px 16px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.viewer-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+model-viewer {
+  display: block;
+  width: 100%;
+  min-height: 620px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: radial-gradient(circle at 40% 18%, #fffaf2 0%, #e7e0d3 52%, #d7cec0 100%);
+  box-shadow: var(--shadow);
+}
+
+.viewer-fallback {
+  display: grid;
+  min-height: 620px;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.viewer-fallback strong {
+  color: var(--ink);
+  font-size: 22px;
+}
+
+.viewer-notes {
+  display: grid;
+  gap: 14px;
+}
+
+.viewer-notes article {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.viewer-notes span {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.viewer-notes h3 {
+  margin: 10px 0 8px;
+  font-size: 21px;
+}
+
+.viewer-notes p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
 .split-cards span,
 .roadmap-grid span {
   display: inline-flex;
@@ -1110,6 +1210,8 @@ ul {
   .case-archive-grid,
   .case-archive-grid.two,
   .archive-table,
+  .archive-record-grid,
+  .viewer-shell,
   .service-principle,
   .service-cta,
   .rights-table,
@@ -1166,6 +1268,8 @@ ul {
     .pricing-grid,
     .deliverable-grid,
     .license-grid,
+    .archive-record-grid,
+    .viewer-shell,
     .rights-table,
     .matrix-grid,
     .split-cards,
@@ -1199,5 +1303,12 @@ ul {
 
   .qr-card {
     width: 100%;
+  }
+
+  .archive-image-card img,
+  model-viewer,
+  .viewer-fallback {
+    min-height: 360px;
+    height: auto;
   }
 }

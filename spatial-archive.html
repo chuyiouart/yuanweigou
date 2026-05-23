@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>空间数字档案系统 | 元维构 METRION</title>
+    <meta
+      name="description"
+      content="元维构 METRION 空间数字档案系统：为艺术作品建立原作信息、结构转译、三维模型、实拍记录、版权状态与授权可能性的数字档案。"
+    />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+    <meta name="theme-color" content="#171717" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="元维构" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html#top" aria-label="元维构首页">
+        <img src="./assets/logo.jpg" alt="" />
+        <span>
+          <strong>元维构</strong>
+          <small>METRION</small>
+        </span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a href="./index.html#display">展示</a>
+        <a href="./index.html#method">方法</a>
+        <a href="./index.html#cases">案例</a>
+        <a href="./spatial-archive.html">数字档案</a>
+        <a href="./licensing.html">授权</a>
+        <a href="./services.html">价格</a>
+        <a href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">申请</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="service-hero archive-hero">
+        <p class="eyebrow">Spatial Digital Archive</p>
+        <h1>艺术作品的空间数字档案系统。</h1>
+        <p class="lead">
+          这一步不是直接做完整 MR 展厅，而是先为每一件转译作品建立可扫码访问的数字档案：原作信息、转译说明、实拍记录、3D 模型、版权状态与授权可能性都集中在同一个页面里。
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#viewer">查看 3D 模型</a>
+          <a class="button secondary" href="#archive-system">理解档案结构</a>
+          <a class="button secondary" href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">提交作品判断</a>
+        </div>
+      </section>
+
+      <section class="section archive-intro">
+        <div class="section-heading">
+          <p class="eyebrow">MVP Case 01</p>
+          <h2>从作品信息到三维模型，一个可被展签二维码直接打开的档案页。</h2>
+          <p>
+            这个最小可行版本先验证一件事：观众站在作品前，扫描二维码后，能够看到原作背景、转译方式、实体模型实拍，并在线旋转观察三维结构。后续再在同一套页面上增加 AR / MR 空间放置能力。
+          </p>
+        </div>
+        <div class="archive-record-grid">
+          <figure class="archive-image-card">
+            <img src="./assets/spatial-archive/original-info.jpg" alt="You Can Call Me AI 原作与转译说明卡" />
+            <figcaption>原作信息与结构转译说明</figcaption>
+          </figure>
+          <figure class="archive-image-card">
+            <img src="./assets/spatial-archive/model-live.jpg" alt="You Can Call Me AI 结构转译模型实拍" />
+            <figcaption>实体模型实拍记录</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="viewer" class="section model-viewer-section">
+        <div class="section-heading">
+          <p class="eyebrow">3D Model Viewer</p>
+          <h2>在线查看转译后的三维结构模型。</h2>
+          <p>
+            当前模型文件较大，首次加载可能需要一些时间。这个模块后续可以继续升级为展厅二维码入口、手机端 AR 预览，以及 MR 眼镜中的空间叠加版本。
+          </p>
+        </div>
+        <div class="viewer-shell">
+          <model-viewer
+            src="./assets/spatial-archive/you-can-call-me-ai.glb"
+            camera-controls
+            auto-rotate
+            rotation-per-second="18deg"
+            shadow-intensity="0.7"
+            exposure="1"
+            ar
+            ar-modes="webxr scene-viewer quick-look"
+            alt="You Can Call Me AI 的结构转译三维模型"
+          >
+            <div class="viewer-fallback" slot="poster">
+              <strong>3D 模型加载中</strong>
+              <span>如果长时间没有出现，请检查网络或稍后刷新。</span>
+            </div>
+          </model-viewer>
+          <div class="viewer-notes">
+            <article>
+              <span>01</span>
+              <h3>展签二维码入口</h3>
+              <p>每一件实体作品旁边可以放置二维码，扫码进入该作品的数字档案页。</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>三维观察</h3>
+              <p>观众可以旋转、缩放模型，看到实体展陈中无法完整观察的结构细节。</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>MR 升级接口</h3>
+              <p>同一个 GLB 模型后续可继续用于 AR / MR 空间放置、展厅导览和授权展示。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="archive-system" class="section archive-system">
+        <div class="section-heading">
+          <p class="eyebrow">Archive Structure</p>
+          <h2>一件作品进入数字档案后，应包含六个基础字段。</h2>
+        </div>
+        <div class="matrix-grid">
+          <article>
+            <h3>原作信息</h3>
+            <p>艺术家、作品名称、年份、媒介、尺寸、原作版权归属与展示来源。</p>
+          </article>
+          <article>
+            <h3>转译过程</h3>
+            <p>记录作品如何从二维图像进入空间结构：结构提取、比例重构、材料选择与制作方式。</p>
+          </article>
+          <article>
+            <h3>成品形态</h3>
+            <p>记录实体模型、数字模型、白模、涂装版本、放大版本或展览版本。</p>
+          </article>
+          <article>
+            <h3>用途</h3>
+            <p>展览展示、收藏样本、文创衍生、礼品定制、教育成果或空间装置。</p>
+          </article>
+          <article>
+            <h3>版权状态</h3>
+            <p>明确原作是否为公共领域、是否获得艺术家授权，或当前仅作研究展示。</p>
+          </article>
+          <article>
+            <h3>授权可能性</h3>
+            <p>判断是否适合进入限量版、衍生品、空间项目、数字内容或 MR 展览授权。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section mr-roadmap">
+        <div class="section-heading">
+          <p class="eyebrow">MR Roadmap</p>
+          <h2>从扫码档案，到混合现实展览。</h2>
+        </div>
+        <div class="roadmap-grid">
+          <article>
+            <span>01</span>
+            <h3>扫码档案</h3>
+            <p>作品旁边放置二维码，观众扫码进入作品档案页，查看原作、说明、实拍与授权状态。</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>3D 模型查看</h3>
+            <p>在网页中旋转观察转译模型，形成“原作 + 实体 + 数字模型”的完整记录。</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>MR 空间呈现</h3>
+            <p>未来让观众在现实画展中看到作品的虚拟空间版本，实现实体展览的数字增强。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section service-cta">
+        <div>
+          <p class="eyebrow">Next Step</p>
+          <h2>下一步可以为每一件转译作品生成独立二维码档案。</h2>
+          <p>
+            当 36 组测试样本、真实艺术家案例和未来授权作品都进入档案系统后，元维构会逐渐形成一个可检索、可展示、可授权、可进入 MR 展览的三维艺术档案库。
+          </p>
+        </div>
+        <a class="button primary" href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">提交作品判断</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>元维构 METRION</span>
+      <span>让创作拥有新的维度 · Giving Creation a New Dimension</span>
+    </footer>
+
+    <script src="./script.js"></script>
+    <script src="./pwa.js"></script>
+  </body>
+</html>

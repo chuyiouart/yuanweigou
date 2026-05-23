@@ -1,10 +1,11 @@
-const METRION_CACHE = "metrion-pwa-v3";
+const METRION_CACHE = "metrion-pwa-v4";
 
 const CORE_ASSETS = [
   "./",
   "./index.html",
   "./services.html",
   "./licensing.html",
+  "./spatial-archive.html",
   "./styles.css",
   "./script.js",
   "./manifest.webmanifest",
