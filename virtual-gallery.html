@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>元维构 METRION | WebXR 虚拟展厅 Demo</title>
+    <title>元维构 METRION | 虚拟美术馆服务</title>
     <meta
       name="description"
-      content="元维构 METRION WebXR 虚拟展厅 Demo：将结构转译样本、数字档案与三维模型沉淀为可在 Meta Quest 浏览器中访问的虚拟展览。"
+      content="元维构 METRION 虚拟美术馆服务：为美术馆、画廊、艺术节和展示空间搭建可浏览、可导览、可持续传播的线上虚拟展厅。"
     />
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
@@ -14,23 +14,23 @@
     <link rel="stylesheet" href="./styles.css" />
     <style>
       .vg-page {
-        background: #eee9df;
+        background: #ece7dc;
         min-height: 100vh;
       }
 
       .vg-hero {
         display: grid;
-        grid-template-columns: minmax(0, 0.82fr) minmax(320px, 1.18fr);
+        grid-template-columns: minmax(0, 0.76fr) minmax(360px, 1.24fr);
         gap: clamp(24px, 4vw, 56px);
         align-items: end;
-        padding: clamp(34px, 6vw, 74px) clamp(18px, 5vw, 72px) 28px;
+        padding: clamp(34px, 5vw, 72px) clamp(18px, 5vw, 72px) 30px;
         border-bottom: 1px solid rgba(23, 23, 23, 0.12);
       }
 
       .vg-hero h1 {
         margin: 12px 0 18px;
-        max-width: 760px;
-        font-size: clamp(40px, 6.6vw, 92px);
+        max-width: 720px;
+        font-size: clamp(38px, 5.8vw, 86px);
         line-height: 0.98;
         letter-spacing: 0;
       }
@@ -38,18 +38,18 @@
       .vg-hero p {
         max-width: 720px;
         color: #4c473f;
-        font-size: clamp(16px, 1.7vw, 22px);
-        line-height: 1.75;
+        font-size: clamp(16px, 1.45vw, 21px);
+        line-height: 1.78;
       }
 
       .vg-hero-panel {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 1px;
         overflow: hidden;
-        border: 1px solid #d8d0c4;
+        border: 1px solid #d4cabd;
         border-radius: 8px;
-        background: #d8d0c4;
+        background: #d4cabd;
       }
 
       .vg-hero-panel div {
@@ -61,26 +61,25 @@
       .vg-hero-panel strong {
         display: block;
         margin-bottom: 10px;
-        font-size: 28px;
+        font-size: 30px;
       }
 
       .vg-hero-panel span {
         color: #6b655c;
-        line-height: 1.6;
+        line-height: 1.62;
       }
 
       .vg-stage {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 360px;
-        gap: 0;
-        min-height: 720px;
+        grid-template-columns: minmax(0, 1fr) 380px;
+        min-height: 760px;
         border-bottom: 1px solid rgba(23, 23, 23, 0.12);
       }
 
       .vg-canvas-wrap {
         position: relative;
-        min-height: 720px;
-        background: #171717;
+        min-height: 760px;
+        background: #111;
       }
 
       #virtualGalleryCanvas {
@@ -88,16 +87,30 @@
         inset: 0;
       }
 
+      .vg-loading,
       .vg-help {
         position: absolute;
+        z-index: 2;
+        color: #fff;
+      }
+
+      .vg-loading {
+        top: 18px;
+        left: 18px;
+        padding: 9px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.42);
+        font-size: 13px;
+      }
+
+      .vg-help {
         left: 18px;
         bottom: 18px;
-        z-index: 2;
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
         max-width: calc(100% - 36px);
-        color: #fff;
         font-size: 13px;
       }
 
@@ -105,7 +118,7 @@
         border: 1px solid rgba(255, 255, 255, 0.22);
         border-radius: 999px;
         padding: 7px 11px;
-        background: rgba(0, 0, 0, 0.38);
+        background: rgba(0, 0, 0, 0.42);
         backdrop-filter: blur(10px);
       }
 
@@ -118,13 +131,9 @@
         background: #f8f4ec;
       }
 
-      .vg-info .eyebrow {
-        margin-bottom: 18px;
-      }
-
       .vg-info h2 {
         margin: 0 0 14px;
-        font-size: clamp(28px, 3vw, 44px);
+        font-size: clamp(28px, 3vw, 42px);
         line-height: 1.08;
       }
 
@@ -141,12 +150,12 @@
 
       .vg-meta div {
         display: grid;
-        grid-template-columns: 86px minmax(0, 1fr);
+        grid-template-columns: 84px minmax(0, 1fr);
         gap: 14px;
         border-top: 1px solid #ded6c9;
         padding-top: 11px;
         color: #4d473f;
-        line-height: 1.5;
+        line-height: 1.55;
       }
 
       .vg-meta span {
@@ -186,9 +195,9 @@
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 1px;
         overflow: hidden;
-        border: 1px solid #d8d0c4;
+        border: 1px solid #d4cabd;
         border-radius: 8px;
-        background: #d8d0c4;
+        background: #d4cabd;
       }
 
       .vg-flow-grid article {
@@ -214,7 +223,66 @@
         line-height: 1.7;
       }
 
-      @media (max-width: 980px) {
+      .vg-service {
+        padding: clamp(34px, 5vw, 72px) clamp(18px, 5vw, 72px);
+        border-bottom: 1px solid rgba(23, 23, 23, 0.12);
+        background: #f5efe5;
+      }
+
+      .vg-service-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.86fr) minmax(360px, 1.14fr);
+        gap: clamp(24px, 4vw, 56px);
+        align-items: start;
+      }
+
+      .vg-service-copy h2 {
+        margin: 10px 0 18px;
+        font-size: clamp(32px, 4.5vw, 64px);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .vg-service-copy p {
+        color: #514b43;
+        font-size: clamp(16px, 1.35vw, 20px);
+        line-height: 1.8;
+      }
+
+      .vg-service-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1px;
+        overflow: hidden;
+        border: 1px solid #d4cabd;
+        border-radius: 8px;
+        background: #d4cabd;
+      }
+
+      .vg-service-grid article {
+        min-height: 190px;
+        padding: 24px;
+        background: #fffdf7;
+      }
+
+      .vg-service-grid span {
+        color: #8b3f2f;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+      }
+
+      .vg-service-grid h3 {
+        margin: 34px 0 12px;
+        font-size: 24px;
+      }
+
+      .vg-service-grid p {
+        color: #5e584f;
+        line-height: 1.72;
+      }
+
+      @media (max-width: 1040px) {
         .vg-hero,
         .vg-stage {
           grid-template-columns: 1fr;
@@ -222,27 +290,34 @@
 
         .vg-stage,
         .vg-canvas-wrap {
-          min-height: 620px;
+          min-height: 660px;
         }
 
         .vg-side {
           min-height: auto;
         }
 
-        .vg-flow-grid {
+        .vg-flow-grid,
+        .vg-hero-panel,
+        .vg-service-layout {
           grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .vg-service-layout {
+          grid-template-columns: 1fr;
         }
       }
 
       @media (max-width: 640px) {
+        .vg-flow-grid,
         .vg-hero-panel,
-        .vg-flow-grid {
+        .vg-service-grid {
           grid-template-columns: 1fr;
         }
 
         .vg-stage,
         .vg-canvas-wrap {
-          min-height: 540px;
+          min-height: 560px;
         }
 
         .vg-meta div {
@@ -274,91 +349,130 @@
     <main>
       <section class="vg-hero">
         <div>
-          <p class="eyebrow">METRION VIRTUAL GALLERY DEMO 01</p>
-          <h1>线下展览的空间数字档案。</h1>
+          <p class="eyebrow">METRION VIRTUAL MUSEUM SERVICE</p>
+          <h1>为线下展览搭建一个可持续访问的虚拟美术馆。</h1>
           <p>
-            这是元维构第一版 WebXR 虚拟展厅 Demo。它把 36 个测试系列中的部分样本、作品信息与三维转译模型放入一个可访问的虚拟空间，用于验证美术馆、画廊和展陈空间的线上延展方式。
+            这是元维构的虚拟美术馆服务样板：我们把线下美术馆、画廊、艺术节或商业展示空间中的作品、说明牌、现场关系和三维转译模型整理成一个可在网页、移动端和 WebXR 中访问的虚拟展馆，让展览不只停留在现场，也能继续被远程观看、导览、传播和归档。
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#gallery">进入虚拟展厅</a>
-            <a class="button secondary" href="./cases/test-series.html">查看测试系列</a>
+            <a class="button primary" href="#gallery">查看服务样板</a>
+            <a class="button secondary" href="#service">适用场景</a>
             <a class="button secondary" href="./spatial-archive.html">查看数字档案</a>
           </div>
         </div>
         <div class="vg-hero-panel">
           <div>
-            <strong>12</strong>
-            <span>首批挂墙样本，来自测试系列档案。</span>
+            <strong>样板</strong>
+            <span>以完整虚拟展厅为示例，展示线下展览如何转化为可公开浏览的线上空间。</span>
           </div>
           <div>
-            <strong>1</strong>
-            <span>中央三维转译模型，用于验证空间陈列。</span>
+            <strong>VR</strong>
+            <span>可在美术馆现场设置 VR 体验区，让参观者戴上设备进入展览的扩展空间。</span>
           </div>
           <div>
-            <strong>XR</strong>
-            <span>支持桌面浏览，也可在 Meta Quest Browser 中进入 VR。</span>
+            <strong>服务</strong>
+            <span>可为馆方定制展厅结构、作品路径、导览文字、档案入口和模型展示。</span>
+          </div>
+          <div>
+            <strong>Web</strong>
+            <span>网页端用于远程预览和传播，现场则可通过二维码导览或 VR 区继续深入体验。</span>
           </div>
         </div>
       </section>
 
-      <section id="gallery" class="vg-stage" aria-label="WebXR 虚拟展厅">
+      <section id="gallery" class="vg-stage" aria-label="元维构虚拟美术馆服务样板">
         <div class="vg-canvas-wrap">
           <div id="virtualGalleryCanvas"></div>
+          <div id="vgLoading" class="vg-loading">正在载入虚拟展厅资源</div>
           <div class="vg-help" aria-hidden="true">
-            <span>桌面：拖拽旋转 / 滚轮缩放</span>
-            <span>点击墙面作品查看档案</span>
-            <span>Quest：打开页面后点击 Enter VR</span>
+            <span>桌面：拖拽旋转 / 滚轮缩放 / 点击作品查看信息</span>
+            <span>WebXR：点击右下角 VR 按钮进入；手柄射线选择作品</span>
+            <span>示例内容用于说明馆方虚拟展厅服务的可能性</span>
           </div>
         </div>
         <aside class="vg-side">
           <div class="vg-info">
-            <p class="eyebrow" id="vgCode">TP-2026-SGM-TS01-001</p>
-            <h2 id="vgTitle">选择一件墙面作品</h2>
+            <p class="eyebrow" id="vgCode">METRION VIRTUAL MUSEUM</p>
+            <h2 id="vgTitle">虚拟美术馆服务样板</h2>
             <p id="vgDesc">
-              点击虚拟展厅中的任意作品，可以查看该样本的原作信息、转译方式、用途和授权状态。中央展品用于展示二维作品转译为三维结构后如何进入虚拟空间。
+              选择墙面作品后，右侧会显示对应样本信息。这个空间展示的是元维构如何把线下展览内容转化为线上可浏览的虚拟美术馆服务。
             </p>
             <div class="vg-meta">
-              <div><span>原作信息</span><strong id="vgOrigin">测试系列样本</strong></div>
-              <div><span>转译过程</span><strong id="vgProcess">结构提取、空间生成、模型实现</strong></div>
-              <div><span>用途</span><strong id="vgUse">虚拟展览、展签二维码、数字档案、授权评估</strong></div>
-              <div><span>版权状态</span><strong id="vgRights">需根据原作权属确认</strong></div>
+              <div><span>内容</span><strong id="vgOrigin">作品图像、说明牌、展览路径、三维模型和案例档案</strong></div>
+              <div><span>方式</span><strong id="vgProcess">将线下展陈关系翻译为可访问、可导览、可继续更新的线上空间。</strong></div>
+              <div><span>用途</span><strong id="vgUse">远程观展、教育导览、展览延期传播、赞助汇报、数字档案。</strong></div>
+              <div><span>权属</span><strong id="vgRights">展示用途；具体授权需根据原作权属和使用场景确认。</strong></div>
             </div>
           </div>
           <div class="vg-actions">
-            <a id="vgCaseLink" href="./cases/test-series.html">进入案例库</a>
+            <a id="vgCaseLink" href="./cases/test-series.html">查看样板案例库</a>
             <a href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">提交作品转译判断</a>
           </div>
         </aside>
       </section>
 
+      <section id="service" class="vg-service">
+        <div class="vg-service-layout">
+          <div class="vg-service-copy">
+            <p class="eyebrow">For Museums, Galleries & Exhibition Spaces</p>
+            <h2>把一次展览，变成可以继续生长的线上空间。</h2>
+            <p>
+              对美术馆和展示空间来说，展览往往受限于档期、地点和到场人数。元维构的虚拟展馆服务不是简单做一个图片网页，而是把展厅结构、作品位置、展签信息、导览逻辑、三维模型和后续档案入口组织成一个可浏览的空间。它可以作为实体展览的线上延展，也可以作为展前提案、巡展沟通、教育项目和馆藏数字化的一部分。
+            </p>
+          </div>
+          <div class="vg-service-grid">
+            <article>
+              <span>01 / EXTEND</span>
+              <h3>延长展览生命</h3>
+              <p>展期结束后，观众仍可以通过网页进入展厅，回看作品、说明牌和导览路径，让一次线下展览留下可访问的数字版本。</p>
+            </article>
+            <article>
+              <span>02 / GUIDE</span>
+              <h3>远程导览与教育</h3>
+              <p>馆方可以把虚拟展厅用于线上讲解、学校课程、会员活动和媒体传播，让不在现场的人也能理解展览结构。</p>
+            </article>
+            <article>
+              <span>03 / PRESENT</span>
+              <h3>展前方案沟通</h3>
+              <p>在布展前模拟作品关系、动线和说明牌位置，方便馆方、策展人、艺术家和赞助方快速看到空间效果。</p>
+            </article>
+            <article>
+              <span>04 / ARCHIVE</span>
+              <h3>数字档案沉淀</h3>
+              <p>每件作品都可以连接到单独档案页，记录原作信息、授权状态、转译模型、实拍照片和后续衍生开发可能。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="vg-flow">
         <div class="section-heading">
-          <p class="eyebrow">For Museums & Galleries</p>
-          <h2>每一次线下展览，都可以沉淀为一座虚拟展厅。</h2>
+          <p class="eyebrow">What METRION Can Build</p>
+          <h2>这套服务可以根据不同展览空间继续定制。</h2>
           <p>
-            第一版 Demo 先验证“展厅空间 + 作品档案 + 三维模型”的基础结构。后续可以继续加入导览、语音、展览路线、艺术家访谈、授权申请和 VR 设备观展。
+            当前页面是一个样板空间。实际合作中，元维构可以根据馆方现有展厅、作品数量、展览主题和传播目标，重新搭建空间尺度、展墙节奏、作品说明、模型陈列、入口二维码和后续档案页面。
           </p>
         </div>
         <div class="vg-flow-grid">
           <article>
-            <span>01 / ARCHIVE</span>
-            <h3>展览沉淀</h3>
-            <p>把线下展览中的作品、展签、现场照片和三维转译模型记录为可访问的空间数字档案。</p>
+            <span>01 / SPACE</span>
+            <h3>展厅建模</h3>
+            <p>根据真实空间或策展草图搭建基础展厅，让线上空间保留展墙、动线、入口和观看距离。</p>
           </article>
           <article>
-            <span>02 / ACCESS</span>
-            <h3>远程观展</h3>
-            <p>观众不在现场，也可以通过网页或 VR 设备进入展览空间，理解作品与展陈关系。</p>
+            <span>02 / CONTENT</span>
+            <h3>作品与展签</h3>
+            <p>整理作品图像、标题、作者、年代、媒介和导览文字，形成统一的线上说明牌系统。</p>
           </article>
           <article>
-            <span>03 / RIGHTS</span>
-            <h3>授权入口</h3>
-            <p>每件作品都可以连接版权状态、授权可能性和衍生品方向，为后续合作保留接口。</p>
+            <span>03 / MODEL</span>
+            <h3>模型与装置</h3>
+            <p>对于适合拓展的作品，可加入三维转译模型、装置预览或 MR 展示入口，增强展览的空间表达。</p>
           </article>
           <article>
-            <span>04 / EXTENSION</span>
-            <h3>衍生拓展</h3>
-            <p>虚拟展厅中的三维模型可继续进入 MR 展示、实体模型制作、公共空间方案和教育课程。</p>
+            <span>04 / PUBLISH</span>
+            <h3>发布与传播</h3>
+            <p>交付可网页访问的虚拟展厅，可嵌入官网、二维码、展览宣传页，也可继续扩展到 VR 设备。</p>
           </article>
         </div>
       </section>
@@ -372,6 +486,23 @@
         }
       }
     </script>
-    <script type="module" src="./virtual-gallery.js"></script>
+    <script>
+      if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+        const params = new URLSearchParams(location.search);
+        if (params.has("reset-sw")) {
+          navigator.serviceWorker
+            .getRegistrations()
+            .then((registrations) => Promise.all(registrations.map((registration) => registration.unregister())))
+            .then(() => {
+              params.delete("reset-sw");
+              params.set("v", "v57-20260530");
+              const query = params.toString();
+              location.replace(`${location.pathname}${query ? `?${query}` : ""}${location.hash || ""}`);
+            })
+            .catch(() => {});
+        }
+      }
+    </script>
+    <script type="module" src="./virtual-gallery.js?v=v57-20260530"></script>
   </body>
 </html>
