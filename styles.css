@@ -1252,6 +1252,23 @@ ul {
   background: #fff;
 }
 
+.archive-record-grid.featured-case {
+  grid-template-columns: minmax(360px, 0.95fr) minmax(0, 1.05fr);
+}
+
+.archive-image-card.contain-media img {
+  height: 560px;
+  object-fit: contain;
+}
+
+.archive-image-card.info-sheet img {
+  padding: 18px;
+}
+
+.archive-image-card.live-photo img {
+  background: #171717;
+}
+
 .archive-image-card figcaption {
   padding: 14px 16px 16px;
   color: var(--muted);

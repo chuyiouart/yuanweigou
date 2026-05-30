@@ -6,7 +6,7 @@
     <title>空间数字档案系统 | 元维构 METRION</title>
     <meta
       name="description"
-      content="元维构 METRION 空间数字档案系统：为艺术作品建立原作信息、结构转译、三维模型、实拍记录、版权状态与授权可能性的数字档案。"
+      content="元维构 METRION 空间数字档案系统：以 Alphonse Mucha《Daydream》案例展示原作信息、转译方式、实体模型实拍与可在线查看的三维模型。"
     />
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
@@ -39,9 +39,9 @@
     <main id="top">
       <section class="service-hero archive-hero">
         <p class="eyebrow">Spatial Digital Archive</p>
-        <h1>艺术作品的空间数字档案系统。</h1>
+        <h1>为每一件转译作品建立可浏览、可扫码、可延展的数字档案。</h1>
         <p class="lead">
-          这一步不是直接做完整 MR 展厅，而是先为每一件转译作品建立可扫码访问的数字档案：原作信息、转译说明、实拍记录、3D 模型、版权状态与授权可能性都集中在同一个页面里。
+          这一页以 Alphonse Mucha《Daydream》为样板，把原作信息、转译逻辑、实体模型实拍和三维模型放在同一条档案链路中。观众可以通过展签二维码进入页面，在线阅读作品背景，也可以旋转查看模型，为后续 AR / MR 展示和授权沟通留下清晰入口。
         </p>
         <div class="hero-actions">
           <a class="button primary" href="#viewer">查看 3D 模型</a>
@@ -53,19 +53,19 @@
       <section class="section archive-intro">
         <div class="section-heading">
           <p class="eyebrow">MVP Case 01</p>
-          <h2>从作品信息到三维模型，一个可被展签二维码直接打开的档案页。</h2>
+          <h2>Daydream：从穆夏的平面装饰语言，到可被在线查看的空间模型。</h2>
           <p>
-            这个最小可行版本先验证一件事：观众站在作品前，扫描二维码后，能够看到原作背景、转译方式、实体模型实拍，并在线旋转观察三维结构。后续再在同一套页面上增加 AR / MR 空间放置能力。
+            《Daydream》具有明确的装饰框架、人物姿态和花卉曲线。元维构的转译不是复制原作，而是提取画面中的空间结构、节奏与色彩关系，将二维图像转化为具备体量和触感的立体形态。这个档案页用于验证一件作品如何从“图像资料”进入“可展示、可导览、可继续授权沟通”的数字系统。
           </p>
         </div>
-        <div class="archive-record-grid">
-          <figure class="archive-image-card">
-            <img src="./assets/spatial-archive/original-info.jpg" alt="You Can Call Me AI 原作与转译说明卡" />
+        <div class="archive-record-grid featured-case">
+          <figure class="archive-image-card contain-media info-sheet">
+            <img src="./assets/spatial-archive/daydream-info.jpg" alt="Alphonse Mucha《Daydream》原作信息与转译说明卡" />
             <figcaption>原作信息与结构转译说明</figcaption>
           </figure>
-          <figure class="archive-image-card">
-            <img src="./assets/spatial-archive/model-live.jpg" alt="You Can Call Me AI 结构转译模型实拍" />
-            <figcaption>实体模型实拍记录</figcaption>
+          <figure class="archive-image-card contain-media live-photo">
+            <img src="./assets/spatial-archive/daydream-live.png" alt="Daydream 结构转译模型与说明牌实拍" />
+            <figcaption>实体模型、说明牌与小比例样件实拍记录</figcaption>
           </figure>
         </div>
       </section>
@@ -73,24 +73,27 @@
       <section id="viewer" class="section model-viewer-section">
         <div class="section-heading">
           <p class="eyebrow">3D Model Viewer</p>
-          <h2>在线查看转译后的三维结构模型。</h2>
+          <h2>在线查看《Daydream》转译后的三维结构模型。</h2>
           <p>
-            当前模型文件较大，首次加载可能需要一些时间。这个模块后续可以继续升级为展厅二维码入口、手机端 AR 预览，以及 MR 眼镜中的空间叠加版本。
+            当前页面使用轻量 GLB 文件，适合网页端预览和移动端加载。模型展示的是穆夏作品中人物、装饰背景与曲线节奏被转化后的空间版本，可作为展览现场二维码、线上档案页和后续 AR / MR 展示的共同素材。
           </p>
         </div>
         <div class="viewer-shell">
           <model-viewer
-            src="./assets/spatial-archive/you-can-call-me-ai.glb"
+            src="./assets/spatial-archive/daydream-mucha-vr-lite.glb"
             camera-controls
             auto-rotate
-            rotation-per-second="18deg"
-            shadow-intensity="0.7"
+            rotation-per-second="16deg"
+            shadow-intensity="0.75"
             exposure="1"
+            camera-orbit="35deg 68deg 3.2m"
+            min-camera-orbit="auto auto 2.2m"
+            max-camera-orbit="auto auto 6m"
             ar
             ar-modes="webxr scene-viewer quick-look"
             ar-placement="floor"
             ar-scale="auto"
-            alt="You Can Call Me AI 的结构转译三维模型"
+            alt="Daydream 的结构转译三维模型"
           >
             <div class="viewer-fallback" slot="poster">
               <strong>3D 模型加载中</strong>
@@ -104,30 +107,30 @@
             <article>
               <span>01</span>
               <h3>展签二维码入口</h3>
-              <p>每一件实体作品旁边可以放置二维码，扫码进入该作品的数字档案页。</p>
+              <p>观众站在作品或模型前，扫描二维码即可进入该作品的数字档案页，看到原作、说明、实拍和三维模型。</p>
             </article>
             <article>
               <span>02</span>
-              <h3>三维观察</h3>
-              <p>观众可以旋转、缩放模型，看到实体展陈中无法完整观察的结构细节。</p>
+              <h3>完整图像与实拍记录</h3>
+              <p>页面保留完整说明牌和实拍图，不裁切关键信息，方便馆方、观众和合作方理解转译依据。</p>
             </article>
             <article>
               <span>03</span>
               <h3>MR 升级接口</h3>
-              <p>同一个 GLB 模型后续可继续用于 AR / MR 空间放置、展厅导览和授权展示。</p>
+              <p>同一 GLB 模型后续可继续用于 AR / MR 空间放置、展厅导览和授权展示。</p>
             </article>
           </div>
         </div>
         <div class="mr-test-steps">
           <div>
-            <p class="eyebrow">iPhone MR Test</p>
+            <p class="eyebrow">Mobile / MR Test</p>
             <h3>手机测试方式</h3>
           </div>
           <ol>
-            <li>用 iPhone 打开线上页面，建议使用 Safari；如果在微信里打开，请点右上角菜单选择“在 Safari 中打开”。</li>
-            <li>等待 3D 模型加载完成，点击“在现实空间中查看模型”。</li>
-            <li>手机对准桌面或地面缓慢移动，识别到平面后将模型放置到现实空间中。</li>
-            <li>用双指缩放、旋转，测试模型作为展览 MR 延展的观看效果。</li>
+            <li>用手机打开线上页面，建议使用 Safari 或 Chrome；如果在微信中打开，可选择“在浏览器中打开”。</li>
+            <li>等待 3D 模型加载完成，拖拽旋转并双指缩放，确认模型主体、背板和细节都可见。</li>
+            <li>在支持 AR 的设备上点击“在现实空间中查看模型”，测试模型作为展览延展内容的现场观看效果。</li>
+            <li>如用于线下展签，可把本页链接生成二维码，放在原作、说明牌或模型旁边。</li>
           </ol>
         </div>
       </section>
@@ -140,11 +143,11 @@
         <div class="matrix-grid">
           <article>
             <h3>原作信息</h3>
-            <p>艺术家、作品名称、年份、媒介、尺寸、原作版权归属与展示来源。</p>
+            <p>艺术家、作品名称、年代、媒介、尺寸、原作版权归属与展示来源。</p>
           </article>
           <article>
             <h3>转译过程</h3>
-            <p>记录作品如何从二维图像进入空间结构：结构提取、比例重构、材料选择与制作方式。</p>
+            <p>记录作品如何从二维图像进入空间结构：结构提取、比例重构、材质选择与制作方式。</p>
           </article>
           <article>
             <h3>成品形态</h3>
@@ -174,7 +177,7 @@
           <article>
             <span>01</span>
             <h3>扫码档案</h3>
-            <p>作品旁边放置二维码，观众扫码进入作品档案页，查看原作、说明、实拍与授权状态。</p>
+            <p>作品旁边设置二维码，观众扫码进入档案页，查看原作、说明、实拍与授权状态。</p>
           </article>
           <article>
             <span>02</span>
@@ -194,7 +197,7 @@
           <p class="eyebrow">Next Step</p>
           <h2>下一步可以为每一件转译作品生成独立二维码档案。</h2>
           <p>
-            当 36 组测试样本、真实艺术家案例和未来授权作品都进入档案系统后，元维构会逐渐形成一个可检索、可展示、可授权、可进入 MR 展览的三维艺术档案库。
+            当更多测试样本、真实艺术家案例和未来授权作品进入档案系统后，元维构会逐渐形成一个可检索、可展示、可授权、可进入 MR 展览的三维艺术档案库。
           </p>
         </div>
         <div class="hero-actions">

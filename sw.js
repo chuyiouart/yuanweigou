@@ -1,4 +1,4 @@
-const METRION_CACHE = "metrion-pwa-v57-gallery";
+const METRION_CACHE = "metrion-pwa-daydream-archive";
 
 const CORE_ASSETS = [
   "./",
@@ -18,6 +18,9 @@ const CORE_ASSETS = [
   "./assets/display-close.jpg",
   "./assets/sample-cards.jpg",
   "./assets/application-card.jpg",
+  "./assets/spatial-archive/daydream-info.jpg",
+  "./assets/spatial-archive/daydream-live.png",
+  "./assets/spatial-archive/daydream-mucha-vr-lite.glb",
   "./cases/test-series.html",
   "./cases/foreign-artist.html",
   "./cases/youth-creator.html"
@@ -46,8 +49,11 @@ self.addEventListener("fetch", (event) => {
     url.pathname.endsWith("/virtual-gallery.html") ||
     url.pathname.endsWith("/virtual-gallery.js") ||
     url.pathname.includes("/assets/virtual-gallery-v57/");
+  const isSpatialArchive =
+    url.pathname.endsWith("/spatial-archive.html") ||
+    url.pathname.includes("/assets/spatial-archive/daydream-");
 
-  if (isVirtualGallery) {
+  if (isVirtualGallery || isSpatialArchive) {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
