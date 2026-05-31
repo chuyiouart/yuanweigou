@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>扫作品照片出现模型 | 长毛 AR</title>
+    <meta
+      name="description"
+      content="MindAR 图像识别 Demo：扫描《星际朋友系列——长毛》的作品图，让三维模型出现在照片上。"
+    />
+    <meta name="theme-color" content="#111111" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="./assets/mindar/mindar-image-aframe.prod.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        overflow: hidden;
+        background: #111;
+        color: #fff;
+        font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+      }
+
+      #app,
+      #ar-root,
+      a-scene {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .scan-ui {
+        position: fixed;
+        inset: 0;
+        z-index: 10;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        pointer-events: none;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        padding: calc(env(safe-area-inset-top) + 12px) 16px 12px;
+        background: linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0));
+        font-size: 13px;
+      }
+
+      .topbar strong {
+        font-size: 15px;
+      }
+
+      .scan-frame {
+        align-self: center;
+        justify-self: center;
+        width: min(74vw, 420px);
+        aspect-ratio: 0.85;
+        border: 2px solid rgba(255, 255, 255, 0.82);
+        border-radius: 22px;
+        box-shadow: 0 0 0 999px rgba(0, 0, 0, 0.18);
+      }
+
+      .status-panel {
+        margin: 0 14px calc(env(safe-area-inset-bottom) + 14px);
+        padding: 15px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 18px;
+        background: rgba(16, 16, 16, 0.78);
+        backdrop-filter: blur(14px);
+        color: rgba(255, 255, 255, 0.86);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .status-panel strong {
+        display: block;
+        margin-bottom: 4px;
+        color: #fff;
+        font-size: 16px;
+      }
+
+      .status-panel a {
+        pointer-events: auto;
+        color: #fff;
+        font-weight: 900;
+      }
+
+      .loading-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: grid;
+        place-items: center;
+        padding: 28px;
+        background: #111;
+        text-align: center;
+      }
+
+      .loading-card {
+        width: min(92vw, 420px);
+        display: grid;
+        gap: 14px;
+        justify-items: center;
+      }
+
+      .loading-card img {
+        width: min(72vw, 260px);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+      }
+
+      .loading-card h1 {
+        margin: 0;
+        font-size: 32px;
+        line-height: 1.08;
+      }
+
+      .loading-card p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.72);
+        line-height: 1.7;
+      }
+
+      .progress {
+        width: 100%;
+        height: 8px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+      }
+
+      .progress span {
+        display: block;
+        width: 8%;
+        height: 100%;
+        border-radius: inherit;
+        background: #fff;
+        transition: width 0.25s ease;
+      }
+
+      .error {
+        color: #ffd8d8;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <div class="scan-ui">
+      <div class="topbar">
+        <span>扫描作品照片</span>
+        <strong>长毛 AR</strong>
+      </div>
+      <div class="scan-frame" aria-hidden="true"></div>
+      <div class="status-panel" id="status">
+        <strong>对准作品卡正面的《长毛》图片</strong>
+        识别成功后，三维模型会直接出现在图片上。第一次加载模型较慢，请保持画面对准。
+      </div>
+    </div>
+
+    <div class="loading-screen" id="loading">
+      <div class="loading-card">
+        <img src="./assets/ar-artwork-card/changmao-original.jpg" alt="星际朋友系列——长毛 原作图" />
+        <h1>正在准备图像识别</h1>
+        <p id="loadingText">正在读取作品图...</p>
+        <div class="progress"><span id="progressBar"></span></div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { Compiler } from "./assets/mindar/mindar-image.prod.js";
+
+      const targetImageUrl = "./assets/ar-artwork-card/changmao-original.jpg";
+      const modelUrl = "./assets/ar-artwork-card/changmao-model.glb";
+      const app = document.querySelector("#app");
+      const loading = document.querySelector("#loading");
+      const loadingText = document.querySelector("#loadingText");
+      const progressBar = document.querySelector("#progressBar");
+      const status = document.querySelector("#status");
+
+      const setProgress = (percent, text) => {
+        progressBar.style.width = `${Math.max(8, Math.min(100, percent))}%`;
+        if (text) loadingText.textContent = text;
+      };
+
+      const loadImage = (src) =>
+        new Promise((resolve, reject) => {
+          const image = new Image();
+          image.crossOrigin = "anonymous";
+          image.onload = () => resolve(image);
+          image.onerror = reject;
+          image.src = src;
+        });
+
+      const createMindTargetUrl = async () => {
+        const image = await loadImage(targetImageUrl);
+        setProgress(12, "正在分析作品图像...");
+        const compiler = new Compiler();
+        await compiler.compileImageTargets([image], (progress) => {
+          setProgress(12 + progress * 0.78, `正在生成识别目标 ${Math.round(progress)}%`);
+        });
+        const buffer = compiler.exportData();
+        setProgress(96, "正在启动摄像头...");
+        return URL.createObjectURL(new Blob([buffer], { type: "application/octet-stream" }));
+      };
+
+      const startScene = (mindTargetUrl) => {
+        const scene = document.createElement("a-scene");
+        scene.setAttribute("mindar-image", `imageTargetSrc: ${mindTargetUrl}; autoStart: true; uiScanning: no; uiLoading: no; uiError: yes;`);
+        scene.setAttribute("color-space", "sRGB");
+        scene.setAttribute("renderer", "colorManagement: true, physicallyCorrectLights");
+        scene.setAttribute("vr-mode-ui", "enabled: false");
+        scene.setAttribute("device-orientation-permission-ui", "enabled: false");
+        scene.setAttribute("embedded", "");
+
+        scene.innerHTML = `
+          <a-assets timeout="120000">
+            <a-asset-item id="changmaoModel" src="${modelUrl}"></a-asset-item>
+          </a-assets>
+          <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+          <a-entity id="target" mindar-image-target="targetIndex: 0">
+            <a-gltf-model
+              src="#changmaoModel"
+              position="0 -0.05 0.18"
+              rotation="90 0 0"
+              scale="0.18 0.18 0.18"
+              animation="property: rotation; to: 90 360 0; loop: true; dur: 12000; easing: linear"
+            ></a-gltf-model>
+          </a-entity>
+        `;
+
+        app.appendChild(scene);
+
+        scene.addEventListener("renderstart", () => {
+          loading.style.display = "none";
+          status.innerHTML = "<strong>开始扫描</strong>请把手机摄像头对准作品卡正面的《长毛》图片。";
+        });
+
+        scene.addEventListener("targetFound", () => {
+          status.innerHTML = "<strong>识别成功</strong>模型已经绑定到作品照片上。保持镜头对准图片，可以移动手机观察空间关系。";
+        });
+
+        scene.addEventListener("targetLost", () => {
+          status.innerHTML = "<strong>正在重新识别</strong>请重新对准作品卡正面的《长毛》图片。";
+        });
+      };
+
+      try {
+        const mindTargetUrl = await createMindTargetUrl();
+        startScene(mindTargetUrl);
+      } catch (error) {
+        console.error(error);
+        loading.querySelector("h1").textContent = "识别 Demo 启动失败";
+        loadingText.className = "error";
+        loadingText.textContent = "请确认浏览器允许摄像头权限，并使用 HTTPS 页面打开。";
+        status.innerHTML = '<strong>启动失败</strong><a href="./ar-artwork-card-changmao.html">打开普通 AR 模型页</a>';
+      }
+    </script>
+  </body>
+</html>

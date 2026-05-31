@@ -7,6 +7,8 @@ const CORE_ASSETS = [
   "./licensing.html",
   "./spatial-archive.html",
   "./ar-artwork-card-changmao.html",
+  "./ar-artwork-card-changmao-mindar.html",
+  "./ar-artwork-card-changmao-scan-card.html",
   "./styles.css",
   "./script.js",
   "./manifest.webmanifest",
@@ -25,6 +27,10 @@ const CORE_ASSETS = [
   "./assets/ar-artwork-card/changmao-original.jpg",
   "./assets/ar-artwork-card/changmao-info.jpg",
   "./assets/ar-artwork-card/changmao-live.jpg",
+  "./assets/mindar/mindar-image-aframe.prod.js",
+  "./assets/mindar/mindar-image.prod.js",
+  "./assets/mindar/controller-mGt1s8dJ.js",
+  "./assets/mindar/ui-fBadYuor.js",
   "./cases/test-series.html",
   "./cases/foreign-artist.html",
   "./cases/youth-creator.html"
@@ -58,7 +64,10 @@ self.addEventListener("fetch", (event) => {
     url.pathname.includes("/assets/spatial-archive/daydream-");
   const isArArtworkCard =
     url.pathname.endsWith("/ar-artwork-card-changmao.html") ||
-    url.pathname.includes("/assets/ar-artwork-card/");
+    url.pathname.endsWith("/ar-artwork-card-changmao-mindar.html") ||
+    url.pathname.endsWith("/ar-artwork-card-changmao-scan-card.html") ||
+    url.pathname.includes("/assets/ar-artwork-card/") ||
+    url.pathname.includes("/assets/mindar/");
 
   if (isVirtualGallery || isSpatialArchive || isArArtworkCard) {
     event.respondWith(
