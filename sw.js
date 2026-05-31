@@ -1,4 +1,4 @@
-const METRION_CACHE = "metrion-pwa-ar-card-changmao-lite";
+const METRION_CACHE = "metrion-pwa-ar-card-changmao-mind";
 
 const CORE_ASSETS = [
   "./",
@@ -27,6 +27,7 @@ const CORE_ASSETS = [
   "./assets/ar-artwork-card/changmao-original.jpg",
   "./assets/ar-artwork-card/changmao-info.jpg",
   "./assets/ar-artwork-card/changmao-live.jpg",
+  "./assets/ar-artwork-card/changmao-target.mind",
   "./assets/ar-artwork-card/changmao-model-lite.glb",
   "./assets/mindar/mindar-image-aframe.prod.js",
   "./assets/mindar/mindar-image.prod.js",
