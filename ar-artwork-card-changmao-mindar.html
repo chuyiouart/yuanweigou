@@ -1,12 +1,12 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>鎵弿浣滃搧鐓х墖鍑虹幇妯″瀷 | 闀挎瘺 AR</title>
+    <title>Changmao Image AR</title>
     <meta
       name="description"
-      content="MindAR 鍥惧儚璇嗗埆 Demo锛氭壂鎻忋€婃槦闄呮湅鍙嬬郴鍒?-闀挎瘺銆嬬殑浣滃搧鍥撅紝璁╀笁缁存ā鍨嬪嚭鐜板湪鐓х墖涓娿€?
+      content="MindAR image tracking demo for the Changmao artwork card."
     />
     <meta name="theme-color" content="#111111" />
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
@@ -22,11 +22,10 @@
         overflow: hidden;
         background: #111;
         color: #fff;
-        font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+        font-family: Arial, "Microsoft YaHei", sans-serif;
       }
 
       #app,
-      #ar-root,
       a-scene {
         position: fixed;
         inset: 0;
@@ -153,27 +152,29 @@
 
     <div class="scan-ui">
       <div class="topbar">
-        <span>鎵弿浣滃搧鐓х墖</span>
-        <strong>闀挎瘺 AR</strong>
+        <span>Scan artwork image</span>
+        <strong>Changmao AR</strong>
       </div>
       <div class="scan-frame" aria-hidden="true"></div>
       <div class="status-panel" id="status">
-        <strong>瀵瑰噯浣滃搧鍗℃闈㈢殑銆婇暱姣涖€嬪浘鐗?/strong>
-        璇嗗埆鎴愬姛鍚庯紝涓夌淮妯″瀷浼氱洿鎺ュ嚭鐜板湪鍥剧墖涓娿€傜涓€娆″姞杞芥ā鍨嬭緝鎱紝璇蜂繚鎸佺敾闈㈠鍑嗐€?      </div>
+        <strong>Aim at the Changmao artwork card</strong>
+        Keep the full artwork image in the camera frame. The 3D model will appear after tracking starts.
+      </div>
     </div>
 
     <div class="loading-screen" id="loading">
       <div class="loading-card">
-        <img src="./assets/ar-artwork-card/changmao-original.jpg" alt="鏄熼檯鏈嬪弸绯诲垪--闀挎瘺 鍘熶綔鍥? />
-        <h1>姝ｅ湪鍑嗗鍥惧儚璇嗗埆</h1>
-        <p id="loadingText">姝ｅ湪璇诲彇璇嗗埆鐩爣...</p>
+        <img src="./assets/ar-artwork-card/changmao-original.jpg" alt="Changmao artwork target" />
+        <h1>Preparing image AR</h1>
+        <p id="loadingText">Loading tracking target...</p>
         <div class="progress"><span id="progressBar"></span></div>
       </div>
     </div>
 
     <script type="module">
-      const targetMindUrl = "./assets/ar-artwork-card/changmao-target.mind";
-      const modelUrl = "./assets/ar-artwork-card/changmao-model-lite.glb";
+      const assetVersion = "mindar-stable-20260531";
+      const targetMindUrl = `./assets/ar-artwork-card/changmao-target.mind?v=${assetVersion}`;
+      const modelUrl = `./assets/ar-artwork-card/changmao-model-lite.glb?v=${assetVersion}`;
       const app = document.querySelector("#app");
       const loading = document.querySelector("#loading");
       const loadingText = document.querySelector("#loadingText");
@@ -185,9 +186,19 @@
         if (text) loadingText.textContent = text;
       };
 
-      const assertAsset = async (url, label) => {
-        const response = await fetch(url, { cache: "no-store" });
-        if (!response.ok) throw new Error(`${label} failed: ${response.status}`);
+      const fetchWithTimeout = async (url, label, timeout = 15000) => {
+        const controller = new AbortController();
+        const timer = window.setTimeout(() => controller.abort(), timeout);
+        try {
+          const response = await fetch(url, {
+            cache: "reload",
+            signal: controller.signal,
+          });
+          if (!response.ok) throw new Error(`${label} failed: ${response.status}`);
+          return response;
+        } finally {
+          window.clearTimeout(timer);
+        }
       };
 
       const startScene = () => {
@@ -219,31 +230,31 @@
 
         scene.addEventListener("renderstart", () => {
           loading.style.display = "none";
-          status.innerHTML = "<strong>开始扫描</strong>请把手机摄像头对准作品卡正面的《长毛》图片。";
+          status.innerHTML = "<strong>Scanning</strong>Aim the camera at the full Changmao artwork image.";
         });
 
         scene.addEventListener("targetFound", () => {
-          status.innerHTML = "<strong>识别成功</strong>模型已经绑定到作品照片上。保持镜头对准图片，可以移动手机观察空间关系。";
+          status.innerHTML = "<strong>Tracking found</strong>The model is now attached to the artwork image.";
         });
 
         scene.addEventListener("targetLost", () => {
-          status.innerHTML = "<strong>正在重新识别</strong>请重新对准作品卡正面的《长毛》图片。";
+          status.innerHTML = "<strong>Tracking lost</strong>Please aim at the full artwork image again.";
         });
       };
 
       try {
-        setProgress(55, "正在读取识别目标...");
-        await assertAsset(targetMindUrl, "Mind target");
-        setProgress(78, "正在检查三维模型...");
-        await assertAsset(modelUrl, "Model");
-        setProgress(96, "正在启动摄像头...");
+        setProgress(45, "Loading tracking target...");
+        await fetchWithTimeout(targetMindUrl, "MindAR target");
+        setProgress(78, "Checking 3D model...");
+        await fetchWithTimeout(modelUrl, "GLB model", 30000);
+        setProgress(96, "Starting camera...");
         startScene();
       } catch (error) {
         console.error(error);
-        loading.querySelector("h1").textContent = "识别 Demo 启动失败";
+        loading.querySelector("h1").textContent = "AR demo failed to start";
         loadingText.className = "error";
-        loadingText.textContent = "请确认浏览器允许摄像头权限，并使用 HTTPS 页面打开。";
-        status.innerHTML = '<strong>启动失败</strong><a href="./ar-artwork-card-changmao.html">打开普通 AR 模型页</a>';
+        loadingText.textContent = `${error.message}. Please refresh, allow camera access, or open the normal AR model page.`;
+        status.innerHTML = '<strong>Fallback</strong><a href="./ar-artwork-card-changmao.html">Open normal AR model page</a>';
       }
     </script>
   </body>
