@@ -1,4 +1,4 @@
-const METRION_CACHE = "metrion-pwa-daydream-archive";
+const METRION_CACHE = "metrion-pwa-ar-card-changmao";
 
 const CORE_ASSETS = [
   "./",
@@ -6,6 +6,7 @@ const CORE_ASSETS = [
   "./services.html",
   "./licensing.html",
   "./spatial-archive.html",
+  "./ar-artwork-card-changmao.html",
   "./styles.css",
   "./script.js",
   "./manifest.webmanifest",
@@ -21,6 +22,9 @@ const CORE_ASSETS = [
   "./assets/spatial-archive/daydream-info.jpg",
   "./assets/spatial-archive/daydream-live.png",
   "./assets/spatial-archive/daydream-mucha-vr-lite.glb",
+  "./assets/ar-artwork-card/changmao-original.jpg",
+  "./assets/ar-artwork-card/changmao-info.jpg",
+  "./assets/ar-artwork-card/changmao-live.jpg",
   "./cases/test-series.html",
   "./cases/foreign-artist.html",
   "./cases/youth-creator.html"
@@ -52,8 +56,11 @@ self.addEventListener("fetch", (event) => {
   const isSpatialArchive =
     url.pathname.endsWith("/spatial-archive.html") ||
     url.pathname.includes("/assets/spatial-archive/daydream-");
+  const isArArtworkCard =
+    url.pathname.endsWith("/ar-artwork-card-changmao.html") ||
+    url.pathname.includes("/assets/ar-artwork-card/");
 
-  if (isVirtualGallery || isSpatialArchive) {
+  if (isVirtualGallery || isSpatialArchive || isArArtworkCard) {
     event.respondWith(
       fetch(event.request)
         .then((response) => {

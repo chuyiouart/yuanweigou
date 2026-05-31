@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>星际朋友系列——长毛 | AR 作品页</title>
+    <meta
+      name="description"
+      content="星际朋友系列——长毛的专属 AR 作品页。扫码后直接进入三维模型，并在支持的手机中尝试放置到现实空间。"
+    />
+    <meta name="theme-color" content="#171717" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+  </head>
+  <body class="private-ar-body ar-direct-body">
+    <main class="private-ar-page">
+      <section id="model" class="private-model-section ar-direct-entry" aria-label="长毛 3D 与 AR 模型">
+        <div class="ar-direct-topbar">
+          <span>作品卡已识别</span>
+          <strong>星际朋友系列——长毛</strong>
+        </div>
+
+        <model-viewer
+          src="./assets/ar-artwork-card/changmao-model.glb"
+          camera-controls
+          auto-rotate
+          rotation-per-second="15deg"
+          shadow-intensity="0.7"
+          exposure="1"
+          camera-orbit="32deg 67deg 3.8m"
+          min-camera-orbit="auto auto 2.2m"
+          max-camera-orbit="auto auto 7m"
+          ar
+          ar-modes="webxr scene-viewer quick-look"
+          ar-placement="floor"
+          ar-scale="auto"
+          alt="星际朋友系列——长毛的三维转译模型"
+        >
+          <div class="viewer-fallback" slot="poster">
+            <strong>模型加载中</strong>
+            <span>当前 Demo 模型较大，手机网络下可能需要等待。</span>
+          </div>
+          <button class="ar-button" slot="ar-button">
+            在现实空间中查看
+          </button>
+        </model-viewer>
+
+        <div class="ar-direct-panel">
+          <div>
+            <p class="private-kicker">AR Model Entry</p>
+            <h1>把“长毛”放进现实空间</h1>
+            <p>
+              扫描作品卡后会直接进入这一屏。等待模型出现后，点击“在现实空间中查看”，即可尝试把三维模型放到桌面、地面或展览现场空间中。
+            </p>
+          </div>
+          <a class="private-primary" href="#artwork">查看原作信息</a>
+        </div>
+      </section>
+
+      <section id="artwork" class="private-ar-hero compact-artwork">
+        <div class="private-ar-artwork">
+          <img src="./assets/ar-artwork-card/changmao-original.jpg" alt="星际朋友系列——长毛 原作" />
+        </div>
+
+        <div class="private-ar-intro">
+          <p class="private-kicker">Artwork</p>
+          <h2>星际朋友系列——长毛</h2>
+          <p class="private-meta">Young Artist · 2025 · 纸本丙烯</p>
+          <p>
+            这是这张作品卡对应的专属内容。正式交付时，每一张客户作品卡都可以绑定一个独立页面，替换作品图、署名、说明文字、GLB / USDZ 模型和授权信息。
+          </p>
+        </div>
+      </section>
+
+      <section class="photo-scan-section" aria-label="照片识别入口示意">
+        <div class="phone-scan-mock" aria-hidden="true">
+          <div class="phone-scan-camera">
+            <img src="./assets/ar-artwork-card/changmao-original.jpg" alt="" />
+            <div class="scan-corners"></div>
+            <div class="scan-status">识别到作品：长毛</div>
+          </div>
+        </div>
+
+        <div class="photo-scan-copy">
+          <p class="private-kicker">Photo Scan Entry</p>
+          <h2>正式版本可以扫作品照片，而不是扫二维码。</h2>
+          <p>
+            当前可用 Demo 先用入口码打开页面；后续接入图像识别后，用户可以直接扫描作品卡正面的图像，识别成功后进入这一件作品的 AR 模型页。
+          </p>
+          <ul class="photo-scan-list">
+            <li>客户拿起手机，对准作品卡正面的照片或绘画图像。</li>
+            <li>识别成功后，页面直接进入该作品的模型内容，而不是进入公共网站目录。</li>
+            <li>每张作品卡绑定一件作品、一套模型和一页独立内容。</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="private-record-section" aria-label="作品资料">
+        <div class="private-section-heading">
+          <p class="private-kicker">Artwork Card Content</p>
+          <h2>这张卡片背后的作品资料</h2>
+        </div>
+
+        <div class="private-record-grid">
+          <figure>
+            <img src="./assets/ar-artwork-card/changmao-live.jpg" alt="星际朋友系列——长毛 实体模型和作品卡实拍" />
+            <figcaption>实体模型与作品卡实拍</figcaption>
+          </figure>
+          <figure>
+            <img src="./assets/ar-artwork-card/changmao-info.jpg" alt="星际朋友系列——长毛 原作信息与转译说明卡" />
+            <figcaption>原作信息与转译说明</figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+
+    <footer class="private-ar-footer">
+      <span>Powered by METRION</span>
+      <span>AR Artwork Card Prototype</span>
+    </footer>
+  </body>
+</html>
