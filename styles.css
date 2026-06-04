@@ -1593,6 +1593,203 @@ ul {
   line-height: 1.65;
 }
 
+.metrion-assistant-widget {
+  position: fixed;
+  left: 22px;
+  bottom: 22px;
+  z-index: 80;
+  font-family: inherit;
+}
+
+.metrion-assistant-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(260px, calc(100vw - 44px));
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: #171717;
+  color: #fffaf2;
+  box-shadow: 0 18px 44px rgba(31, 27, 21, 0.24);
+  cursor: pointer;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1;
+  padding: 8px 16px 8px 8px;
+}
+
+.metrion-assistant-trigger img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.metrion-assistant-panel {
+  position: absolute;
+  left: 0;
+  bottom: 68px;
+  display: grid;
+  grid-template-rows: auto auto minmax(180px, 1fr) auto auto;
+  width: min(420px, calc(100vw - 44px));
+  max-height: min(650px, calc(100vh - 120px));
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffaf2;
+  box-shadow: 0 24px 70px rgba(31, 27, 21, 0.24);
+}
+
+.metrion-assistant-panel header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding: 14px 16px;
+}
+
+.metrion-assistant-panel header span {
+  display: block;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.metrion-assistant-panel header strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--ink);
+  font-size: 17px;
+}
+
+.metrion-assistant-panel header button {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.metrion-assistant-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px;
+}
+
+.metrion-assistant-suggestions button,
+.metrion-assistant-form button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: #3e3b36;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  padding: 8px 10px;
+}
+
+.metrion-assistant-messages {
+  min-height: 180px;
+  overflow: auto;
+  border-top: 1px solid rgba(31, 27, 21, 0.08);
+  border-bottom: 1px solid rgba(31, 27, 21, 0.08);
+  background: #fffdfa;
+  padding: 14px;
+}
+
+.metrion-assistant-message {
+  max-width: 92%;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  padding: 12px 13px;
+}
+
+.metrion-assistant-message.user {
+  margin-left: auto;
+  background: var(--deep);
+  color: #fff;
+  font-weight: 800;
+}
+
+.metrion-assistant-message.agent {
+  margin-right: auto;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.metrion-assistant-message h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.metrion-assistant-message p,
+.metrion-assistant-message li {
+  color: #4c4943;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.metrion-assistant-message p {
+  margin: 0 0 8px;
+}
+
+.metrion-assistant-message ul {
+  margin: 8px 0 0;
+  padding-left: 1.15em;
+}
+
+.metrion-assistant-message .agent-template,
+.metrion-assistant-message .agent-collect {
+  padding: 10px;
+}
+
+.metrion-assistant-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  padding: 12px 14px 8px;
+}
+
+.metrion-assistant-form textarea {
+  width: 100%;
+  min-height: 56px;
+  resize: vertical;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 10px;
+}
+
+.metrion-assistant-form button {
+  align-self: stretch;
+  border-radius: 8px;
+  background: var(--deep);
+  color: #fff;
+  padding: 0 14px;
+}
+
+.metrion-assistant-note {
+  margin: 0;
+  color: #6a6257;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 0 14px 12px;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -2555,6 +2752,38 @@ model-viewer {
   .viewer-fallback {
     min-height: 360px;
     height: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .metrion-assistant-widget {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .metrion-assistant-trigger {
+    max-width: 100%;
+  }
+
+  .metrion-assistant-panel {
+    left: 0;
+    right: 0;
+    bottom: 66px;
+    width: auto;
+    max-height: calc(100vh - 96px);
+  }
+
+  .metrion-assistant-messages {
+    max-height: calc(100vh - 290px);
+  }
+
+  .metrion-assistant-form {
+    grid-template-columns: 1fr;
+  }
+
+  .metrion-assistant-form button {
+    min-height: 44px;
   }
 }
 

@@ -797,4 +797,11 @@ function initAgent() {
   messages.addEventListener("dblclick", () => copyLastAnswer(messages));
 }
 
+window.MetrionAgent = {
+  WELCOME,
+  findAnswer,
+  answerToHtml,
+  escapeHtml,
+};
+
 document.addEventListener("DOMContentLoaded", initAgent);
