@@ -344,7 +344,7 @@ const AGENT_KNOWLEDGE = [
       ["36组样本数据表", AGENT_LINKS.samples],
       ["测试系列案例库", AGENT_LINKS.cases],
     ],
-    followups: ["样本数据表怎么服务报价？", "什么是授权池？", "展会现场怎么讲36组样本？"],
+    followups: ["样本数据表怎么服务报价？", "什么是授权池？", "展会现场可以了解哪些样本？"],
   },
   {
     id: "exhibition",
@@ -383,7 +383,7 @@ const AGENT_KNOWLEDGE = [
       ["提交作品判断", AGENT_LINKS.request],
       ["样本数据表", AGENT_LINKS.samples],
     ],
-    followups: ["展会现场怎么介绍元维构？", "观众扫码后应该问什么？", "二维码应该放哪几个入口？"],
+    followups: ["展会扫码后可以了解什么？", "观众可以提交自己的作品吗？", "二维码应该放哪几个入口？"],
   },
   {
     id: "ar",
@@ -558,7 +558,7 @@ const WELCOME = {
   bullets: [
     "低风险问题会直接回答，并给出官网入口。",
     "涉及作品适配、授权销售、源文件、最终报价和合同条款时，会提示提交判断或人工确认。",
-    "如果你问“怎么回复客户”“展会现场怎么介绍”“需要提交哪些资料”，我会按对应场景直接回答，并提醒哪些内容需要人工确认。",
+    "你可以直接问：我有一张画能不能做成立体作品、教育机构如何合作、展会扫码后能了解什么，或者提交作品前需要准备哪些资料。",
   ],
   templates: {
     direct: [
@@ -571,7 +571,7 @@ const WELCOME = {
     ["36组样本数据", AGENT_LINKS.samples],
     ["教育机构合作", AGENT_LINKS.education],
   ],
-  followups: ["元维构是什么？", "教育机构30个学生怎么合作？", "展会现场怎么介绍？"],
+  followups: ["元维构是什么？", "教育机构30个学生怎么合作？", "展会扫码后能了解什么？"],
 };
 
 function normalizeText(text) {
@@ -580,7 +580,7 @@ function normalizeText(text) {
 
 function detectStyle(question) {
   const q = normalizeText(question);
-  if (["微信", "客户问", "怎么回复", "话术", "私信", "自动回复"].some((word) => q.includes(word))) {
+  if (["微信咨询", "微信联系", "联系微信"].some((word) => q.includes(word))) {
     return "wechat";
   }
   if (["展会", "现场", "扫码", "展台", "观众", "路演"].some((word) => q.includes(word))) {
