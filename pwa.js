@@ -1,6 +1,6 @@
 const metrionScriptUrl = document.currentScript?.src || new URL("pwa.js", location.href).href;
 const metrionSiteRoot = new URL(".", metrionScriptUrl);
-const METRION_BUILD_VERSION = "20260604-assistant-css-fix";
+const METRION_BUILD_VERSION = "20260604-agent-copy-fix";
 
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
   let metrionReloadingForUpdate = false;
@@ -113,7 +113,7 @@ function metrionCreateAssistantWidget() {
     panel.hidden = false;
     trigger.setAttribute("aria-expanded", "true");
     widget.classList.add("is-open");
-    metrionLoadScript(new URL("agent.js?v=20260604-assistant-css-fix", metrionSiteRoot).href)
+    metrionLoadScript(new URL("agent.js?v=20260604-agent-copy-fix", metrionSiteRoot).href)
       .then(() => {
         if (!hasWelcomed && window.MetrionAgent) {
           const welcome = metrionAddAssistantMessage(messages, "agent", window.MetrionAgent.answerToHtml(window.MetrionAgent.WELCOME));
@@ -145,7 +145,7 @@ function metrionCreateAssistantWidget() {
 
   function ensureAgentReady() {
     if (window.MetrionAgent) return Promise.resolve();
-    return metrionLoadScript(new URL("agent.js?v=20260604-assistant-css-fix", metrionSiteRoot).href);
+    return metrionLoadScript(new URL("agent.js?v=20260604-agent-copy-fix", metrionSiteRoot).href);
   }
 
   trigger.addEventListener("click", () => {

@@ -1,4 +1,4 @@
-const METRION_CACHE = "metrion-pwa-20260604-assistant-css-fix";
+const METRION_CACHE = "metrion-pwa-20260604-agent-copy-fix";
 
 const CORE_ASSETS = [
   "./",

@@ -14,9 +14,9 @@ const AGENT_LINKS = {
 
 const STYLE_LABELS = {
   direct: "项目说明",
-  wechat: "微信回复",
-  onsite: "展会现场",
-  triage: "判断清单",
+  wechat: "沟通建议",
+  onsite: "现场咨询",
+  triage: "判断建议",
 };
 
 const COMMON_COLLECT = [
@@ -558,7 +558,7 @@ const WELCOME = {
   bullets: [
     "低风险问题会直接回答，并给出官网入口。",
     "涉及作品适配、授权销售、源文件、最终报价和合同条款时，会提示提交判断或人工确认。",
-    "如果你问“怎么回复客户”“展会现场怎么介绍”“需要提交哪些资料”，我会切换成对应的话术或清单。",
+    "如果你问“怎么回复客户”“展会现场怎么介绍”“需要提交哪些资料”，我会按对应场景直接回答，并提醒哪些内容需要人工确认。",
   ],
   templates: {
     direct: [
@@ -696,10 +696,10 @@ function answerToHtml(answer) {
   const meta = `<div class="agent-answer-meta"><span>${escapeHtml(styleLabel)}</span><span>${escapeHtml(answer.category || "知识库")}</span></div>`;
   const bullets = renderList(answer.bullets || []);
   const template = answer.template?.length
-    ? `<div class="agent-template"><strong>可直接使用的话术</strong>${answer.template.map((item) => `<p>${escapeHtml(item)}</p>`).join("")}</div>`
+    ? `<div class="agent-template">${answer.template.map((item) => `<p>${escapeHtml(item)}</p>`).join("")}</div>`
     : "";
   const collect = answer.collect?.length
-    ? `<div class="agent-collect"><strong>需要补充的信息</strong>${renderList(answer.collect)}</div>`
+    ? `<div class="agent-collect"><strong>为了继续判断，可以补充这些信息</strong>${renderList(answer.collect)}</div>`
     : "";
   const caution = answer.caution ? `<p class="agent-caution">${escapeHtml(answer.caution)}</p>` : "";
   const related = answer.related?.length
