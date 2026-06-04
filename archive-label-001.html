@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>空间数字档案 001 二维码展签 | 元维构 METRION</title>
+  <style>
+    :root {
+      --paper: #f5f1e8;
+      --card: #fffdfa;
+      --ink: #171717;
+      --muted: #706a61;
+      --line: #d9d0c3;
+      --accent: #8c3c24;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+    }
+
+    .sheet {
+      width: min(92vw, 430px);
+      padding: 28px;
+    }
+
+    .label {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 28px 26px 24px;
+      text-align: center;
+      box-shadow: 0 18px 45px rgba(38, 30, 20, 0.08);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 8px 0 22px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .qr-wrap {
+      width: 260px;
+      height: 260px;
+      margin: 0 auto 20px;
+      display: grid;
+      place-items: center;
+      background: white;
+      border: 1px solid #eee7dc;
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .qr-wrap img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .work-title {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .meta {
+      margin: 8px 0 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .hint {
+      margin: 0;
+      padding-top: 17px;
+      border-top: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .url {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      overflow-wrap: anywhere;
+    }
+
+    .actions {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .actions a {
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 14px;
+      text-decoration: none;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.55);
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .sheet {
+        width: 100mm;
+        padding: 0;
+      }
+
+      .actions {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <section class="label" aria-label="空间数字档案二维码展签">
+      <p class="eyebrow">METRION Digital Archive 001</p>
+      <h1>空间数字档案 001</h1>
+      <p class="subtitle">扫码查看作品信息、转译说明与 3D 模型</p>
+
+      <div class="qr-wrap">
+        <img src="./assets/archive-001-qr.svg" alt="空间数字档案 001 二维码" />
+      </div>
+
+      <p class="work-title">You Can Call Me AI</p>
+      <p class="meta">结构转译模型 / 3D Spatial Archive</p>
+      <p class="hint">请使用微信或手机相机扫码<br />进入元维构线上数字档案</p>
+      <p class="url">https://chuyiouart.github.io/yuanweigou/spatial-archive.html?v=001</p>
+    </section>
+
+    <nav class="actions" aria-label="测试链接">
+      <a href="./spatial-archive.html">打开本地档案页</a>
+      <a href="https://chuyiouart.github.io/yuanweigou/spatial-archive.html?v=001">打开线上档案页</a>
+    </nav>
+  </main>
+</body>
+</html>

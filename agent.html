@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>元维构项目咨询助手 | 元维构 METRION</title>
+    <meta
+      name="description"
+      content="元维构项目咨询助手：面向官网访客、展会观众、教育机构、家长、投资人与合作方的项目问答入口，回答元维构艺术结构转译、案例、价格、版权、教育合作、样本数据和作品提交问题。"
+    />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+    <meta name="theme-color" content="#171717" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="元维构" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html#top" aria-label="元维构首页">
+        <img src="./assets/logo.jpg" alt="" />
+        <span>
+          <strong>元维构</strong>
+          <small>METRION</small>
+        </span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a href="./agent.html">咨询助手</a>
+        <a href="./index.html#cases">案例</a>
+        <a href="./cases/sample-data.html">样本数据</a>
+        <a href="./education.html">教育</a>
+        <a href="./trust.html">可信</a>
+        <a href="./services.html">价格</a>
+        <a href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">提交作品</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="agent-shell">
+        <aside class="agent-panel">
+          <p class="eyebrow">METRION ASSISTANT</p>
+          <h1>元维构项目咨询助手</h1>
+          <p>
+            这里可以直接了解元维构的艺术结构转译、儿童画与教育机构合作、作品提交、价格区间、版权边界、样本数据和数字档案。你可以像现场咨询一样提问；涉及具体作品、授权销售和最终报价时，我们会引导你提交资料并由人工确认。
+          </p>
+          <div class="agent-status-grid" aria-label="咨询助手能力范围">
+            <article>
+              <span>场景问答</span>
+              <strong>项目介绍、作品判断、教育合作、价格、版权、样本数据、数字档案</strong>
+            </article>
+            <article>
+              <span>回答方式</span>
+              <strong>项目说明、合作话术、投资人说明、展会现场、资料清单</strong>
+            </article>
+            <article>
+              <span>谨慎处理</span>
+              <strong>作品适配、授权销售、源文件公开、最终报价、合同条款</strong>
+            </article>
+            <article>
+              <span>继续沟通</span>
+              <strong>可提交作品判断、教育机构需求、展览合作或投资渠道咨询</strong>
+            </article>
+          </div>
+          <div class="agent-quick-links">
+            <a href="./trust.html">可信转译原则</a>
+            <a href="./education.html">教育机构合作</a>
+            <a href="./cases/sample-data.html">36组样本数据</a>
+            <a href="./services.html">服务与价格</a>
+          </div>
+        </aside>
+
+        <section class="agent-console" aria-label="元维构项目咨询问答">
+          <div class="agent-toolbar">
+            <div>
+              <p class="eyebrow">Ask METRION</p>
+              <h2>你想了解什么？</h2>
+            </div>
+            <button class="agent-clear" type="button" data-agent-clear>清空</button>
+          </div>
+
+          <div class="agent-suggestions" aria-label="推荐问题">
+            <button type="button" data-agent-prompt="元维构和普通3D打印店有什么区别？">项目区别</button>
+            <button type="button" data-agent-prompt="少儿美术机构30个学生可以批量合作吗？">教育机构</button>
+            <button type="button" data-agent-prompt="家长想把孩子的儿童画做成纪念礼物，需要提供什么？">家长咨询</button>
+            <button type="button" data-agent-prompt="我的作品适合转译吗？需要提供什么资料？">作品判断</button>
+            <button type="button" data-agent-prompt="单件样本和教育机构批量大概怎么报价？">价格报价</button>
+            <button type="button" data-agent-prompt="版权和授权销售怎么处理？">版权授权</button>
+            <button type="button" data-agent-prompt="36组样本数据表有什么价值？">样本数据</button>
+            <button type="button" data-agent-prompt="这个项目的商业模式和投资价值是什么？">投资人说明</button>
+            <button type="button" data-agent-prompt="展会现场观众扫码以后应该怎么介绍元维构？">展会扫码</button>
+            <button type="button" data-agent-prompt="用户问我项目是什么，我应该怎么回复？">沟通话术</button>
+            <button type="button" data-agent-prompt="二维码档案、AR和虚拟展厅分别有什么用？">数字展示</button>
+            <button type="button" data-agent-prompt="美术馆、画廊或商业空间可以怎么合作？">空间合作</button>
+          </div>
+
+          <div class="agent-messages" data-agent-messages aria-live="polite"></div>
+
+          <form class="agent-input-row" data-agent-form>
+            <label class="sr-only" for="agentQuestion">输入你的问题</label>
+            <textarea
+              id="agentQuestion"
+              name="question"
+              rows="3"
+              placeholder="例如：我是一家少儿美术机构，想做30个学生作品，怎么合作？"
+              data-agent-input
+            ></textarea>
+            <button class="button primary" type="submit">发送</button>
+          </form>
+          <p class="agent-note">
+            本助手用于项目咨询与信息分流，不替代具体项目协议。涉及作品权属、授权销售、模型源文件、合同条款和最终报价时，以人工确认与合作文件为准。
+          </p>
+        </section>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>元维构 METRION</span>
+      <span>项目咨询助手用于说明元维构服务、案例、价格区间、版权边界与合作入口。</span>
+    </footer>
+    <script src="./agent.js"></script>
+    <script src="./pwa.js"></script>
+  </body>
+</html>

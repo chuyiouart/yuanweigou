@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>元维构 AR 测试 | METRION</title>
+    <meta name="description" content="元维构 METRION 手机 AR / MR 模型放置测试页。" />
+    <meta name="theme-color" content="#171717" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        background: #f6f1e8;
+        color: #171717;
+      }
+
+      .ar-test-page {
+        min-height: 100vh;
+        padding: 24px;
+        display: grid;
+        gap: 20px;
+        align-content: start;
+      }
+
+      .ar-test-header {
+        max-width: 760px;
+      }
+
+      .ar-test-header h1 {
+        margin: 0 0 10px;
+        font-size: clamp(30px, 8vw, 72px);
+        line-height: 0.95;
+        letter-spacing: 0;
+      }
+
+      .ar-test-header p {
+        margin: 0;
+        max-width: 660px;
+        color: #5e5a52;
+        font-size: 16px;
+        line-height: 1.75;
+      }
+
+      .ar-test-viewer {
+        min-height: 62vh;
+        border: 1px solid rgba(23, 23, 23, 0.12);
+        border-radius: 12px;
+        background: #fffaf2;
+        overflow: hidden;
+      }
+
+      .ar-test-viewer model-viewer {
+        width: 100%;
+        height: 62vh;
+        min-height: 480px;
+        background: radial-gradient(circle at 50% 18%, #fff 0, #f5efe4 46%, #e9dfd0 100%);
+      }
+
+      .ar-test-notes {
+        display: grid;
+        gap: 10px;
+        max-width: 760px;
+        color: #5e5a52;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .ar-test-notes strong {
+        color: #171717;
+      }
+
+      @media (max-width: 720px) {
+        .ar-test-page {
+          padding: 16px;
+        }
+
+        .ar-test-viewer,
+        .ar-test-viewer model-viewer {
+          min-height: 68vh;
+          height: 68vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="ar-test-page">
+      <section class="ar-test-header">
+        <p class="eyebrow">METRION AR TEST</p>
+        <h1>手机 AR 放置测试</h1>
+        <p>
+          这个页面使用轻量化后的测试模型，目的是确认 iPhone Safari 能否启动 AR，并把模型放置到桌面或地面。
+          如果这里可以启动 AR，再把同样流程接回正式数字档案页。
+        </p>
+      </section>
+
+      <section class="ar-test-viewer" aria-label="AR 测试模型">
+        <model-viewer
+          src="./assets/spatial-archive/you-can-call-me-ai-ar-clean-pruned.glb"
+          camera-controls
+          auto-rotate
+          rotation-per-second="18deg"
+          shadow-intensity="0.65"
+          exposure="1"
+          ar
+          ar-modes="quick-look webxr scene-viewer"
+          ar-placement="floor"
+          ar-scale="fixed"
+          alt="元维构结构转译 AR 测试模型"
+        >
+          <button class="ar-button" slot="ar-button">在现实空间中查看</button>
+        </model-viewer>
+      </section>
+
+      <section class="ar-test-notes">
+        <p><strong>测试方法：</strong>用 iPhone Safari 打开这个页面，等待模型加载完成后，点击“在现实空间中查看”。</p>
+        <p><strong>判断标准：</strong>如果进入 Quick Look 后顶部 AR 可以点亮，就说明模型兼容方向是对的；如果仍然灰色，下一步就需要使用独立 USDZ 文件，而不是依赖 GLB 自动转换。</p>
+      </section>
+    </main>
+  </body>
+</html>
