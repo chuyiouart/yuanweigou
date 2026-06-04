@@ -1316,8 +1316,8 @@ ul {
   justify-content: center;
   border-right: 1px solid var(--line);
   background:
-    linear-gradient(120deg, rgba(255, 250, 242, 0.94), rgba(244, 241, 234, 0.82)),
-    url("./assets/case-jp-board.jpg") center / cover;
+    linear-gradient(120deg, rgba(255, 250, 242, 0.9), rgba(244, 241, 234, 0.74)),
+    url("./assets/agent-consultation-bg.png") center / cover;
 }
 
 .agent-panel h1 {
