@@ -1,10 +1,24 @@
 const metrionScriptUrl = document.currentScript?.src || new URL("pwa.js", location.href).href;
 const metrionSiteRoot = new URL(".", metrionScriptUrl);
+const METRION_BUILD_VERSION = "20260604-assistant-fix";
 
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  let metrionReloadingForUpdate = false;
+
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (metrionReloadingForUpdate) return;
+    if (sessionStorage.getItem("metrion-sw-reloaded") === METRION_BUILD_VERSION) return;
+    metrionReloadingForUpdate = true;
+    sessionStorage.setItem("metrion-sw-reloaded", METRION_BUILD_VERSION);
+    location.reload();
+  });
+
   window.addEventListener("load", () => {
     const basePath = location.hostname.endsWith("github.io") ? "/yuanweigou/" : "/";
-    navigator.serviceWorker.register(`${basePath}sw.js`).catch(() => {});
+    navigator.serviceWorker
+      .register(`${basePath}sw.js?v=${METRION_BUILD_VERSION}`)
+      .then((registration) => registration.update().catch(() => {}))
+      .catch(() => {});
   });
 }
 
@@ -41,7 +55,12 @@ function metrionAddAssistantMessage(messages, role, content) {
   message.innerHTML = role === "user" ? `<p>${window.MetrionAgent.escapeHtml(content)}</p>` : content;
   messages.appendChild(message);
   metrionNormalizeAssistantLinks(message);
-  messages.scrollTop = messages.scrollHeight;
+  return message;
+}
+
+function metrionScrollToMessage(messages, message) {
+  if (!message) return;
+  messages.scrollTop = Math.max(0, message.offsetTop - messages.offsetTop - 12);
 }
 
 function metrionCreateAssistantWidget() {
@@ -94,10 +113,11 @@ function metrionCreateAssistantWidget() {
     panel.hidden = false;
     trigger.setAttribute("aria-expanded", "true");
     widget.classList.add("is-open");
-    metrionLoadScript(new URL("agent.js", metrionSiteRoot).href)
+    metrionLoadScript(new URL("agent.js?v=20260604-assistant-fix", metrionSiteRoot).href)
       .then(() => {
         if (!hasWelcomed && window.MetrionAgent) {
-          metrionAddAssistantMessage(messages, "agent", window.MetrionAgent.answerToHtml(window.MetrionAgent.WELCOME));
+          const welcome = metrionAddAssistantMessage(messages, "agent", window.MetrionAgent.answerToHtml(window.MetrionAgent.WELCOME));
+          metrionScrollToMessage(messages, welcome);
           hasWelcomed = true;
         }
         input.focus();
@@ -116,10 +136,16 @@ function metrionCreateAssistantWidget() {
   function ask(question) {
     const cleanQuestion = question.trim();
     if (!cleanQuestion || !window.MetrionAgent) return;
-    metrionAddAssistantMessage(messages, "user", cleanQuestion);
+    const userMessage = metrionAddAssistantMessage(messages, "user", cleanQuestion);
     input.value = "";
     const answer = window.MetrionAgent.findAnswer(cleanQuestion);
     metrionAddAssistantMessage(messages, "agent", window.MetrionAgent.answerToHtml(answer));
+    metrionScrollToMessage(messages, userMessage);
+  }
+
+  function ensureAgentReady() {
+    if (window.MetrionAgent) return Promise.resolve();
+    return metrionLoadScript(new URL("agent.js?v=20260604-assistant-fix", metrionSiteRoot).href);
   }
 
   trigger.addEventListener("click", () => {
@@ -131,7 +157,12 @@ function metrionCreateAssistantWidget() {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-    ask(input.value);
+    const question = input.value;
+    ensureAgentReady()
+      .then(() => ask(question))
+      .catch(() => {
+        window.location.href = new URL("agent.html", metrionSiteRoot).href;
+      });
   });
 
   input.addEventListener("keydown", (event) => {
@@ -143,14 +174,14 @@ function metrionCreateAssistantWidget() {
   promptButtons.forEach((button) => {
     button.addEventListener("click", () => {
       openPanel();
-      metrionLoadScript(new URL("agent.js", metrionSiteRoot).href).then(() => ask(button.dataset.metrionAssistantPrompt || ""));
+      ensureAgentReady().then(() => ask(button.dataset.metrionAssistantPrompt || ""));
     });
   });
 
   messages.addEventListener("click", (event) => {
     const button = event.target.closest("[data-agent-inline-prompt]");
     if (!button) return;
-    ask(button.dataset.agentInlinePrompt || "");
+    ensureAgentReady().then(() => ask(button.dataset.agentInlinePrompt || ""));
   });
 }
 

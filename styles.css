@@ -1641,6 +1641,10 @@ ul {
   box-shadow: 0 24px 70px rgba(31, 27, 21, 0.24);
 }
 
+.metrion-assistant-panel[hidden] {
+  display: none;
+}
+
 .metrion-assistant-panel header {
   display: flex;
   align-items: center;
@@ -1716,9 +1720,14 @@ ul {
 
 .metrion-assistant-message.user {
   margin-left: auto;
-  background: var(--deep);
-  color: #fff;
+  border: 1px solid #8b4a35;
+  background: #fff3e8;
+  color: #2b211b;
   font-weight: 800;
+}
+
+.metrion-assistant-message.user p {
+  color: #2b211b;
 }
 
 .metrion-assistant-message.agent {

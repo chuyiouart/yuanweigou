@@ -1,4 +1,4 @@
-const METRION_CACHE = "metrion-pwa-ar-card-changmao-stable";
+const METRION_CACHE = "metrion-pwa-20260604-assistant-fix";
 
 const CORE_ASSETS = [
   "./",
@@ -11,6 +11,9 @@ const CORE_ASSETS = [
   "./ar-artwork-card-changmao-scan-card.html",
   "./styles.css",
   "./script.js",
+  "./pwa.js",
+  "./agent.js",
+  "./sw.js",
   "./manifest.webmanifest",
   "./assets/logo.jpg",
   "./assets/logo-transparent.png",
@@ -19,6 +22,8 @@ const CORE_ASSETS = [
   "./assets/icon-512.png",
   "./assets/hero-display.jpg",
   "./assets/display-close.jpg",
+  "./assets/display-close-enhanced.jpg",
+  "./assets/assistant-float-icon.png",
   "./assets/sample-cards.jpg",
   "./assets/application-card.jpg",
   "./assets/spatial-archive/daydream-info.jpg",
@@ -55,6 +60,13 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
+  const isSameOrigin = url.origin === self.location.origin;
+  const isFreshPageAsset =
+    event.request.mode === "navigate" ||
+    url.pathname.endsWith(".html") ||
+    url.pathname.endsWith(".css") ||
+    url.pathname.endsWith(".js") ||
+    url.pathname.endsWith(".webmanifest");
   const isVirtualGallery =
     url.pathname.endsWith("/virtual-gallery.html") ||
     url.pathname.endsWith("/virtual-gallery.js") ||
@@ -69,7 +81,7 @@ self.addEventListener("fetch", (event) => {
     url.pathname.includes("/assets/ar-artwork-card/") ||
     url.pathname.includes("/assets/mindar/");
 
-  if (isVirtualGallery || isSpatialArchive || isArArtworkCard) {
+  if (isSameOrigin && (isFreshPageAsset || isVirtualGallery || isSpatialArchive || isArArtworkCard)) {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
