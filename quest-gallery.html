@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>METRION Quest VR 美术馆</title>
+  <meta name="description" content="METRION Quest VR 美术馆：把儿童画转译为可进入、可观看、可互动的虚拟美术馆体验。">
+  <meta name="theme-color" content="#080b0f">
+  <meta property="og:title" content="METRION Quest VR 美术馆">
+  <meta property="og:description" content="从一张平面儿童画出发，延展出结构拆解、故事导览与可进入的 360° 沉浸场景。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./assets/quest-gallery/story_panorama_v75.jpg">
+  <link rel="stylesheet" href="./quest-gallery.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar" aria-label="Project navigation">
+      <a class="brand" href="#overview" aria-label="METRION VR Gallery">
+        <span class="brand-mark"></span>
+        <span>METRION VR Gallery</span>
+      </a>
+      <nav>
+        <a href="#demo">互动范式</a>
+        <a href="#highlights">项目亮点</a>
+        <a href="#next">传播路径</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="overview">
+      <div class="hero-copy">
+        <p class="eyebrow">Quest VR Art Experience</p>
+        <h1>把儿童画变成可进入的虚拟美术馆</h1>
+        <p class="lead">
+          从一张平面作品出发，延展出结构拆解、故事导览与可进入的沉浸场景，让观众真正走进孩子的想象世界。
+        </p>
+        <div class="hero-actions">
+          <a class="primary-action" href="#demo">查看交互结构</a>
+          <a class="secondary-action" href="#highlights">查看项目亮点</a>
+        </div>
+      </div>
+
+      <section class="panorama-stage" aria-label="360 panorama preview">
+        <div class="stage-header">
+          <span>进入画面 · 球面全景预览</span>
+          <span class="status-dot">360°</span>
+        </div>
+        <div class="panorama-window" id="panoramaWindow">
+          <canvas id="panoramaCanvas" aria-label="我外星朋友 360 全景世界预览"></canvas>
+          <div class="scanline"></div>
+        </div>
+        <div class="stage-footer">
+          <span>拖动窗口旋转视角</span>
+          <button class="icon-button" id="resetPanorama" type="button" aria-label="重置全景视角" title="重置全景视角">
+            ↺
+          </button>
+        </div>
+      </section>
+    </section>
+
+    <section class="metrics" aria-label="Project metrics">
+      <div>
+        <strong>360°</strong>
+        <span>可进入的画面世界</span>
+      </div>
+      <div>
+        <strong>80</strong>
+        <span>连续动画帧</span>
+      </div>
+      <div>
+        <strong>12</strong>
+        <span>展厅作品模型</span>
+      </div>
+      <div>
+        <strong>3</strong>
+        <span>结构 / 故事 / 进入画面</span>
+      </div>
+    </section>
+
+    <section class="showcase-band" id="demo">
+      <div class="section-heading">
+        <p class="eyebrow">TS01-030 · 我外星朋友</p>
+        <h2>一个作品，三层 VR 体验</h2>
+      </div>
+      <div class="demo-grid">
+        <article class="feature-panel artwork-panel">
+          <div class="image-crop">
+            <img src="./assets/quest-gallery/jianda_artwork.jpg" alt="我外星朋友作品图">
+          </div>
+          <div>
+            <h3>原作入口</h3>
+            <p>从墙面作品进入互动界面，让观众先看见原作，再进入它背后的结构与世界。</p>
+          </div>
+        </article>
+        <article class="feature-panel">
+          <div class="image-crop">
+            <img src="./assets/quest-gallery/concept_structure_layers_panel.jpg" alt="结构层级说明">
+          </div>
+          <div>
+            <h3>结构</h3>
+            <p>把星空、星球、角色、地形与发光植物拆成空间层次，展示画面如何被翻译成 VR 场景。</p>
+          </div>
+        </article>
+        <article class="feature-panel">
+          <div class="image-crop">
+            <img src="./assets/quest-gallery/concept_story_panel.jpg" alt="故事层级说明">
+          </div>
+          <div>
+            <h3>故事</h3>
+            <p>用叙事导览解释作品里的角色关系、想象背景和观看路径，让作品不只是静态展示。</p>
+          </div>
+        </article>
+        <article class="feature-panel">
+          <div class="image-crop">
+            <img src="./assets/quest-gallery/gpt_enter_panel.jpg" alt="进入画面预览">
+          </div>
+          <div>
+            <h3>进入画面</h3>
+            <p>观众从作品进入 360° 世界，在画面内部移动、观看和返回展厅，形成真正的沉浸体验。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="public-grid" id="highlights">
+      <div class="section-heading">
+        <p class="eyebrow">Project highlights</p>
+        <h2>面向展览与传播的体验亮点</h2>
+      </div>
+      <div class="highlight-list" aria-label="Public project highlights">
+        <div class="highlight-row"><span>观看方式</span><strong>从美术馆墙面走进画面世界</strong></div>
+        <div class="highlight-row"><span>内容结构</span><strong>原作、结构拆解、故事导览、沉浸场景连续呈现</strong></div>
+        <div class="highlight-row"><span>互动方式</span><strong>适配 Quest 手柄点击、进入、退出和空间移动</strong></div>
+        <div class="highlight-row"><span>视觉方向</span><strong>保留儿童画的幻想感，同时转译成科技感 VR 体验</strong></div>
+      </div>
+      <aside class="launch-note" aria-label="Suitable scenarios">
+        <h3>适合场景</h3>
+        <p>适用于艺术教育展示、儿童创作转译、数字展陈提案、机构合作演示与沉浸式体验活动。</p>
+      </aside>
+    </section>
+
+    <section class="roadmap" id="next">
+      <div class="section-heading">
+        <p class="eyebrow">Distribution strategy</p>
+        <h2>下一步传播方式</h2>
+      </div>
+      <div class="roadmap-line">
+        <article>
+          <span>01</span>
+          <h3>Quest 独立演示</h3>
+          <p>继续作为高质量现场体验版，适合机构、客户、学校和展会演示。</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Web 展示页</h3>
+          <p>用轻量页面说明项目价值，发链接即可传播，也能承接视频与案例资料。</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>VRChat 社交版</h3>
+          <p>后续用 Unity/VRChat SDK 重建轻量社交导览版，主打多人参观与线上活动。</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="./quest-gallery.js"></script>
+</body>
+</html>
