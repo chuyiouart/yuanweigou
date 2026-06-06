@@ -1,8 +1,8 @@
-# 元维构官网咨询助手说明
+﻿# 元维构官网咨询助手说明
 
 更新时间：2026-06-04
 
-当前扩展阶段：版权授权 Agent v1。作品判断说明见 `METRION_ARTWORK_AGENT.md`，教育机构合作说明见 `METRION_EDUCATION_AGENT.md`，价格报价说明见 `METRION_PRICING_AGENT.md`，版权授权说明见 `METRION_RIGHTS_AGENT.md`。
+当前扩展阶段：样本案例 Agent v1。作品判断说明见 `METRION_ARTWORK_AGENT.md`，教育机构合作说明见 `METRION_EDUCATION_AGENT.md`，价格报价说明见 `METRION_PRICING_AGENT.md`，版权授权说明见 `METRION_RIGHTS_AGENT.md`，样本案例说明见 `METRION_SAMPLE_CASE_AGENT.md`。
 
 ## 一句话定位
 
@@ -132,7 +132,7 @@
 当前版本号：
 
 ```text
-20260606-rights-agent-v1
+20260606-sample-case-agent-v1
 ```
 
 涉及位置：

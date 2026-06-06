@@ -1,4 +1,4 @@
-const METRION_CACHE = "metrion-pwa-20260606-rights-agent-v1";
+﻿const METRION_CACHE = "metrion-pwa-20260606-sample-case-agent-v1";
 
 const CORE_ASSETS = [
   "./",

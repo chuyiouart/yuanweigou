@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -13,7 +13,7 @@
     <meta name="theme-color" content="#171717" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="元维构" />
-    <link rel="stylesheet" href="./styles.css?v=20260606-rights-agent-v1" />
+    <link rel="stylesheet" href="./styles.css?v=20260606-sample-case-agent-v1" />
   </head>
   <body>
     <header class="site-header">
@@ -79,29 +79,21 @@
           </div>
 
           <div class="agent-suggestions" aria-label="推荐问题">
+            <button type="button" data-agent-prompt="36组样本数据表怎么看？">样本数据表</button>
+            <button type="button" data-agent-prompt="测试系列案例库怎么看？">案例库</button>
+            <button type="button" data-agent-prompt="样本数据表字段分别是什么意思？">字段说明</button>
+            <button type="button" data-agent-prompt="样本能服务哪些合作场景？">合作场景</button>
+            <button type="button" data-agent-prompt="公开展示和授权销售字段怎么看？">展示与销售</button>
+            <button type="button" data-agent-prompt="哪些样本已接入数字模型？">数字样本</button>
+            <button type="button" data-agent-prompt="教育机构应该看哪些样本？">教育样本</button>
+            <button type="button" data-agent-prompt="家长想做儿童画纪念礼物看哪些案例？">家长案例</button>
+            <button type="button" data-agent-prompt="展览空间适合看哪些样本？">空间样本</button>
             <button type="button" data-agent-prompt="版权和授权销售怎么处理？">版权授权</button>
-            <button type="button" data-agent-prompt="制作、展示、宣传和销售是不是不同授权？">使用范围</button>
-            <button type="button" data-agent-prompt="儿童作品公开展示需要什么授权？">儿童授权</button>
-            <button type="button" data-agent-prompt="模型文件和网页预览会不会公开？">模型文件</button>
             <button type="button" data-agent-prompt="元维构服务与价格怎么判断？">价格报价</button>
-            <button type="button" data-agent-prompt="单件样本怎么报价？">单件样本</button>
-            <button type="button" data-agent-prompt="哪些因素会影响最终价格？">影响因素</button>
-            <button type="button" data-agent-prompt="不同服务包的价格区间是什么？">服务包</button>
             <button type="button" data-agent-prompt="少儿美术机构30个学生可以批量合作吗？">教育机构</button>
-            <button type="button" data-agent-prompt="教育机构合作可以用于哪些课程或活动场景？">教育场景</button>
-            <button type="button" data-agent-prompt="教育机构批量合作从哪一步开始？">批量流程</button>
-            <button type="button" data-agent-prompt="机构合作最后可以交付哪些内容？">交付内容</button>
             <button type="button" data-agent-prompt="我的作品适合转译吗？需要提供什么资料？">作品判断</button>
-            <button type="button" data-agent-prompt="我的作品适合做浮雕、半立体还是完整立体？">适合形式</button>
-            <button type="button" data-agent-prompt="提交作品前需要准备哪些资料？">提交资料</button>
             <button type="button" data-agent-prompt="元维构和普通3D打印店有什么区别？">项目区别</button>
-            <button type="button" data-agent-prompt="家长想把孩子的儿童画做成纪念礼物，需要提供什么？">家长咨询</button>
-            <button type="button" data-agent-prompt="为什么不能直接按图片报价？">看图报价</button>
-            <button type="button" data-agent-prompt="36组样本数据表有什么价值？">样本数据</button>
-            <button type="button" data-agent-prompt="展会现场扫码以后可以了解什么？">展会扫码</button>
-            <button type="button" data-agent-prompt="元维构适合哪些创作者、家长或机构？">适合对象</button>
             <button type="button" data-agent-prompt="二维码档案、AR和虚拟展厅分别有什么用？">数字展示</button>
-            <button type="button" data-agent-prompt="美术馆、画廊或商业空间可以怎么合作？">空间合作</button>
           </div>
 
           <div class="agent-messages" data-agent-messages aria-live="polite"></div>
@@ -112,7 +104,7 @@
               id="agentQuestion"
               name="question"
               rows="3"
-              placeholder="例如：我想把作品做成样本并公开展示，需要确认哪些授权？"
+              placeholder="例如：我想看元维构有哪些样本案例，36组样本数据表应该怎么看？"
               data-agent-input
             ></textarea>
             <button class="button primary" type="submit">发送</button>
@@ -128,7 +120,7 @@
       <span>元维构 METRION</span>
       <span>项目咨询助手用于说明元维构服务、案例、价格区间、版权边界与合作入口。</span>
     </footer>
-    <script src="./agent.js?v=20260606-rights-agent-v1"></script>
-    <script src="./pwa.js?v=20260606-rights-agent-v1"></script>
+    <script src="./agent.js?v=20260606-sample-case-agent-v1"></script>
+    <script src="./pwa.js?v=20260606-sample-case-agent-v1"></script>
   </body>
 </html>
