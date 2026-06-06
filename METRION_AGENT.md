@@ -2,7 +2,7 @@
 
 更新时间：2026-06-04
 
-当前扩展阶段：教育机构合作 Agent v1。作品判断说明见 `METRION_ARTWORK_AGENT.md`，教育机构合作说明见 `METRION_EDUCATION_AGENT.md`。
+当前扩展阶段：价格报价 Agent v1。作品判断说明见 `METRION_ARTWORK_AGENT.md`，教育机构合作说明见 `METRION_EDUCATION_AGENT.md`，价格报价说明见 `METRION_PRICING_AGENT.md`。
 
 ## 一句话定位
 
@@ -132,7 +132,7 @@
 当前版本号：
 
 ```text
-20260606-education-agent-v1
+20260606-pricing-agent-v1
 ```
 
 涉及位置：
