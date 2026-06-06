@@ -1,6 +1,6 @@
 const metrionScriptUrl = document.currentScript?.src || new URL("pwa.js", location.href).href;
 const metrionSiteRoot = new URL(".", metrionScriptUrl);
-const METRION_BUILD_VERSION = "20260606-artwork-agent-v1";
+const METRION_BUILD_VERSION = "20260606-education-agent-v1";
 
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
   let metrionReloadingForUpdate = false;
@@ -85,14 +85,15 @@ function metrionCreateAssistantWidget() {
       </header>
       <div class="metrion-assistant-suggestions" aria-label="推荐问题">
         <button type="button" data-metrion-assistant-prompt="元维构是什么？">项目介绍</button>
-        <button type="button" data-metrion-assistant-prompt="我的作品适合转译吗？需要提供什么资料？">作品初判</button>
-        <button type="button" data-metrion-assistant-prompt="提交作品前需要准备哪些资料？">提交资料</button>
         <button type="button" data-metrion-assistant-prompt="少儿美术机构30个学生可以批量合作吗？">教育合作</button>
+        <button type="button" data-metrion-assistant-prompt="教育机构批量合作从哪一步开始？">批量流程</button>
+        <button type="button" data-metrion-assistant-prompt="机构合作最后可以交付哪些内容？">交付内容</button>
+        <button type="button" data-metrion-assistant-prompt="我的作品适合转译吗？需要提供什么资料？">作品初判</button>
       </div>
       <div class="metrion-assistant-messages" data-metrion-assistant-messages></div>
       <form class="metrion-assistant-form" data-metrion-assistant-form>
         <label class="sr-only" for="metrionAssistantQuestion">输入你的问题</label>
-        <textarea id="metrionAssistantQuestion" rows="2" placeholder="输入问题，例如：我有一张画，能做成立体作品吗？" data-metrion-assistant-input></textarea>
+        <textarea id="metrionAssistantQuestion" rows="2" placeholder="输入问题，例如：30个学生可以怎么合作？" data-metrion-assistant-input></textarea>
         <button type="submit">发送</button>
       </form>
       <p class="metrion-assistant-note">具体作品、授权销售和最终报价以人工确认为准。</p>
@@ -114,7 +115,7 @@ function metrionCreateAssistantWidget() {
     panel.hidden = false;
     trigger.setAttribute("aria-expanded", "true");
     widget.classList.add("is-open");
-    metrionLoadScript(new URL("agent.js?v=20260606-artwork-agent-v1", metrionSiteRoot).href)
+    metrionLoadScript(new URL("agent.js?v=20260606-education-agent-v1", metrionSiteRoot).href)
       .then(() => {
         if (!hasWelcomed && window.MetrionAgent) {
           const welcome = metrionAddAssistantMessage(messages, "agent", window.MetrionAgent.answerToHtml(window.MetrionAgent.WELCOME));
@@ -146,7 +147,7 @@ function metrionCreateAssistantWidget() {
 
   function ensureAgentReady() {
     if (window.MetrionAgent) return Promise.resolve();
-    return metrionLoadScript(new URL("agent.js?v=20260606-artwork-agent-v1", metrionSiteRoot).href);
+    return metrionLoadScript(new URL("agent.js?v=20260606-education-agent-v1", metrionSiteRoot).href);
   }
 
   trigger.addEventListener("click", () => {
