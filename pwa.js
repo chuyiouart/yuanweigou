@@ -1,6 +1,6 @@
 const metrionScriptUrl = document.currentScript?.src || new URL("pwa.js", location.href).href;
 const metrionSiteRoot = new URL(".", metrionScriptUrl);
-const METRION_BUILD_VERSION = "20260606-pricing-agent-v1";
+const METRION_BUILD_VERSION = "20260606-rights-agent-v1";
 
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
   let metrionReloadingForUpdate = false;
@@ -85,16 +85,17 @@ function metrionCreateAssistantWidget() {
       </header>
       <div class="metrion-assistant-suggestions" aria-label="推荐问题">
         <button type="button" data-metrion-assistant-prompt="元维构是什么？">项目介绍</button>
+        <button type="button" data-metrion-assistant-prompt="版权和授权销售怎么处理？">版权授权</button>
+        <button type="button" data-metrion-assistant-prompt="儿童作品公开展示需要什么授权？">儿童授权</button>
+        <button type="button" data-metrion-assistant-prompt="模型文件和网页预览会不会公开？">模型文件</button>
         <button type="button" data-metrion-assistant-prompt="元维构服务与价格怎么判断？">价格报价</button>
-        <button type="button" data-metrion-assistant-prompt="单件样本怎么报价？">单件样本</button>
-        <button type="button" data-metrion-assistant-prompt="为什么不能直接按图片报价？">看图报价</button>
         <button type="button" data-metrion-assistant-prompt="少儿美术机构30个学生可以批量合作吗？">教育合作</button>
         <button type="button" data-metrion-assistant-prompt="我的作品适合转译吗？需要提供什么资料？">作品初判</button>
       </div>
       <div class="metrion-assistant-messages" data-metrion-assistant-messages></div>
       <form class="metrion-assistant-form" data-metrion-assistant-form>
         <label class="sr-only" for="metrionAssistantQuestion">输入你的问题</label>
-        <textarea id="metrionAssistantQuestion" rows="2" placeholder="输入问题，例如：单件样本怎么报价？" data-metrion-assistant-input></textarea>
+        <textarea id="metrionAssistantQuestion" rows="2" placeholder="输入问题，例如：作品公开展示需要什么授权？" data-metrion-assistant-input></textarea>
         <button type="submit">发送</button>
       </form>
       <p class="metrion-assistant-note">具体作品、授权销售和最终报价以人工确认为准。</p>
@@ -116,7 +117,7 @@ function metrionCreateAssistantWidget() {
     panel.hidden = false;
     trigger.setAttribute("aria-expanded", "true");
     widget.classList.add("is-open");
-    metrionLoadScript(new URL("agent.js?v=20260606-pricing-agent-v1", metrionSiteRoot).href)
+    metrionLoadScript(new URL("agent.js?v=20260606-rights-agent-v1", metrionSiteRoot).href)
       .then(() => {
         if (!hasWelcomed && window.MetrionAgent) {
           const welcome = metrionAddAssistantMessage(messages, "agent", window.MetrionAgent.answerToHtml(window.MetrionAgent.WELCOME));
@@ -148,7 +149,7 @@ function metrionCreateAssistantWidget() {
 
   function ensureAgentReady() {
     if (window.MetrionAgent) return Promise.resolve();
-    return metrionLoadScript(new URL("agent.js?v=20260606-pricing-agent-v1", metrionSiteRoot).href);
+    return metrionLoadScript(new URL("agent.js?v=20260606-rights-agent-v1", metrionSiteRoot).href);
   }
 
   trigger.addEventListener("click", () => {
