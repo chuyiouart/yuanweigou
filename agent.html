@@ -13,7 +13,7 @@
     <meta name="theme-color" content="#171717" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="元维构" />
-    <link rel="stylesheet" href="./styles.css?v=20260604-public-questions" />
+    <link rel="stylesheet" href="./styles.css?v=20260606-artwork-agent-v1" />
   </head>
   <body>
     <header class="site-header">
@@ -79,10 +79,12 @@
           </div>
 
           <div class="agent-suggestions" aria-label="推荐问题">
+            <button type="button" data-agent-prompt="我的作品适合转译吗？需要提供什么资料？">作品判断</button>
+            <button type="button" data-agent-prompt="我的作品适合做浮雕、半立体还是完整立体？">适合形式</button>
+            <button type="button" data-agent-prompt="提交作品前需要准备哪些资料？">提交资料</button>
             <button type="button" data-agent-prompt="元维构和普通3D打印店有什么区别？">项目区别</button>
             <button type="button" data-agent-prompt="少儿美术机构30个学生可以批量合作吗？">教育机构</button>
             <button type="button" data-agent-prompt="家长想把孩子的儿童画做成纪念礼物，需要提供什么？">家长咨询</button>
-            <button type="button" data-agent-prompt="我的作品适合转译吗？需要提供什么资料？">作品判断</button>
             <button type="button" data-agent-prompt="单件样本和教育机构批量大概怎么报价？">价格报价</button>
             <button type="button" data-agent-prompt="版权和授权销售怎么处理？">版权授权</button>
             <button type="button" data-agent-prompt="36组样本数据表有什么价值？">样本数据</button>
@@ -100,7 +102,7 @@
               id="agentQuestion"
               name="question"
               rows="3"
-              placeholder="例如：我是一家少儿美术机构，想做30个学生作品，怎么合作？"
+              placeholder="例如：我有一张画，想判断能不能做成立体作品，需要准备什么？"
               data-agent-input
             ></textarea>
             <button class="button primary" type="submit">发送</button>
@@ -116,7 +118,7 @@
       <span>元维构 METRION</span>
       <span>项目咨询助手用于说明元维构服务、案例、价格区间、版权边界与合作入口。</span>
     </footer>
-    <script src="./agent.js?v=20260604-public-questions"></script>
-    <script src="./pwa.js?v=20260604-public-questions"></script>
+    <script src="./agent.js?v=20260606-artwork-agent-v1"></script>
+    <script src="./pwa.js?v=20260606-artwork-agent-v1"></script>
   </body>
 </html>
