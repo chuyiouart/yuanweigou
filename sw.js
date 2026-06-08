@@ -1,4 +1,4 @@
-﻿const METRION_CACHE = "metrion-pwa-20260606-sample-case-agent-v1";
+const METRION_CACHE = "metrion-pwa-20260608-official-gallery-v1";
 
 const CORE_ASSETS = [
   "./",
@@ -11,9 +11,6 @@ const CORE_ASSETS = [
   "./ar-artwork-card-changmao-scan-card.html",
   "./styles.css",
   "./script.js",
-  "./pwa.js",
-  "./agent.js",
-  "./sw.js",
   "./manifest.webmanifest",
   "./assets/logo.jpg",
   "./assets/logo-transparent.png",
@@ -22,8 +19,6 @@ const CORE_ASSETS = [
   "./assets/icon-512.png",
   "./assets/hero-display.jpg",
   "./assets/display-close.jpg",
-  "./assets/display-close-enhanced.jpg",
-  "./assets/assistant-float-icon.png",
   "./assets/sample-cards.jpg",
   "./assets/application-card.jpg",
   "./assets/spatial-archive/daydream-info.jpg",
@@ -70,7 +65,9 @@ self.addEventListener("fetch", (event) => {
   const isVirtualGallery =
     url.pathname.endsWith("/virtual-gallery.html") ||
     url.pathname.endsWith("/virtual-gallery.js") ||
-    url.pathname.includes("/assets/virtual-gallery-v57/");
+    url.pathname.endsWith("/virtual-gallery-v106.js") ||
+    url.pathname.includes("/assets/virtual-gallery-v57/") ||
+    url.pathname.includes("/assets/virtual-gallery-v106/");
   const isSpatialArchive =
     url.pathname.endsWith("/spatial-archive.html") ||
     url.pathname.includes("/assets/spatial-archive/daydream-");

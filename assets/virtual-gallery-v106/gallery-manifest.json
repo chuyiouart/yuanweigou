@@ -1,0 +1,175 @@
+{
+  "build": "v106-web-prototype-20260607",
+  "assetRoot": "./assets/virtual-gallery-v57",
+  "halls": [
+    {
+      "id": "hall-a",
+      "name": "主展厅样本",
+      "center": [0, 0, 0]
+    },
+    {
+      "id": "hall-b",
+      "name": "第二展厅样本",
+      "center": [0, 0, -18]
+    }
+  ],
+  "artworks": [
+    {
+      "id": "TS01-001",
+      "title": "Laws of night and honey",
+      "meta": "Emma McIntyre / 当代绘画样本",
+      "desc": "把画面中的笔触重心、墨色层次和留白关系转译为轻盈的空间结构。",
+      "hall": "hall-a",
+      "wall": "left",
+      "z": 4.4,
+      "wallImage": "ts01-001-wall.jpg",
+      "card": "ts01-001-card.png",
+      "model": "ts01-001-model.glb",
+      "page": "./cases/samples/ts01-001.html"
+    },
+    {
+      "id": "TS01-002",
+      "title": "Portrait of Princesse de Broglie",
+      "meta": "Jean-Auguste-Dominique Ingres / 1853",
+      "desc": "人物姿态、服饰褶皱和画面重心被组织为可近距离观看的空间层级。",
+      "hall": "hall-a",
+      "wall": "left",
+      "z": 0.2,
+      "wallImage": "ts01-002-wall.jpg",
+      "card": "ts01-002-card.png",
+      "model": "ts01-002-model.glb",
+      "page": "./cases/samples/ts01-002.html"
+    },
+    {
+      "id": "TS01-003",
+      "title": "The Garden of Earthly Delights",
+      "meta": "Hieronymus Bosch / 约 1490-1510",
+      "desc": "从复杂叙事绘画中提取人物、场景和前后关系，形成空间叙事模型。",
+      "hall": "hall-a",
+      "wall": "left",
+      "z": -4.0,
+      "wallImage": "ts01-003-wall.jpg",
+      "card": "ts01-003-card.png",
+      "model": "ts01-003-model.glb",
+      "page": "./cases/samples/ts01-003.html"
+    },
+    {
+      "id": "TS01-030",
+      "title": "尖大 / 我外星朋友",
+      "meta": "Young Artist / 当代青少年艺术样本",
+      "desc": "青年艺术家的图像轮廓、陌生化角色和视觉重心被整理为可进入展厅的结构样本。Web 版后续会接入结构、故事和进入画面三段互动。",
+      "hall": "hall-a",
+      "wall": "right",
+      "z": 4.4,
+      "wallImage": "ts01-030-wall.jpg",
+      "card": "ts01-030-card.png",
+      "model": "ts01-030-model.glb",
+      "page": "./cases/samples/ts01-030.html",
+      "specialInteraction": "jianda"
+    },
+    {
+      "id": "TS01-008",
+      "title": "亀户梅屋铺",
+      "meta": "Utagawa Hiroshige / 1857",
+      "desc": "枝干路径、画面切割和色彩节奏被转译为空间构成。",
+      "hall": "hall-a",
+      "wall": "right",
+      "z": 0.2,
+      "wallImage": "ts01-008-wall.jpg",
+      "card": "ts01-008-card.png",
+      "model": "ts01-008-model.glb",
+      "page": "./cases/samples/ts01-008.html"
+    },
+    {
+      "id": "TS01-006",
+      "title": "Stolas",
+      "meta": "地狱辞典插图 / 19 世纪图像样本",
+      "desc": "主体轮廓、羽毛层次和装饰关系被转译为立体版本。",
+      "hall": "hall-a",
+      "wall": "right",
+      "z": -4.0,
+      "wallImage": "ts01-006-wall.jpg",
+      "card": "ts01-006-card.png",
+      "model": "ts01-006-model.glb",
+      "page": "./cases/samples/ts01-006.html"
+    },
+    {
+      "id": "TS01-007",
+      "title": "富士山三十六景",
+      "meta": "Utagawa Hiroshige / 浮世绘样本",
+      "desc": "风景画中的远近层次、地貌走势和视觉方向被转换为浅浮雕结构。",
+      "hall": "hall-b",
+      "wall": "left",
+      "z": -13.6,
+      "wallImage": "ts01-007-wall.jpg",
+      "card": "ts01-007-card.png",
+      "model": "ts01-007-model.glb",
+      "page": "./cases/samples/ts01-007.html"
+    },
+    {
+      "id": "TS01-023",
+      "title": "JOB",
+      "meta": "Alphonse Mucha / 1896",
+      "desc": "从装饰性人物图像中提取姿态、发丝、边界和层级关系，转译为可陈列的立体模型。",
+      "hall": "hall-b",
+      "wall": "left",
+      "z": -17.8,
+      "wallImage": "ts01-023-wall.jpg",
+      "card": "ts01-023-card.png",
+      "model": "ts01-023-model.glb",
+      "page": "./cases/samples/ts01-023.html"
+    },
+    {
+      "id": "TS01-009",
+      "title": "杂画册局部",
+      "meta": "金农 / 清代绘画样本",
+      "desc": "金农画面中的笔墨节奏、主体姿态和留白关系被组织为结构样本。",
+      "hall": "hall-b",
+      "wall": "left",
+      "z": -22.0,
+      "wallImage": "ts01-009-wall.jpg",
+      "card": "ts01-009-card.png",
+      "model": "ts01-009-model.glb",
+      "page": "./cases/samples/ts01-009.html"
+    },
+    {
+      "id": "TS01-010",
+      "title": "Litzlberg am Attersee",
+      "meta": "Gustav Klimt / 1915",
+      "desc": "Klimt 风景中的色块边界、湖面层次和景深关系被转化为空间层级。",
+      "hall": "hall-b",
+      "wall": "right",
+      "z": -13.6,
+      "wallImage": "ts01-010-wall.jpg",
+      "card": "ts01-010-card.png",
+      "model": "ts01-010-model.glb",
+      "page": "./cases/samples/ts01-010.html"
+    },
+    {
+      "id": "TS01-011",
+      "title": "五角星",
+      "meta": "Contemporary Artist China / 当代艺术样本",
+      "desc": "星形轮廓与内部结构被转化为独立空间节点。",
+      "hall": "hall-b",
+      "wall": "right",
+      "z": -17.8,
+      "wallImage": "ts01-011-wall.jpg",
+      "card": "ts01-011-card.png",
+      "model": "ts01-011-model.glb",
+      "page": "./cases/samples/ts01-011.html"
+    },
+    {
+      "id": "TS01-012",
+      "title": "Betty",
+      "meta": "Gerhard Richter / 1988",
+      "desc": "人物姿态、转身关系和画面边界被整理为可观看、可说明的空间结构。",
+      "hall": "hall-b",
+      "wall": "right",
+      "z": -22.0,
+      "wallImage": "ts01-012-wall.jpg",
+      "card": "ts01-012-card.png",
+      "model": "ts01-012-model.glb",
+      "page": "./cases/samples/ts01-012.html"
+    }
+  ]
+}

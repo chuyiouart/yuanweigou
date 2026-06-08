@@ -1,333 +1,456 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>元维构 METRION | 虚拟美术馆服务</title>
+    <title>元维构 METRION | 虚拟美术馆与网页 3D 展厅</title>
     <meta
       name="description"
-      content="元维构 METRION 虚拟美术馆服务：为美术馆、画廊、艺术节和展示空间搭建可浏览、可导览、可持续传播的线上虚拟展厅。"
+      content="元维构 METRION 虚拟美术馆与网页 3D 展厅：展示元维构项目本身，并为美术馆、画廊、艺术节和展示空间输出可浏览、可导览、可传播的线上展厅能力。"
     />
-    <link rel="manifest" href="./manifest.webmanifest" />
-    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
-    <meta name="theme-color" content="#171717" />
     <link rel="stylesheet" href="./styles.css?v=20260606-sample-case-agent-v1" />
     <style>
-      .vg-page {
-        background: #ece7dc;
+      .web-gallery-v106 {
         min-height: 100vh;
+        background: #ebe6da;
       }
 
-      .vg-hero {
-        display: grid;
-        grid-template-columns: minmax(0, 0.76fr) minmax(360px, 1.24fr);
-        gap: clamp(24px, 4vw, 56px);
-        align-items: end;
-        padding: clamp(34px, 5vw, 72px) clamp(18px, 5vw, 72px) 30px;
+      .v106-page-intro,
+      .v106-section {
+        padding: clamp(28px, 5vw, 72px) clamp(18px, 5vw, 72px);
         border-bottom: 1px solid rgba(23, 23, 23, 0.12);
       }
 
-      .vg-hero h1 {
-        margin: 12px 0 18px;
-        max-width: 720px;
-        font-size: clamp(38px, 5.8vw, 86px);
-        line-height: 0.98;
+      .v106-page-intro {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+        gap: clamp(24px, 5vw, 70px);
+        align-items: end;
+        background: #f7f1e8;
+      }
+
+      .v106-page-intro h1,
+      .v106-section h2 {
+        margin: 10px 0 16px;
+        max-width: 900px;
+        font-size: clamp(34px, 5vw, 76px);
+        line-height: 1.02;
         letter-spacing: 0;
       }
 
-      .vg-hero p {
-        max-width: 720px;
-        color: #4c473f;
-        font-size: clamp(16px, 1.45vw, 21px);
-        line-height: 1.78;
+      .v106-page-intro p,
+      .v106-section p {
+        max-width: 860px;
+        color: #554f47;
+        font-size: clamp(15px, 1.25vw, 19px);
+        line-height: 1.82;
       }
 
-      .vg-hero-panel {
+      .v106-intro-grid,
+      .v106-card-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 1px;
         overflow: hidden;
-        border: 1px solid #d4cabd;
+        border: 1px solid #d5ccbf;
         border-radius: 8px;
-        background: #d4cabd;
+        background: #d5ccbf;
       }
 
-      .vg-hero-panel div {
-        min-height: 142px;
-        padding: 20px;
+      .v106-intro-grid article,
+      .v106-card-grid article {
+        min-height: 176px;
+        padding: 22px;
         background: #fffdf7;
       }
 
-      .vg-hero-panel strong {
+      .v106-intro-grid strong,
+      .v106-card-grid strong {
         display: block;
-        margin-bottom: 10px;
-        font-size: 30px;
+        margin-bottom: 12px;
+        color: #171717;
+        font-size: 24px;
+        line-height: 1.15;
       }
 
-      .vg-hero-panel span {
-        color: #6b655c;
-        line-height: 1.62;
+      .v106-intro-grid span,
+      .v106-card-grid span {
+        color: #635d54;
+        line-height: 1.68;
       }
 
-      .vg-stage {
+      .v106-shell {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 380px;
-        min-height: 760px;
-        border-bottom: 1px solid rgba(23, 23, 23, 0.12);
+        grid-template-columns: minmax(0, 1fr) 360px;
+        min-height: calc(100vh - 72px);
       }
 
-      .vg-canvas-wrap {
+      .v106-stage {
         position: relative;
-        min-height: 760px;
-        background: #111;
+        min-height: calc(100vh - 72px);
+        overflow: hidden;
+        background: #161615;
+        overscroll-behavior: contain;
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
       }
 
-      #virtualGalleryCanvas {
+      #v106GalleryCanvas {
         position: absolute;
         inset: 0;
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
       }
 
-      .vg-loading,
-      .vg-help {
+      .v106-top-hud,
+      .v106-help,
+      .v106-mobile-pad,
+      .v106-fullscreen-button {
         position: absolute;
         z-index: 2;
-        color: #fff;
       }
 
-      .vg-loading {
-        top: 18px;
-        left: 18px;
-        padding: 9px 12px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
+      .v106-top-hud {
+        top: 16px;
+        left: 16px;
+        right: 16px;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        pointer-events: none;
+      }
+
+      .v106-pill {
+        max-width: min(520px, 68vw);
+        border: 1px solid rgba(255, 255, 255, 0.22);
         border-radius: 999px;
-        background: rgba(0, 0, 0, 0.42);
+        padding: 8px 12px;
+        background: rgba(18, 17, 15, 0.58);
+        color: #fffaf0;
         font-size: 13px;
+        line-height: 1.4;
+        backdrop-filter: blur(12px);
       }
 
-      .vg-help {
-        left: 18px;
-        bottom: 18px;
+      .v106-help {
+        left: 16px;
+        bottom: 16px;
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        max-width: calc(100% - 36px);
-        font-size: 13px;
+        max-width: min(780px, calc(100% - 32px));
+        color: #fffaf0;
+        pointer-events: none;
       }
 
-      .vg-help span {
-        border: 1px solid rgba(255, 255, 255, 0.22);
+      .v106-help span {
+        border: 1px solid rgba(255, 255, 255, 0.18);
         border-radius: 999px;
-        padding: 7px 11px;
-        background: rgba(0, 0, 0, 0.42);
+        padding: 7px 10px;
+        background: rgba(18, 17, 15, 0.5);
+        font-size: 12px;
         backdrop-filter: blur(10px);
       }
 
-      .vg-side {
+      .v106-fullscreen-button {
+        display: none;
+        right: 14px;
+        bottom: 150px;
+        min-height: 42px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 999px;
+        padding: 0 14px;
+        background: rgba(18, 17, 15, 0.58);
+        color: #fffaf0;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 800;
+        backdrop-filter: blur(12px);
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+      }
+
+      .v106-side {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        gap: 22px;
-        padding: clamp(24px, 3vw, 36px);
+        gap: 24px;
+        border-left: 1px solid rgba(23, 23, 23, 0.12);
+        padding: clamp(22px, 3vw, 34px);
         background: #f8f4ec;
       }
 
-      .vg-info h2 {
-        margin: 0 0 14px;
-        font-size: clamp(28px, 3vw, 42px);
+      .v106-side h1,
+      .v106-side h2 {
+        margin: 0;
+        letter-spacing: 0;
+      }
+
+      .v106-side h1 {
+        font-size: clamp(30px, 3vw, 42px);
         line-height: 1.08;
       }
 
-      .vg-info p {
-        color: #5a554d;
-        line-height: 1.78;
+      .v106-side h2 {
+        margin-top: 18px;
+        font-size: clamp(26px, 2.4vw, 34px);
+        line-height: 1.12;
       }
 
-      .vg-meta {
-        display: grid;
-        gap: 11px;
-        margin-top: 24px;
+      .v106-side p {
+        color: #5b554d;
+        line-height: 1.76;
       }
 
-      .vg-meta div {
+      .v106-meta {
         display: grid;
-        grid-template-columns: 84px minmax(0, 1fr);
-        gap: 14px;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .v106-meta div {
+        display: grid;
+        grid-template-columns: 70px minmax(0, 1fr);
+        gap: 12px;
         border-top: 1px solid #ded6c9;
-        padding-top: 11px;
+        padding-top: 10px;
         color: #4d473f;
-        line-height: 1.55;
+        line-height: 1.56;
       }
 
-      .vg-meta span {
+      .v106-meta span {
         color: #8b3f2f;
         font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
+        font-weight: 900;
       }
 
-      .vg-actions {
+      .v106-actions {
         display: grid;
         gap: 10px;
       }
 
-      .vg-actions a {
+      .v106-actions a,
+      .v106-actions button {
         display: flex;
-        justify-content: center;
         align-items: center;
-        min-height: 46px;
+        justify-content: center;
+        min-height: 44px;
         border: 1px solid #171717;
         border-radius: 999px;
+        background: transparent;
+        color: #171717;
+        font: inherit;
         font-weight: 800;
+        cursor: pointer;
       }
 
-      .vg-actions a:first-child {
+      .v106-actions a:first-child {
         background: #171717;
         color: #fff;
       }
 
-      .vg-flow {
-        padding: clamp(34px, 5vw, 72px) clamp(18px, 5vw, 72px);
+      .v106-mobile-joystick {
+        position: absolute;
+        left: max(22px, env(safe-area-inset-left));
+        bottom: max(22px, env(safe-area-inset-bottom));
+        z-index: 5;
+        display: none;
+        place-items: center;
+        width: 118px;
+        height: 118px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at center, rgba(255, 255, 255, 0.08) 0 30%, transparent 31%),
+          rgba(18, 17, 15, 0.5);
+        box-shadow: inset 0 0 24px rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
       }
 
-      .vg-flow-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 1px;
-        overflow: hidden;
-        border: 1px solid #d4cabd;
-        border-radius: 8px;
-        background: #d4cabd;
+      .v106-mobile-joystick::before,
+      .v106-mobile-joystick::after {
+        content: "";
+        position: absolute;
+        background: rgba(255, 255, 255, 0.2);
+        pointer-events: none;
       }
 
-      .vg-flow-grid article {
-        min-height: 210px;
-        padding: 24px;
-        background: #fffdf7;
+      .v106-mobile-joystick::before {
+        width: 68px;
+        height: 1px;
       }
 
-      .vg-flow-grid span {
-        color: #8b3f2f;
-        font-size: 12px;
-        font-weight: 900;
-        letter-spacing: 0.14em;
+      .v106-mobile-joystick::after {
+        width: 1px;
+        height: 68px;
       }
 
-      .vg-flow-grid h3 {
-        margin: 44px 0 12px;
-        font-size: 24px;
+      .v106-joystick-knob {
+        position: relative;
+        width: 46px;
+        height: 46px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 50%;
+        background: rgba(255, 250, 240, 0.86);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+        transform: translate3d(0, 0, 0);
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
       }
 
-      .vg-flow-grid p {
-        color: #5e584f;
-        line-height: 1.7;
-      }
-
-      .vg-service {
-        padding: clamp(34px, 5vw, 72px) clamp(18px, 5vw, 72px);
-        border-bottom: 1px solid rgba(23, 23, 23, 0.12);
-        background: #f5efe5;
-      }
-
-      .vg-service-layout {
-        display: grid;
-        grid-template-columns: minmax(0, 0.86fr) minmax(360px, 1.14fr);
-        gap: clamp(24px, 4vw, 56px);
-        align-items: start;
-      }
-
-      .vg-service-copy h2 {
-        margin: 10px 0 18px;
-        font-size: clamp(32px, 4.5vw, 64px);
-        line-height: 1.05;
-        letter-spacing: 0;
-      }
-
-      .vg-service-copy p {
-        color: #514b43;
-        font-size: clamp(16px, 1.35vw, 20px);
-        line-height: 1.8;
-      }
-
-      .vg-service-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1px;
-        overflow: hidden;
-        border: 1px solid #d4cabd;
-        border-radius: 8px;
-        background: #d4cabd;
-      }
-
-      .vg-service-grid article {
-        min-height: 190px;
-        padding: 24px;
-        background: #fffdf7;
-      }
-
-      .vg-service-grid span {
-        color: #8b3f2f;
-        font-size: 12px;
-        font-weight: 900;
-        letter-spacing: 0.14em;
-      }
-
-      .vg-service-grid h3 {
-        margin: 34px 0 12px;
-        font-size: 24px;
-      }
-
-      .vg-service-grid p {
-        color: #5e584f;
-        line-height: 1.72;
-      }
-
-      @media (max-width: 1040px) {
-        .vg-hero,
-        .vg-stage {
+      @media (max-width: 980px) {
+        .v106-page-intro,
+        .v106-shell {
           grid-template-columns: 1fr;
         }
 
-        .vg-stage,
-        .vg-canvas-wrap {
-          min-height: 660px;
+        .v106-stage {
+          min-height: 72vh;
         }
 
-        .vg-side {
-          min-height: auto;
+        .v106-side {
+          border-left: 0;
+          border-top: 1px solid rgba(23, 23, 23, 0.12);
         }
 
-        .vg-flow-grid,
-        .vg-hero-panel,
-        .vg-service-layout {
+        .v106-intro-grid,
+        .v106-card-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+      }
 
-        .vg-service-layout {
+      @media (max-width: 680px) {
+        .v106-stage {
+          min-height: 68vh;
+        }
+
+        .v106-help {
+          display: none;
+        }
+
+        .v106-mobile-joystick {
+          display: grid;
+          left: max(24px, calc(env(safe-area-inset-left) + 18px));
+          bottom: max(28px, calc(env(safe-area-inset-bottom) + 22px));
+        }
+
+        .v106-fullscreen-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          right: max(18px, calc(env(safe-area-inset-right) + 14px));
+          bottom: max(156px, calc(env(safe-area-inset-bottom) + 150px));
+        }
+
+        .v106-top-hud {
+          right: 12px;
+          left: 12px;
+        }
+
+        .v106-pill {
+          max-width: none;
+          font-size: 12px;
+        }
+
+        .v106-intro-grid,
+        .v106-card-grid {
           grid-template-columns: 1fr;
         }
       }
 
-      @media (max-width: 640px) {
-        .vg-flow-grid,
-        .vg-hero-panel,
-        .vg-service-grid {
-          grid-template-columns: 1fr;
+      @media (hover: none) and (pointer: coarse) {
+        .v106-stage {
+          min-height: 68vh;
         }
 
-        .vg-stage,
-        .vg-canvas-wrap {
-          min-height: 560px;
+        .v106-help {
+          display: none;
         }
 
-        .vg-meta div {
-          grid-template-columns: 1fr;
-          gap: 4px;
+        .v106-mobile-joystick {
+          display: grid;
+          left: max(24px, calc(env(safe-area-inset-left) + 18px));
+          bottom: max(28px, calc(env(safe-area-inset-bottom) + 22px));
         }
+
+        .v106-fullscreen-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          right: max(18px, calc(env(safe-area-inset-right) + 14px));
+          bottom: max(156px, calc(env(safe-area-inset-bottom) + 150px));
+        }
+
+        .v106-top-hud {
+          right: 12px;
+          left: 12px;
+        }
+
+        .v106-pill {
+          max-width: none;
+          font-size: 12px;
+        }
+      }
+
+      body.v106-mobile-fullscreen {
+        overflow: hidden;
+        background: #161615;
+      }
+
+      body.v106-mobile-fullscreen .site-header,
+      body.v106-mobile-fullscreen .v106-side {
+        display: none;
+      }
+
+      body.v106-mobile-fullscreen .v106-shell {
+        display: block;
+        min-height: 100dvh;
+      }
+
+      body.v106-mobile-fullscreen .v106-stage {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        width: 100vw;
+        height: 100dvh;
+        min-height: 100dvh;
+      }
+
+      body.v106-mobile-fullscreen .v106-top-hud {
+        top: max(10px, env(safe-area-inset-top));
+        left: max(10px, env(safe-area-inset-left));
+        right: max(10px, env(safe-area-inset-right));
+      }
+
+      body.v106-mobile-fullscreen .v106-pill {
+        max-width: 46vw;
+        padding: 6px 10px;
+        font-size: 11px;
+      }
+
+      body.v106-mobile-fullscreen .v106-mobile-joystick {
+        left: max(26px, calc(env(safe-area-inset-left) + 18px));
+        bottom: max(24px, calc(env(safe-area-inset-bottom) + 18px));
+      }
+
+      body.v106-mobile-fullscreen .v106-fullscreen-button {
+        right: max(20px, calc(env(safe-area-inset-right) + 14px));
+        bottom: max(146px, calc(env(safe-area-inset-bottom) + 138px));
       }
     </style>
   </head>
-  <body class="vg-page">
+  <body class="web-gallery-v106">
     <header class="site-header">
       <a class="brand" href="./index.html#top" aria-label="元维构首页">
         <img src="./assets/logo.jpg" alt="" />
@@ -340,146 +463,129 @@
         <a href="./index.html#display">展示</a>
         <a href="./index.html#cases">案例</a>
         <a href="./cases/sample-data.html">样本数据</a>
-        <a href="./education.html">教育</a>
-        <a href="./trust.html">可信</a>
         <a href="./spatial-archive.html">数字档案</a>
-        <a href="./licensing.html">授权</a>
-        <a href="./services.html">价格</a>
         <a href="./virtual-gallery.html">虚拟展厅</a>
       </nav>
     </header>
 
-    <main>
-      <section class="vg-hero">
+    <section class="v106-page-intro">
+      <div>
+        <p class="eyebrow">METRION VIRTUAL MUSEUM</p>
+        <h1>元维构虚拟美术馆与网页 3D 展厅。</h1>
+        <p>
+          这一页同时展示两件事：一是元维构如何把图像、说明牌和三维转译模型组织成可浏览的线上展厅；二是元维构可以为美术馆、画廊、艺术节、教育机构和商业展示空间输出同类能力，让一次线下展览拥有可远程访问、可持续传播、可沉淀档案的数字版本。
+        </p>
+      </div>
+      <div class="v106-intro-grid">
+        <article>
+          <strong>项目展示</strong>
+          <span>以元维构样本作品为内容，展示图像、模型、说明牌和空间路径如何组合成线上展览。</span>
+        </article>
+        <article>
+          <strong>展厅建设</strong>
+          <span>可根据真实展厅、策展草图或作品清单，搭建网页端和移动端可浏览的 3D 展厅。</span>
+        </article>
+        <article>
+          <strong>远程传播</strong>
+          <span>观众无需安装 App，即可通过官网、二维码或活动页面进入展厅，适合展览延期传播。</span>
+        </article>
+        <article>
+          <strong>后续扩展</strong>
+          <span>可继续连接 AR、VR、案例库、授权说明和作品转译判断表单，形成完整数字展示链路。</span>
+        </article>
+      </div>
+    </section>
+
+    <main class="v106-shell">
+      <section class="v106-stage" aria-label="v106 网页 3D 展厅原型">
+        <div id="v106GalleryCanvas"></div>
+        <div class="v106-top-hud">
+          <div class="v106-pill" id="v106Loading">正在载入元维构网页 3D 展厅</div>
+          <div class="v106-pill" id="v106Hall">主展厅样本</div>
+        </div>
+        <div class="v106-help" aria-hidden="true">
+          <span>PC：WASD / 方向键移动</span>
+          <span>点击画面进入鼠标视角，移动鼠标转向，Esc 退出</span>
+          <span>鼠标视角中再次点击可选择准星方向的作品</span>
+          <span>手机：拖拽看方向，右下角摇杆移动</span>
+          <span>模型按距离加载，避免一次性压满手机</span>
+        </div>
+        <button class="v106-fullscreen-button" id="v106FullscreenButton" type="button">横屏全屏</button>
+        <div class="v106-mobile-joystick" id="v106Joystick" aria-label="移动端虚拟摇杆">
+          <div class="v106-joystick-knob" id="v106JoystickKnob"></div>
+        </div>
+      </section>
+
+      <aside class="v106-side">
         <div>
-          <p class="eyebrow">METRION VIRTUAL MUSEUM SERVICE</p>
-          <h1>为线下展览搭建一个可持续访问的虚拟美术馆。</h1>
-          <p>
-            这是元维构的虚拟美术馆服务样板：我们把线下美术馆、画廊、艺术节或商业展示空间中的作品、说明牌、现场关系和三维转译模型整理成一个可在网页、移动端和 WebXR 中访问的虚拟展馆，让展览不只停留在现场，也能继续被远程观看、导览、传播和归档。
+          <p class="eyebrow">METRION WEB GALLERY PROTOTYPE</p>
+          <h1>元维构网页 3D 展厅</h1>
+          <h2 id="v106Title">一个可交付给展览空间的线上展厅样板。</h2>
+          <p id="v106Desc">
+            这是元维构把 Quest VR 美术馆经验迁移到网页和移动端的展示样板。它既展示元维构项目自身，也说明我们可以为其他美术馆、画廊和展示空间搭建可浏览、可导览、可传播的 3D 线上展厅。
           </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#gallery">查看服务样板</a>
-            <a class="button secondary" href="#service">适用场景</a>
-            <a class="button secondary" href="./spatial-archive.html">查看数字档案</a>
+          <div class="v106-meta">
+            <div><span>编号</span><strong id="v106Code">METRION-WEB-GALLERY</strong></div>
+            <div><span>能力</span><strong id="v106Meta">网页 3D 展厅、移动端横屏全屏浏览、作品信息面板、模型按距离加载。</strong></div>
+            <div><span>用途</span><strong id="v106Use">远程观展、展览推广、教育导览、方案提案、馆方数字档案入口。</strong></div>
           </div>
         </div>
-        <div class="vg-hero-panel">
-          <div>
-            <strong>样板</strong>
-            <span>以完整虚拟展厅为示例，展示线下展览如何转化为可公开浏览的线上空间。</span>
-          </div>
-          <div>
-            <strong>VR</strong>
-            <span>可在美术馆现场设置 VR 体验区，让参观者戴上设备进入展览的扩展空间。</span>
-          </div>
-          <div>
-            <strong>服务</strong>
-            <span>可为馆方定制展厅结构、作品路径、导览文字、档案入口和模型展示。</span>
-          </div>
-          <div>
-            <strong>Web</strong>
-            <span>网页端用于远程预览和传播，现场则可通过二维码导览或 VR 区继续深入体验。</span>
-          </div>
+        <div class="v106-actions">
+          <a id="v106CaseLink" href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">咨询展厅建设</a>
+          <a href="./spatial-archive.html">查看空间数字档案</a>
+          <a href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">提交作品转译判断</a>
         </div>
-      </section>
-
-      <section id="gallery" class="vg-stage" aria-label="元维构虚拟美术馆服务样板">
-        <div class="vg-canvas-wrap">
-          <div id="virtualGalleryCanvas"></div>
-          <div id="vgLoading" class="vg-loading">正在载入虚拟展厅资源</div>
-          <div class="vg-help" aria-hidden="true">
-            <span>桌面：拖拽旋转 / 滚轮缩放 / 点击作品查看信息</span>
-            <span>WebXR：点击右下角 VR 按钮进入；手柄射线选择作品</span>
-            <span>示例内容用于说明馆方虚拟展厅服务的可能性</span>
-          </div>
-        </div>
-        <aside class="vg-side">
-          <div class="vg-info">
-            <p class="eyebrow" id="vgCode">METRION VIRTUAL MUSEUM</p>
-            <h2 id="vgTitle">虚拟美术馆服务样板</h2>
-            <p id="vgDesc">
-              选择墙面作品后，右侧会显示对应样本信息。这个空间展示的是元维构如何把线下展览内容转化为线上可浏览的虚拟美术馆服务。
-            </p>
-            <div class="vg-meta">
-              <div><span>内容</span><strong id="vgOrigin">作品图像、说明牌、展览路径、三维模型和案例档案</strong></div>
-              <div><span>方式</span><strong id="vgProcess">将线下展陈关系翻译为可访问、可导览、可维护的线上空间。</strong></div>
-              <div><span>用途</span><strong id="vgUse">远程观展、教育导览、展览延期传播、赞助汇报、数字档案。</strong></div>
-              <div><span>权属</span><strong id="vgRights">展示用途；具体授权需根据原作权属和使用场景确认。</strong></div>
-            </div>
-          </div>
-          <div class="vg-actions">
-            <a id="vgCaseLink" href="./cases/test-series.html">查看样板案例库</a>
-            <a href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">提交作品转译判断</a>
-          </div>
-        </aside>
-      </section>
-
-      <section id="service" class="vg-service">
-        <div class="vg-service-layout">
-          <div class="vg-service-copy">
-            <p class="eyebrow">For Museums, Galleries & Exhibition Spaces</p>
-            <h2>把一次展览，变成可长期访问的线上空间。</h2>
-            <p>
-              对美术馆和展示空间来说，展览往往受限于档期、地点和到场人数。元维构的虚拟展馆服务不是简单做一个图片网页，而是把展厅结构、作品位置、展签信息、导览逻辑、三维模型和后续档案入口组织成一个可浏览的空间。它可以作为实体展览的线上延展，也可以作为展前提案、巡展沟通、教育项目和馆藏数字化的一部分。
-            </p>
-          </div>
-          <div class="vg-service-grid">
-            <article>
-              <span>01 / EXTEND</span>
-              <h3>延长展览生命</h3>
-              <p>展期结束后，观众仍可以通过网页进入展厅，回看作品、说明牌和导览路径，让一次线下展览留下可访问的数字版本。</p>
-            </article>
-            <article>
-              <span>02 / GUIDE</span>
-              <h3>远程导览与教育</h3>
-              <p>馆方可以把虚拟展厅用于线上讲解、学校课程、会员活动和媒体传播，让不在现场的人也能理解展览结构。</p>
-            </article>
-            <article>
-              <span>03 / PRESENT</span>
-              <h3>展前方案沟通</h3>
-              <p>在布展前模拟作品关系、动线和说明牌位置，方便馆方、策展人、艺术家和赞助方快速看到空间效果。</p>
-            </article>
-            <article>
-              <span>04 / ARCHIVE</span>
-              <h3>数字档案沉淀</h3>
-              <p>每件作品都可以连接到单独档案页，记录原作信息、授权状态、转译模型、实拍照片和后续衍生开发可能。</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="vg-flow">
-        <div class="section-heading">
-          <p class="eyebrow">What METRION Can Build</p>
-          <h2>这套服务按不同展览空间定制交付。</h2>
-          <p>
-            当前页面是一个样板空间。实际合作中，元维构根据馆方现有展厅、作品数量、展览主题和传播目标，重新搭建空间尺度、展墙节奏、作品说明、模型陈列、入口二维码和档案页面。
-          </p>
-        </div>
-        <div class="vg-flow-grid">
-          <article>
-            <span>01 / SPACE</span>
-            <h3>展厅建模</h3>
-            <p>根据真实空间或策展草图搭建基础展厅，让线上空间保留展墙、动线、入口和观看距离。</p>
-          </article>
-          <article>
-            <span>02 / CONTENT</span>
-            <h3>作品与展签</h3>
-            <p>整理作品图像、标题、作者、年代、媒介和导览文字，形成统一的线上说明牌系统。</p>
-          </article>
-          <article>
-            <span>03 / MODEL</span>
-            <h3>模型与装置</h3>
-            <p>对于适合拓展的作品，可加入三维转译模型、装置预览或 MR 展示入口，增强展览的空间表达。</p>
-          </article>
-          <article>
-            <span>04 / PUBLISH</span>
-            <h3>发布与传播</h3>
-            <p>交付可网页访问的虚拟展厅，可嵌入官网、二维码、展览宣传页，并预留 VR 设备适配接口。</p>
-          </article>
-        </div>
-      </section>
+      </aside>
     </main>
+
+    <section class="v106-section">
+      <p class="eyebrow">FOR MUSEUMS, GALLERIES & EXHIBITION SPACES</p>
+      <h2>这不是单个网页效果，而是一套可以输出的展厅建设能力。</h2>
+      <p>
+        元维构可以把展览空间、作品清单、说明牌、导览文字、三维模型和后续档案入口整理成统一的线上展厅。它可以作为实体展览的线上延展，也可以用于展前方案沟通、巡展展示、教育活动、赞助汇报和馆藏数字化呈现。
+      </p>
+      <div class="v106-card-grid">
+        <article>
+          <strong>展厅空间搭建</strong>
+          <span>根据展墙、动线、入口和作品位置重建线上空间，让观众在网页里获得接近现场的观看顺序。</span>
+        </article>
+        <article>
+          <strong>作品与展签系统</strong>
+          <span>为每件作品整理图像、标题、作者、年代、媒介、说明文字和案例入口，形成统一展示逻辑。</span>
+        </article>
+        <article>
+          <strong>三维模型陈列</strong>
+          <span>把适合转译的作品以 GLB 模型方式放入展厅，并控制加载、比例、台座、灯光和移动端性能。</span>
+        </article>
+        <article>
+          <strong>发布与运营连接</strong>
+          <span>展厅可接入官网、二维码、案例库、AR 页面和表单入口，让线上观看自然连接到合作与转化。</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="v106-section">
+      <p class="eyebrow">DELIVERY FLOW</p>
+      <h2>从展览资料到可公开访问的 3D 展厅。</h2>
+      <div class="v106-card-grid">
+        <article>
+          <strong>01 资料整理</strong>
+          <span>收集作品图、展签、展览介绍、空间照片或平面图，确认可公开展示的版权和授权边界。</span>
+        </article>
+        <article>
+          <strong>02 空间搭建</strong>
+          <span>建立网页端轻量展厅结构，安排作品位置、观看距离、说明面板、模型台座和移动端交互。</span>
+        </article>
+        <article>
+          <strong>03 视觉校准</strong>
+          <span>调整作品比例、墙面材质、地面、天花板、灯光和性能，保证 PC 与手机浏览都足够顺畅。</span>
+        </article>
+        <article>
+          <strong>04 发布接入</strong>
+          <span>部署到官网或活动页面，并接入案例页、咨询表单、二维码、AR 展示和后续档案管理。</span>
+        </article>
+      </div>
+    </section>
 
     <script type="importmap">
       {
@@ -489,24 +595,6 @@
         }
       }
     </script>
-    <script>
-      if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
-        const params = new URLSearchParams(location.search);
-        if (params.has("reset-sw")) {
-          navigator.serviceWorker
-            .getRegistrations()
-            .then((registrations) => Promise.all(registrations.map((registration) => registration.unregister())))
-            .then(() => {
-              params.delete("reset-sw");
-              params.set("v", "v57-20260530");
-              const query = params.toString();
-              location.replace(`${location.pathname}${query ? `?${query}` : ""}${location.hash || ""}`);
-            })
-            .catch(() => {});
-        }
-      }
-    </script>
-    <script type="module" src="./virtual-gallery.js?v=v57-20260530"></script>
-    <script src="./pwa.js?v=20260606-sample-case-agent-v1"></script>
+    <script type="module" src="./virtual-gallery-v106.js?v=20260608-official-gallery-v1"></script>
   </body>
 </html>
