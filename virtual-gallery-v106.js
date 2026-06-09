@@ -40,7 +40,7 @@ const MODEL_SHADOW_PRESET = {
 let renderer;
 let scene;
 let camera;
-let yaw = Math.PI;
+let yaw = 0;
 let pitch = -0.03;
 let dragging = false;
 let lastPointerX = 0;
