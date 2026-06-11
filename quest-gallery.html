@@ -3,166 +3,257 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>METRION Quest VR 美术馆</title>
-  <meta name="description" content="METRION Quest VR 美术馆：把儿童画转译为可进入、可观看、可互动的虚拟美术馆体验。">
+  <title>VR 美术馆建设服务 | 元维构 METRION</title>
+  <meta name="description" content="元维构 METRION 为美术馆、画廊、商业体、展览中心、艺术节和公共展览空间建设可导览、可互动、可延展的 VR 美术馆。">
   <meta name="theme-color" content="#080b0f">
-  <meta property="og:title" content="METRION Quest VR 美术馆">
-  <meta property="og:description" content="从一张平面儿童画出发，延展出结构拆解、故事导览与可进入的 360° 沉浸场景。">
+  <meta property="og:title" content="VR 美术馆建设服务 | 元维构 METRION">
+  <meta property="og:description" content="在观众进入展厅之前，用一处小空间完成展览预览、作品导览、数字档案与沉浸式内容延展。">
   <meta property="og:type" content="website">
   <meta property="og:image" content="./assets/quest-gallery/story_panorama_v75.jpg">
-  <link rel="stylesheet" href="./quest-gallery.css">
+  <link rel="stylesheet" href="./quest-gallery.css?v=20260611-b2b-gallery">
 </head>
 <body>
   <main class="shell">
-    <header class="topbar" aria-label="Project navigation">
-      <a class="brand" href="#overview" aria-label="METRION VR Gallery">
+    <header class="topbar" aria-label="页面导航">
+      <a class="brand" href="./index.html" aria-label="返回元维构首页">
         <span class="brand-mark"></span>
-        <span>METRION VR Gallery</span>
+        <span>
+          <strong>元维构 METRION</strong>
+          <small>VR Gallery System</small>
+        </span>
       </a>
       <nav>
-        <a href="#demo">互动范式</a>
-        <a href="#highlights">项目亮点</a>
-        <a href="#next">传播路径</a>
+        <a href="#site">线下场景</a>
+        <a href="#interaction">交互内容</a>
+        <a href="#delivery">交付方式</a>
+        <a href="#contact">合作咨询</a>
       </nav>
     </header>
 
     <section class="hero" id="overview">
       <div class="hero-copy">
-        <p class="eyebrow">Quest VR Art Experience</p>
-        <h1>把儿童画变成可进入的虚拟美术馆</h1>
+        <p class="eyebrow">For Museums · Malls · Exhibition Centers</p>
+        <h1>为展览现场建一座可进入的 VR 美术馆</h1>
         <p class="lead">
-          从一张平面作品出发，延展出结构拆解、故事导览与可进入的沉浸场景，让观众真正走进孩子的想象世界。
+          元维构把线下展览、作品档案、三维模型、视频内容和空间叙事整理成可佩戴观看、可现场导览、可持续传播的 VR 美术馆。它适合放在美术馆入口、商业体公共展区、展览中心前厅、教育展区或临展等候空间，让观众在进入展厅前先理解整个展览。
         </p>
         <div class="hero-actions">
-          <a class="primary-action" href="#demo">查看交互结构</a>
-          <a class="secondary-action" href="#highlights">查看项目亮点</a>
+          <a class="primary-action" href="#site">查看应用场景</a>
+          <a class="secondary-action" href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">提交展览需求</a>
         </div>
       </div>
 
-      <section class="panorama-stage" aria-label="360 panorama preview">
-        <div class="stage-header">
-          <span>进入画面 · 球面全景预览</span>
-          <span class="status-dot">360°</span>
-        </div>
-        <div class="panorama-window" id="panoramaWindow">
-          <canvas id="panoramaCanvas" aria-label="我外星朋友 360 全景世界预览"></canvas>
-          <div class="scanline"></div>
-        </div>
-        <div class="stage-footer">
-          <span>拖动窗口旋转视角</span>
-          <button class="icon-button" id="resetPanorama" type="button" aria-label="重置全景视角" title="重置全景视角">
-            ↺
-          </button>
-        </div>
-      </section>
+      <figure class="hero-visual">
+        <img src="./assets/quest-gallery/museum-vr-entry-lobby.png" alt="美术馆入口设置小型 VR 展前预览区">
+        <figcaption>在展厅入口前设置一处小型 VR 体验区，让观众先理解展览，再进入现场观看。</figcaption>
+      </figure>
     </section>
 
-    <section class="metrics" aria-label="Project metrics">
+    <section class="scenario-strip" aria-label="适用机构">
       <div>
-        <strong>360°</strong>
-        <span>可进入的画面世界</span>
+        <strong>美术馆 / 画廊</strong>
+        <span>展前导览、作品档案、临展传播</span>
       </div>
       <div>
-        <strong>80</strong>
-        <span>连续动画帧</span>
+        <strong>商业体 / 展览中心</strong>
+        <span>小空间体验、排队区导览、活动传播</span>
       </div>
       <div>
-        <strong>12</strong>
-        <span>展厅作品模型</span>
+        <strong>学校 / 教育机构</strong>
+        <span>课程成果、儿童作品、沉浸式讲解</span>
       </div>
       <div>
-        <strong>3</strong>
-        <span>结构 / 故事 / 进入画面</span>
+        <strong>品牌 / 商业空间</strong>
+        <span>内容资产、案例展厅、接待展示</span>
       </div>
     </section>
 
-    <section class="showcase-band" id="demo">
+    <section class="site-plan" id="site">
       <div class="section-heading">
-        <p class="eyebrow">TS01-030 · 我外星朋友</p>
-        <h2>一个作品，三层 VR 体验</h2>
+        <p class="eyebrow">On-site Use</p>
+        <h2>它不是替代线下展览，而是成为观众进入展厅前的第一层理解。</h2>
+        <p>
+          在入口、前厅或展览动线旁设置一处小型 VR 体验点，观众可以先看到展览结构、重点作品和隐藏内容，再进入真实展厅观看原作。
+        </p>
       </div>
-      <div class="demo-grid">
-        <article class="feature-panel artwork-panel">
+      <div class="site-grid">
+        <article class="site-card wide">
+          <span>01</span>
+          <h3>入口预览区</h3>
+          <p>用 1-2 台 Quest 设备和一块说明屏，在观众入场前完成展览导览。工作人员不需要反复口头解释，观众也能快速知道这次展览怎么看。</p>
+        </article>
+        <article class="site-card">
+          <span>02</span>
+          <h3>展品背后的内容</h3>
+          <p>把线下墙面无法承载的视频、创作过程、三维拆解、空间模型和声音叙事放入 VR 中，让作品拥有第二层信息。</p>
+        </article>
+        <article class="site-card">
+          <span>03</span>
+          <h3>远程传播版本</h3>
+          <p>展览结束后，VR 美术馆和网页 3D 展厅可以继续作为项目档案、招商材料、教育课件和线上传播入口。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="interaction-band" id="interaction">
+      <div class="section-heading">
+        <p class="eyebrow">Service Function</p>
+        <h2>这个小项的功能，是把线下展览变成可导览、可延展、可传播的空间内容。</h2>
+      </div>
+      <div class="feature-story">
+        <figure>
+          <img src="./assets/quest-gallery/starry-night-generated-exhibition-unit.png" alt="星夜转译展陈单元与数字内容延展">
+        </figure>
+        <div class="story-copy">
+          <p class="eyebrow">Exhibition Content Asset</p>
+          <h3>把一件作品变成可导览的展陈单元</h3>
+          <p>以《星夜》局部转译样本为例，线下可以展示原作信息、转译说明、实体浮雕和制作过程；VR 美术馆则继续承接三维模型、结构拆解、视频记录和作品档案。这样一件展品不再只是墙面上的图像，而是成为可以被讲解、被体验、被归档、被传播的内容单元。</p>
+        </div>
+      </div>
+      <div class="demo-grid compact-grid">
+        <article class="feature-panel">
           <div class="image-crop">
-            <img src="./assets/quest-gallery/jianda_artwork.jpg" alt="我外星朋友作品图">
+            <img src="./assets/quest-gallery/starry-night-generated-entry.png" alt="星夜作品作为数字内容入口">
           </div>
           <div>
-            <h3>原作入口</h3>
-            <p>从墙面作品进入互动界面，让观众先看见原作，再进入它背后的结构与世界。</p>
+            <h3>原作成为入口</h3>
+            <p>从原作或局部细节进入内容系统，连接作品信息、策展说明、作者背景和观看路径。</p>
           </div>
         </article>
         <article class="feature-panel">
           <div class="image-crop">
-            <img src="./assets/quest-gallery/concept_structure_layers_panel.jpg" alt="结构层级说明">
+            <img src="./assets/quest-gallery/starry-night-generated-translation.png" alt="星夜从原作到空间层次的转译逻辑">
           </div>
           <div>
-            <h3>结构</h3>
-            <p>把星空、星球、角色、地形与发光植物拆成空间层次，展示画面如何被翻译成 VR 场景。</p>
+            <h3>转译逻辑被看懂</h3>
+            <p>把“为什么这样转译”讲清楚：空间结构、色彩关系、尺寸、材料和制作流程都可以被展陈化。</p>
           </div>
         </article>
         <article class="feature-panel">
           <div class="image-crop">
-            <img src="./assets/quest-gallery/concept_story_panel.jpg" alt="故事层级说明">
+            <img src="./assets/quest-gallery/starry-night-generated-relief.png" alt="星夜立体浮雕与三维模型延展">
           </div>
           <div>
-            <h3>故事</h3>
-            <p>用叙事导览解释作品里的角色关系、想象背景和观看路径，让作品不只是静态展示。</p>
+            <h3>二维变成立体触感</h3>
+            <p>VR 中可同步展示三维模型、细节放大和结构层次，让观众理解作品从图像到空间的变化。</p>
           </div>
         </article>
         <article class="feature-panel">
           <div class="image-crop">
-            <img src="./assets/quest-gallery/gpt_enter_panel.jpg" alt="进入画面预览">
+            <img src="./assets/quest-gallery/starry-night-generated-archive.png" alt="星夜展览内容的数字档案与展后传播">
           </div>
           <div>
-            <h3>进入画面</h3>
-            <p>观众从作品进入 360° 世界，在画面内部移动、观看和返回展厅，形成真正的沉浸体验。</p>
+            <h3>展后继续使用</h3>
+            <p>展签、样本、数字档案和网页入口可以继续用于教育课件、巡展资料、招商沟通和媒体传播。</p>
           </div>
         </article>
       </div>
     </section>
 
-    <section class="public-grid" id="highlights">
-      <div class="section-heading">
-        <p class="eyebrow">Project highlights</p>
-        <h2>面向展览与传播的体验亮点</h2>
+    <section class="value-section">
+      <div class="section-heading compact">
+        <p class="eyebrow">Why It Matters</p>
+        <h2>对场馆运营来说，VR 美术馆解决的是三件事。</h2>
       </div>
-      <div class="highlight-list" aria-label="Public project highlights">
-        <div class="highlight-row"><span>观看方式</span><strong>从美术馆墙面走进画面世界</strong></div>
-        <div class="highlight-row"><span>内容结构</span><strong>原作、结构拆解、故事导览、沉浸场景连续呈现</strong></div>
-        <div class="highlight-row"><span>互动方式</span><strong>适配 Quest 手柄点击、进入、退出和空间移动</strong></div>
-        <div class="highlight-row"><span>视觉方向</span><strong>保留儿童画的幻想感，同时转译成科技感 VR 体验</strong></div>
-      </div>
-      <aside class="launch-note" aria-label="Suitable scenarios">
-        <h3>适合场景</h3>
-        <p>适用于艺术教育展示、儿童创作转译、数字展陈提案、机构合作演示与沉浸式体验活动。</p>
-      </aside>
-    </section>
-
-    <section class="roadmap" id="next">
-      <div class="section-heading">
-        <p class="eyebrow">Distribution strategy</p>
-        <h2>下一步传播方式</h2>
-      </div>
-      <div class="roadmap-line">
+      <div class="value-grid">
         <article>
           <span>01</span>
-          <h3>Quest 独立演示</h3>
-          <p>继续作为高质量现场体验版，适合机构、客户、学校和展会演示。</p>
+          <h3>降低理解门槛</h3>
+          <p>复杂展览、儿童作品、当代艺术、企业项目或跨媒介作品，都可以先在 VR 中建立观看地图，让观众进入展厅后更容易看懂。</p>
         </article>
         <article>
           <span>02</span>
-          <h3>Web 展示页</h3>
-          <p>用轻量页面说明项目价值，发链接即可传播，也能承接视频与案例资料。</p>
+          <h3>增加展览内容厚度</h3>
+          <p>视频、过程档案、3D 模型、空间化视觉、声音叙事和隐藏信息不必挤在墙面上，可以进入数字层继续展开。</p>
         </article>
         <article>
           <span>03</span>
-          <h3>VRChat 社交版</h3>
-          <p>后续用 Unity/VRChat SDK 重建轻量社交导览版，主打多人参观与线上活动。</p>
+          <h3>沉淀可复用资产</h3>
+          <p>一次展览结束后，作品信息、三维资产、导览结构和网页入口仍可用于巡展、教育、招商、媒体传播和年度资料。</p>
         </article>
+      </div>
+    </section>
+
+    <section class="delivery-section" id="delivery">
+      <div class="section-heading">
+        <p class="eyebrow">Deliverables</p>
+        <h2>我们交付的不是一个孤立 VR 文件，而是一套可运营的数字展陈系统。</h2>
+      </div>
+      <figure class="operations-visual">
+        <img src="./assets/quest-gallery/museum-vr-operations.png" alt="展馆运营人员管理 VR 美术馆和数字展陈内容">
+      </figure>
+      <div class="delivery-grid">
+        <article>
+          <h3>展览内容梳理</h3>
+          <p>梳理展览结构、重点作品、观众动线、可公开内容、版权边界和现场使用方式。</p>
+        </article>
+        <article>
+          <h3>VR 美术馆搭建</h3>
+          <p>制作 Quest 可运行的虚拟空间、作品入口、互动菜单、导览节点、全景场景和返回逻辑。</p>
+        </article>
+        <article>
+          <h3>网页 3D / 数字档案</h3>
+          <p>同步提供轻量网页展示、作品档案页、二维码入口、案例页面或展后传播页面。</p>
+        </article>
+        <article>
+          <h3>现场部署建议</h3>
+          <p>提供入口体验点、设备数量、工作人员说明、观众排队动线和现场提示文案建议。</p>
+        </article>
+        <article>
+          <h3>资料与权利边界</h3>
+          <p>公开展示、宣传使用、模型源文件、视频素材、儿童作品授权和商业使用范围分开确认。</p>
+        </article>
+        <article>
+          <h3>后续维护与更新</h3>
+          <p>支持更换作品、补充档案、扩展展厅、优化模型体积、更新网页入口和活动版本。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="process-section">
+      <div class="section-heading compact">
+        <p class="eyebrow">Workflow</p>
+        <h2>从一场展览开始，逐步变成长期数字资产。</h2>
+      </div>
+      <div class="process-line">
+        <article>
+          <span>01</span>
+          <h3>确认展览目标</h3>
+          <p>用于入口导览、教育讲解、临展传播、招商展示，还是展后档案。</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>整理内容资产</h3>
+          <p>收集作品图、展签、视频、模型、音频、策展文本和可公开权限。</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>制作交互样板</h3>
+          <p>先完成 1-3 件代表作品的结构、故事和进入画面，验证观众是否能理解。</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h3>扩展成展厅系统</h3>
+          <p>再批量接入作品、网页入口、二维码档案和现场使用说明。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div>
+        <p class="eyebrow">Start A Project</p>
+        <h2>如果你的展览需要一个“进入展厅前先看懂”的数字入口，可以先发来展览资料。</h2>
+        <p>
+          适合提交的信息包括：展览主题、场地照片、作品数量、是否有视频或 3D 素材、预计观众类型、现场可放置设备的位置、是否需要网页端同步展示。
+        </p>
+      </div>
+      <div class="contact-actions">
+        <a class="primary-action" href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">提交需求</a>
+        <a class="secondary-action" href="./virtual-gallery.html">查看网页 3D 展厅</a>
+        <a class="secondary-action" href="./spatial-archive.html">查看空间数字档案</a>
       </div>
     </section>
   </main>
 
-  <script src="./quest-gallery.js"></script>
 </body>
 </html>
