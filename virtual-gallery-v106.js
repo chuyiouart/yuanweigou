@@ -1,4 +1,4 @@
-import * as THREE from "three";
+﻿import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 const manifestUrl = "./assets/virtual-gallery-v106/gallery-manifest.json";
@@ -6,6 +6,11 @@ const mount = document.getElementById("v106GalleryCanvas");
 const fullscreenButton = document.getElementById("v106FullscreenButton");
 const loading = document.getElementById("v106Loading");
 const hallLabel = document.getElementById("v106Hall");
+const guide = document.getElementById("v106Guide");
+const guideStart = document.getElementById("v106GuideStart");
+const guideCurator = document.getElementById("v106GuideCurator");
+const hoverHint = document.getElementById("v106HoverHint");
+const tabButtons = Array.from(document.querySelectorAll("#v106InfoTabs button"));
 const info = {
   code: document.getElementById("v106Code"),
   title: document.getElementById("v106Title"),
@@ -55,6 +60,10 @@ let lastTime = performance.now();
 let lastModelLoadCheck = 0;
 let lastLoadingText = "";
 let joystickPointerId = null;
+let hoveredFrame = null;
+let hoveredArtwork = null;
+let selectedArtwork = null;
+let activeInfoTab = "original";
 
 init().catch((error) => {
   console.error(error);
@@ -92,6 +101,8 @@ async function init() {
   addGalleryShell();
   addArtworks();
   setupInput();
+  setupGuide();
+  setupInfoTabs();
   updateInfoIntro();
 
   window.addEventListener("resize", onResize);
@@ -408,10 +419,7 @@ function setupInput() {
 
   document.addEventListener("pointerlockchange", () => {
     if (document.pointerLockElement !== renderer.domElement) {
-      clickable.forEach((object) => {
-        const objectFrame = object.userData.frame;
-        if (objectFrame !== selectedFrame) objectFrame.material.color.setHex(0x241b14);
-      });
+      setHoverFrame(null, null);
     } else {
       updateCenterHover();
     }
@@ -422,6 +430,60 @@ function setupInput() {
 
   setupMobileJoystick();
   setupMobileFullscreen();
+}
+
+function setupGuide() {
+  if (!guide) return;
+  if (window.sessionStorage.getItem("metrion-v107-guide-seen") === "1") {
+    guide.hidden = true;
+  }
+
+  const closeGuide = () => {
+    guide.hidden = true;
+    window.sessionStorage.setItem("metrion-v107-guide-seen", "1");
+  };
+
+  guideStart?.addEventListener("click", (event) => {
+    event.preventDefault();
+    closeGuide();
+  });
+
+  guideCurator?.addEventListener("click", (event) => {
+    event.preventDefault();
+    closeGuide();
+    selectedArtwork = null;
+    activeInfoTab = "use";
+    syncTabButtons();
+    updateInfoIntro();
+    info.title.textContent = "这套展厅能力可以输出给真实展览空间。";
+    info.desc.textContent =
+      "馆方可以把作品清单、展签文字、三维模型、展览动线和二维码入口整理成一个网页端展厅，用于展前预热、展中导览和展后档案沉淀。";
+    info.meta.textContent = "展墙重建、作品信息系统、GLB 模型陈列、移动端横屏浏览、案例库和咨询入口。";
+    info.use.textContent = "适合美术馆、画廊、艺术节、教育机构、商业展示空间和项目提案。";
+    info.link.href = "./agent.html";
+    info.link.textContent = "咨询展厅建设";
+  });
+}
+
+function setupInfoTabs() {
+  tabButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      activeInfoTab = button.dataset.tab || "original";
+      syncTabButtons();
+      if (selectedArtwork) {
+        renderArtworkInfo(selectedArtwork);
+      } else {
+        updateInfoIntro();
+      }
+    });
+  });
+  syncTabButtons();
+}
+
+function syncTabButtons() {
+  tabButtons.forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.tab === activeInfoTab);
+  });
 }
 
 function preventTouchScroll(event) {
@@ -554,21 +616,33 @@ function setupMobileJoystick() {
 
 function updateHover(event) {
   const hit = getPointerHit(event);
-  setHoverFrame(hit?.object?.userData?.frame || null);
+  setHoverFrame(hit?.object?.userData?.frame || null, hit?.object?.userData?.artwork || null);
 }
 
 function updateCenterHover() {
   const hit = getCenterHit();
-  setHoverFrame(hit?.object?.userData?.frame || null);
+  setHoverFrame(hit?.object?.userData?.frame || null, hit?.object?.userData?.artwork || null);
 }
 
-function setHoverFrame(frame) {
-  if (frame === selectedFrame) return;
+function setHoverFrame(frame, artwork) {
+  hoveredFrame = frame;
+  hoveredArtwork = artwork;
   clickable.forEach((object) => {
     const objectFrame = object.userData.frame;
     if (objectFrame !== selectedFrame) objectFrame.material.color.setHex(0x241b14);
   });
-  if (frame) frame.material.color.setHex(0x8b3f2f);
+  if (frame && frame !== selectedFrame) frame.material.color.setHex(0x8b3f2f);
+  updateHoverHint();
+}
+
+function updateHoverHint() {
+  if (!hoverHint) return;
+  if (!hoveredArtwork) {
+    hoverHint.classList.remove("is-visible");
+    return;
+  }
+  hoverHint.textContent = `${hoveredArtwork.title}：点击查看作品与转译说明`;
+  hoverHint.classList.add("is-visible");
 }
 
 function getPointerHit(event) {
@@ -588,28 +662,98 @@ function getCenterHit() {
 function selectArtwork(artwork, frame) {
   if (selectedFrame) selectedFrame.material.color.setHex(0x241b14);
   selectedFrame = frame;
+  selectedArtwork = artwork;
   selectedFrame.material.color.setHex(0xc46a4a);
+  renderArtworkInfo(artwork);
+}
 
+function renderArtworkInfo(artwork) {
+  const tabs = getArtworkTabs(artwork);
+  const current = tabs[activeInfoTab] || tabs.original;
   info.code.textContent = artwork.id;
-  info.title.textContent = artwork.title;
-  info.desc.textContent = artwork.desc;
-  info.meta.textContent = artwork.meta;
-  info.use.textContent = artwork.specialInteraction
-    ? "这是后续 Web 版尖大互动入口：结构、故事、进入画面会分阶段迁移。"
-    : "网页端展示、案例库入口、AR 模型入口和后续合作沟通。";
+  info.title.textContent = current.title;
+  info.desc.textContent = current.desc;
+  info.meta.textContent = current.meta;
+  info.use.textContent = current.use;
   info.link.href = artwork.page;
   info.link.textContent = `查看 ${artwork.id} 案例页`;
 }
 
 function updateInfoIntro() {
+  selectedArtwork = null;
   info.code.textContent = "METRION-WEB-GALLERY";
-  info.title.textContent = "一个可交付给展览空间的线上展厅样板。";
-  info.desc.textContent =
-    "这是元维构把 Quest VR 美术馆经验迁移到网页和移动端的展示样板。它既展示元维构项目自身，也说明我们可以为其他美术馆、画廊和展示空间搭建可浏览、可导览、可传播的 3D 线上展厅。";
-  info.meta.textContent = "网页 3D 展厅、移动端横屏全屏浏览、作品信息面板、模型按距离加载。";
-  info.use.textContent = "远程观展、展览推广、教育导览、方案提案、馆方数字档案入口。";
-  info.link.href = "https://wj.qq.com/s2/26765122/e267/";
+  const introTabs = {
+    original: {
+      title: "一个可交付给展览空间的线上展厅样板。",
+      desc:
+        "这是元维构把 Quest VR 美术馆经验迁移到网页和移动端的展示样板。它既展示元维构项目自身，也说明我们可以为其他美术馆、画廊和展示空间搭建可浏览、可导览、可传播的 3D 线上展厅。",
+      meta: "网页 3D 展厅、移动端横屏全屏浏览、作品信息面板、模型按距离加载。",
+      use: "远程观展、展览推广、教育导览、方案提案、馆方数字档案入口。",
+    },
+    translation: {
+      title: "从二维图像到空间结构的展示方法。",
+      desc:
+        "元维构关注的不是简单复制图像，而是整理作品中的轮廓、层级、重心、叙事节点和材料方向，让它们进入可观看、可说明、可陈列的空间系统。",
+      meta: "结构判断、模型转译、展签组织、案例归档。",
+      use: "帮助观众理解作品如何从图像变成模型，也帮助馆方说明展览背后的方法。",
+    },
+    model: {
+      title: "三维模型被放入展厅，而不是孤立展示。",
+      desc:
+        "当前网页版本按距离加载 GLB 模型，控制台座、比例和移动端性能。它保留 Quest VR 美术馆经验，但面向手机和 PC 做了轻量化。",
+      meta: "GLB 陈列、台座比例、距离加载、移动端优化。",
+      use: "适合连接 AR 模型入口、案例页、实体样品和后续数字档案。",
+    },
+    use: {
+      title: "为真实展览提供线上延展。",
+      desc:
+        "网页展厅可以在展前用于宣传预热，在展中作为二维码导览，在展后沉淀为可访问的数字档案，也可以作为馆方提案、教育活动和赞助汇报的一部分。",
+      meta: "展前预热、展中导览、展后档案、项目提案。",
+      use: "面向美术馆、画廊、艺术节、学校、教育机构和商业展示空间。",
+    },
+  };
+  const current = introTabs[activeInfoTab] || introTabs.original;
+  info.title.textContent = current.title;
+  info.desc.textContent = current.desc;
+  info.meta.textContent = current.meta;
+  info.use.textContent = current.use;
+  info.link.href = "./submit-check.html";
   info.link.textContent = "咨询展厅建设";
+}
+
+function getArtworkTabs(artwork) {
+  const rightsNote = "版权状态需根据原作权属确认。";
+  const specialUse = artwork.specialInteraction
+    ? "《尖大 / 我外星朋友》后续可继续迁移结构、故事、进入画面三段互动，作为网页端重点体验入口。"
+    : "可连接网页端展示、案例库入口、AR 模型入口和后续合作沟通。";
+  return {
+    original: {
+      title: artwork.title,
+      desc: `${artwork.meta}。${rightsNote}`,
+      meta: "原作图像、作者信息、年代或样本类型会进入统一作品资料结构。",
+      use: "适合用于观展说明、样本案例、教育导览和后续授权边界确认。",
+    },
+    translation: {
+      title: `${artwork.title} 的转译逻辑`,
+      desc: artwork.desc,
+      meta: "元维构会从主体轮廓、画面重心、前后层级和视觉节奏中判断可转译结构。",
+      use: "让观众看到作品不是被简单复制，而是被整理成可解释的空间关系。",
+    },
+    model: {
+      title: `${artwork.title} 的 3D 模型`,
+      desc:
+        "对应 GLB 模型被放置在作品前方台座上，按照网页端性能做按距离加载，保持浏览顺畅。",
+      meta: "模型陈列、台座比例、手机加载、后续 AR 或实体样品入口。",
+      use: specialUse,
+    },
+    use: {
+      title: `${artwork.title} 的展厅应用`,
+      desc:
+        "这件作品在网页展厅中同时承担展览内容和能力样板：观众可以看作品，馆方可以看到图像、展签、模型和空间动线如何被组织。",
+      meta: "远程观展、线下展览预热、现场二维码导览、展后数字档案。",
+      use: "可为真实美术馆、画廊、艺术节、教育机构和展示空间复制同类展示结构。",
+    },
+  };
 }
 
 function updateCameraRotation() {

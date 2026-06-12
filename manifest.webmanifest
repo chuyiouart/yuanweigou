@@ -1,6 +1,6 @@
 {
-  "name": "元维构 METRION",
-  "short_name": "元维构",
+  "name": "METRION",
+  "short_name": "METRION",
   "description": "元维构 METRION：艺术结构转译平台，将二维作品转译为三维结构资产。",
   "start_url": "./index.html",
   "scope": "./",

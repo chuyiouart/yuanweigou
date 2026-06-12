@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -8,7 +8,12 @@
       name="description"
       content="元维构 METRION 虚拟美术馆与网页 3D 展厅：展示元维构项目本身，并为美术馆、画廊、艺术节和展示空间输出可浏览、可导览、可传播的线上展厅能力。"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260606-sample-case-agent-v1" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+    <meta name="theme-color" content="#171717" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="METRION" />
+    <link rel="stylesheet" href="./styles.css?v=20260611-sample-match-v1" />
     <style>
       .web-gallery-v106 {
         min-height: 100vh;
@@ -175,6 +180,109 @@
         -webkit-touch-callout: none;
       }
 
+      .v106-hover-hint {
+        position: absolute;
+        left: 50%;
+        bottom: 86px;
+        z-index: 3;
+        max-width: min(360px, calc(100% - 32px));
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 999px;
+        padding: 9px 13px;
+        background: rgba(18, 17, 15, 0.62);
+        color: #fffaf0;
+        font-size: 13px;
+        line-height: 1.35;
+        text-align: center;
+        opacity: 0;
+        pointer-events: none;
+        transform: translate3d(-50%, 8px, 0);
+        transition: opacity 160ms ease, transform 160ms ease;
+        backdrop-filter: blur(12px);
+      }
+
+      .v106-hover-hint.is-visible {
+        opacity: 1;
+        transform: translate3d(-50%, 0, 0);
+      }
+
+      .v106-guide {
+        position: absolute;
+        inset: 0;
+        z-index: 8;
+        display: grid;
+        place-items: center;
+        padding: 22px;
+        background: linear-gradient(180deg, rgba(18, 17, 15, 0.22), rgba(18, 17, 15, 0.48));
+        pointer-events: auto;
+      }
+
+      .v106-guide[hidden] {
+        display: none;
+      }
+
+      .v106-guide-card {
+        width: min(560px, 100%);
+        border: 1px solid rgba(255, 255, 255, 0.34);
+        border-radius: 8px;
+        padding: clamp(20px, 4vw, 30px);
+        background: rgba(255, 253, 247, 0.94);
+        color: #171717;
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+        backdrop-filter: blur(14px);
+      }
+
+      .v106-guide-card h2 {
+        margin: 8px 0 12px;
+        font-size: clamp(28px, 4vw, 44px);
+        line-height: 1.08;
+        letter-spacing: 0;
+      }
+
+      .v106-guide-card p {
+        margin: 0 0 18px;
+        color: #5b554d;
+        line-height: 1.72;
+      }
+
+      .v106-guide-list {
+        display: grid;
+        gap: 8px;
+        margin: 0 0 22px;
+        padding: 0;
+        list-style: none;
+        color: #403a33;
+        line-height: 1.55;
+      }
+
+      .v106-guide-list li {
+        border-top: 1px solid #ded6c9;
+        padding-top: 8px;
+      }
+
+      .v106-guide-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .v106-guide-actions button {
+        min-height: 42px;
+        border: 1px solid #171717;
+        border-radius: 999px;
+        padding: 0 18px;
+        background: transparent;
+        color: #171717;
+        font: inherit;
+        font-weight: 850;
+        cursor: pointer;
+      }
+
+      .v106-guide-actions button:first-child {
+        background: #171717;
+        color: #fff;
+      }
+
       .v106-side {
         display: flex;
         flex-direction: column;
@@ -211,6 +319,32 @@
         display: grid;
         gap: 10px;
         margin-top: 20px;
+      }
+
+      .v106-info-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 18px;
+      }
+
+      .v106-info-tabs button {
+        min-height: 34px;
+        border: 1px solid #d1c7b9;
+        border-radius: 999px;
+        padding: 0 12px;
+        background: transparent;
+        color: #4d473f;
+        font: inherit;
+        font-size: 12px;
+        font-weight: 850;
+        cursor: pointer;
+      }
+
+      .v106-info-tabs button.is-active {
+        border-color: #171717;
+        background: #171717;
+        color: #fff;
       }
 
       .v106-meta div {
@@ -339,6 +473,11 @@
           display: none;
         }
 
+        .v106-hover-hint {
+          bottom: 16px;
+          font-size: 12px;
+        }
+
         .v106-mobile-joystick {
           display: grid;
           left: max(24px, calc(env(safe-area-inset-left) + 18px));
@@ -376,6 +515,11 @@
 
         .v106-help {
           display: none;
+        }
+
+        .v106-hover-hint {
+          bottom: 16px;
+          font-size: 12px;
         }
 
         .v106-mobile-joystick {
@@ -448,6 +592,10 @@
         right: max(20px, calc(env(safe-area-inset-right) + 14px));
         bottom: max(146px, calc(env(safe-area-inset-bottom) + 138px));
       }
+
+      body.v106-mobile-fullscreen .v106-hover-hint {
+        bottom: max(12px, env(safe-area-inset-bottom));
+      }
     </style>
   </head>
   <body class="web-gallery-v106">
@@ -507,12 +655,31 @@
           <span>PC：WASD / 方向键移动</span>
           <span>点击画面进入鼠标视角，移动鼠标转向，Esc 退出</span>
           <span>鼠标视角中再次点击可选择准星方向的作品</span>
-          <span>手机：拖拽看方向，右下角摇杆移动</span>
+          <span>手机：拖拽看方向，左下角摇杆移动</span>
           <span>模型按距离加载，避免一次性压满手机</span>
         </div>
         <button class="v106-fullscreen-button" id="v106FullscreenButton" type="button">横屏全屏</button>
         <div class="v106-mobile-joystick" id="v106Joystick" aria-label="移动端虚拟摇杆">
           <div class="v106-joystick-knob" id="v106JoystickKnob"></div>
+        </div>
+        <div class="v106-hover-hint" id="v106HoverHint" aria-hidden="true">点击查看作品与转译说明</div>
+        <div class="v106-guide" id="v106Guide">
+          <div class="v106-guide-card" role="dialog" aria-labelledby="v106GuideTitle" aria-modal="false">
+            <p class="eyebrow">METRION WEB GALLERY</p>
+            <h2 id="v106GuideTitle">进入元维构网页 3D 展厅</h2>
+            <p>
+              这里用作品图像、说明牌和三维转译模型，展示一次可远程访问、可导览、可传播的线上展览样板。
+            </p>
+            <ul class="v106-guide-list">
+              <li>PC：点击画面进入鼠标视角，WASD 或方向键移动，Esc 退出。</li>
+              <li>手机：滑动屏幕转向，左下角摇杆移动，可切换横屏全屏。</li>
+              <li>对准或点击作品，可以查看原作信息、转译逻辑、3D 模型和展厅应用。</li>
+            </ul>
+            <div class="v106-guide-actions">
+              <button type="button" id="v106GuideStart">开始浏览</button>
+              <button type="button" id="v106GuideCurator">我是馆方，了解展厅建设</button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -524,6 +691,12 @@
           <p id="v106Desc">
             这是元维构把 Quest VR 美术馆经验迁移到网页和移动端的展示样板。它既展示元维构项目自身，也说明我们可以为其他美术馆、画廊和展示空间搭建可浏览、可导览、可传播的 3D 线上展厅。
           </p>
+          <div class="v106-info-tabs" id="v106InfoTabs" aria-label="作品信息分类">
+            <button type="button" class="is-active" data-tab="original">原作信息</button>
+            <button type="button" data-tab="translation">转译逻辑</button>
+            <button type="button" data-tab="model">3D 模型</button>
+            <button type="button" data-tab="use">展厅应用</button>
+          </div>
           <div class="v106-meta">
             <div><span>编号</span><strong id="v106Code">METRION-WEB-GALLERY</strong></div>
             <div><span>能力</span><strong id="v106Meta">网页 3D 展厅、移动端横屏全屏浏览、作品信息面板、模型按距离加载。</strong></div>
@@ -531,9 +704,9 @@
           </div>
         </div>
         <div class="v106-actions">
-          <a id="v106CaseLink" href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">咨询展厅建设</a>
+          <a id="v106CaseLink" href="./agent.html">咨询展厅建设</a>
           <a href="./spatial-archive.html">查看空间数字档案</a>
-          <a href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">提交作品转译判断</a>
+          <a href="./submit-check.html">提交作品转译判断</a>
         </div>
       </aside>
     </main>
@@ -595,6 +768,6 @@
         }
       }
     </script>
-    <script type="module" src="./virtual-gallery-v106.js?v=20260610-official-gallery-facing-hall-v1"></script>
+    <script type="module" src="./virtual-gallery-v106.js?v=20260611-v107-interaction-v1"></script>
   </body>
 </html>
