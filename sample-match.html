@@ -1,0 +1,155 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>样本匹配与案例地图 | 元维构 METRION</title>
+    <meta
+      name="description"
+      content="根据身份、用途和关注点匹配元维构 36 组样本案例，推荐样本类型、代表编号、关注字段和下一步入口。"
+    />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+    <link rel="icon" href="./favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png" />
+        <meta name="apple-mobile-web-app-title" content="METRION" />
+<meta name="theme-color" content="#171717" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="stylesheet" href="./styles.css?v=20260611-sample-match-v1" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html#top" aria-label="元维构首页">
+        <img src="./assets/logo.jpg" alt="" />
+        <span>
+          <strong>元维构</strong>
+          <small>METRION</small>
+        </span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a href="./agent.html">咨询助手</a>
+        <a href="./sample-match.html">样本匹配</a>
+        <a href="./cases/sample-data.html">样本数据</a>
+        <a href="./cases/test-series.html">案例库</a>
+        <a href="./education.html">教育</a>
+        <a href="./submit-check.html">申请</a>
+      </nav>
+    </header>
+
+    <main id="top" class="sample-match-page">
+      <section class="sample-match-hero">
+        <div>
+          <p class="eyebrow">Case Matching Agent</p>
+          <h1>不知道看哪个样本？先按场景匹配。</h1>
+          <p class="lead">
+            元维构已经整理出 36 组测试样本。这个工具会根据你的身份、目的和关注点，推荐最应该看的样本方向、代表编号、关键字段和下一步入口。
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#matcher">开始匹配</a>
+            <a class="button secondary" href="./cases/sample-data.html">查看完整数据表</a>
+            <a class="button secondary" href="./cases/test-series.html">查看案例库</a>
+          </div>
+        </div>
+        <aside class="sample-match-snapshot">
+          <span>36 组样本</span>
+          <strong>样本库不是图片墙，而是项目资产索引。</strong>
+          <p>每组样本都对应用途、包装、交付尺寸、材质形态、公开展示、授权销售和数字接入状态。</p>
+        </aside>
+      </section>
+
+      <section class="section matcher-shell" id="matcher">
+        <div class="matcher-controls">
+          <div class="section-heading">
+            <p class="eyebrow">Step 01</p>
+            <h2>选择你的身份和目的。</h2>
+            <p>不同用户需要看的样本不同：家长看纪念与儿童画，教育机构看批量交付，空间方看展陈和数字档案。</p>
+          </div>
+          <div class="matcher-selects">
+            <label>
+              你的身份
+              <select data-match-role>
+                <option value="visitor">普通访客</option>
+                <option value="parent">家长</option>
+                <option value="education">教育机构</option>
+                <option value="artist">艺术家/创作者</option>
+                <option value="space">展览/空间方</option>
+                <option value="brand">品牌/文创方</option>
+              </select>
+            </label>
+            <label>
+              你想看什么
+              <select data-match-goal>
+                <option value="proof">看实体效果</option>
+                <option value="education">看教育样本</option>
+                <option value="space">看空间展示</option>
+                <option value="digital">看数字接入</option>
+                <option value="rights">看版权边界</option>
+                <option value="price">看报价参考</option>
+              </select>
+            </label>
+            <label>
+              最关注的结果
+              <select data-match-focus>
+                <option value="visual">视觉效果</option>
+                <option value="delivery">交付方式</option>
+                <option value="rights">授权销售</option>
+                <option value="digital">二维码/AR/虚拟展厅</option>
+                <option value="batch">批量合作</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <aside class="match-result" aria-live="polite">
+          <div class="match-score">
+            <span data-match-score>0</span>
+            <strong>匹配指数</strong>
+            <div class="score-bar"><i data-match-bar style="width: 0%"></i></div>
+          </div>
+          <div data-match-result></div>
+        </aside>
+      </section>
+
+      <section class="section sample-map-section">
+        <div class="section-heading">
+          <p class="eyebrow">Case Map</p>
+          <h2>样本库可以按 5 类场景阅读。</h2>
+        </div>
+        <div class="sample-map-grid">
+          <article>
+            <span>家庭与儿童画</span>
+            <h3>TS01-030 / TS01-031</h3>
+            <p>适合家长、亲子活动、机构成果展和儿童画 AR 卡片。</p>
+          </article>
+          <article>
+            <span>公共教育</span>
+            <h3>TS01-015 / TS01-020 / TS01-032</h3>
+            <p>适合艺术史教学、公共教育、馆校课程和经典作品转译说明。</p>
+          </article>
+          <article>
+            <span>数字展示</span>
+            <h3>TS01-024 / 虚拟展厅样本</h3>
+            <p>适合二维码档案、网页模型、AR/MR 展示和远程演示。</p>
+          </article>
+          <article>
+            <span>空间与画廊</span>
+            <h3>TS01-013 / TS01-033 / TS01-036</h3>
+            <p>适合空间装置潜力、画廊展示、舞台式空间和授权前样本。</p>
+          </article>
+          <article>
+            <span>文创与授权</span>
+            <h3>TS01-023 / TS01-025 / TS01-026</h3>
+            <p>适合装饰艺术、包装测试、角色文创和授权销售前沟通。</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>元维构 METRION</span>
+      <span>样本匹配结果用于导览和咨询分流，具体授权、报价和制作仍需人工确认。</span>
+    </footer>
+    <script src="./sample-match.js?v=20260611-sample-match-v1"></script>
+    <script src="./pwa.js?v=20260611-sample-match-v1"></script>
+  </body>
+</html>

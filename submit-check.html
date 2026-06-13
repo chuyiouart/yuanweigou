@@ -1,0 +1,180 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>提交作品资料检查 | 元维构 METRION</title>
+    <meta
+      name="description"
+      content="提交作品前先检查资料是否齐全：作品图、作者来源、用途、权利状态、尺寸数量、联系方式与下一步提交入口。"
+    />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+    <link rel="icon" href="./favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png" />
+        <meta name="apple-mobile-web-app-title" content="METRION" />
+<meta name="theme-color" content="#171717" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="stylesheet" href="./styles.css?v=20260611-sample-match-v1" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html#top" aria-label="元维构首页">
+        <img src="./assets/logo.jpg" alt="" />
+        <span>
+          <strong>元维构</strong>
+          <small>METRION</small>
+        </span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a href="./agent.html">咨询助手</a>
+        <a href="./cases/sample-data.html">样本数据</a>
+        <a href="./education.html">教育</a>
+        <a href="./trust.html">可信</a>
+        <a href="./services.html">价格</a>
+        <a href="./submit-check.html">申请</a>
+        <a href="./index.html#contact">合作</a>
+      </nav>
+    </header>
+
+    <main id="top" class="submit-check-page">
+      <section class="submit-hero">
+        <div>
+          <p class="eyebrow">Artwork Intake Agent</p>
+          <h1>提交作品前，先检查资料是否齐全。</h1>
+          <p class="lead">
+            这个页面会帮你判断提交资料是否足够进入作品转译初判。它不会替代人工判断，但能让你在进入表单前知道还缺什么、哪些内容需要特别说明。
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#check-form">开始检查</a>
+            <a class="button secondary" href="./cases/sample-data.html">先看样本案例</a>
+            <a class="button secondary" href="./agent.html">问问咨询助手</a>
+          </div>
+        </div>
+        <aside class="submit-hero-card" aria-label="检查结果示意">
+          <span>METRION CHECK</span>
+          <strong data-submit-hero-score>0%</strong>
+          <p data-submit-hero-status>勾选资料后生成准备度。</p>
+          <div class="score-bar"><i data-submit-hero-bar style="width: 0%"></i></div>
+        </aside>
+      </section>
+
+      <section class="section submit-check-shell" id="check-form">
+        <div class="submit-check-main">
+          <div class="section-heading">
+            <p class="eyebrow">Step 01</p>
+            <h2>先说明你是谁、想做什么。</h2>
+            <p>这会影响系统给你的资料提醒：家长、教育机构、艺术家和展览空间需要准备的重点不同。</p>
+          </div>
+
+          <div class="submit-controls">
+            <label>
+              你的身份
+              <select data-submit-role>
+                <option value="个人创作者">个人创作者</option>
+                <option value="家长">家长</option>
+                <option value="教育机构">教育机构</option>
+                <option value="艺术家">艺术家</option>
+                <option value="展览/空间方">展览/空间方</option>
+                <option value="品牌/文创方">品牌/文创方</option>
+              </select>
+            </label>
+            <label>
+              作品类型
+              <select data-submit-artwork>
+                <option value="绘画/插画">绘画/插画</option>
+                <option value="儿童画/青少年创作">儿童画/青少年创作</option>
+                <option value="经典艺术图像">经典艺术图像</option>
+                <option value="当代艺术作品">当代艺术作品</option>
+                <option value="IP形象/商业图像">IP形象/商业图像</option>
+                <option value="摄影/数字作品">摄影/数字作品</option>
+              </select>
+            </label>
+            <label>
+              计划用途
+              <select data-submit-usage>
+                <option value="个人纪念/收藏">个人纪念/收藏</option>
+                <option value="课程成果/结课展示">课程成果/结课展示</option>
+                <option value="展览展示/公共教育">展览展示/公共教育</option>
+                <option value="礼品/文创测试">礼品/文创测试</option>
+                <option value="授权销售/联名合作">授权销售/联名合作</option>
+                <option value="数字档案/虚拟展厅">数字档案/虚拟展厅</option>
+              </select>
+            </label>
+            <label>
+              权利状态
+              <select data-submit-rights>
+                <option value="本人或机构拥有作品权利">本人或机构拥有作品权利</option>
+                <option value="儿童作品，监护人可确认">儿童作品，监护人可确认</option>
+                <option value="已获得作者或权利方授权">已获得作者或权利方授权</option>
+                <option value="来源清楚，但授权待确认">来源清楚，但授权待确认</option>
+                <option value="来源或授权暂不清楚">来源或授权暂不清楚</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="section-heading submit-step-heading">
+            <p class="eyebrow">Step 02</p>
+            <h2>勾选你已经准备好的资料。</h2>
+          </div>
+
+          <div class="submit-checklist">
+            <label><input type="checkbox" value="frontImage" /> 清晰作品正面图</label>
+            <label><input type="checkbox" value="detailImage" /> 局部细节图或参考角度</label>
+            <label><input type="checkbox" value="authorSource" /> 作者、来源或作品背景说明</label>
+            <label><input type="checkbox" value="usageDetail" /> 计划用途说明</label>
+            <label><input type="checkbox" value="rightsState" /> 公开展示、宣传或销售授权状态</label>
+            <label><input type="checkbox" value="sizeQuantity" /> 期望尺寸、数量或预算区间</label>
+            <label><input type="checkbox" value="deliveryForm" /> 期望形式：浮雕、摆件、包装、展签或数字档案</label>
+            <label><input type="checkbox" value="deadline" /> 期望交付时间</label>
+            <label><input type="checkbox" value="contact" /> 联系方式</label>
+          </div>
+        </div>
+
+        <aside class="submit-result-panel" aria-live="polite">
+          <div class="score-card">
+            <span data-submit-score>0%</span>
+            <strong data-submit-status>需要先补资料</strong>
+            <div class="score-bar"><i data-submit-bar style="width: 0%"></i></div>
+          </div>
+          <div data-submit-result></div>
+          <div class="submit-summary">
+            <strong>提交摘要</strong>
+            <textarea rows="8" data-submit-summary readonly></textarea>
+            <button type="button" data-copy-summary>复制摘要</button>
+          </div>
+          <div class="submit-actions">
+            <a class="button primary" href="https://wj.qq.com/s2/26765122/e267/" target="_blank" rel="noopener">进入作品判断表单</a>
+            <a class="button secondary" href="./cases/sample-data.html">查看样本案例</a>
+          </div>
+          <p class="submit-note">具体作品是否适合转译、是否可公开展示或授权销售、最终报价和合同条款，仍以人工确认和合作文件为准。</p>
+        </aside>
+      </section>
+
+      <section class="section submit-info-band">
+        <article>
+          <span>01</span>
+          <h3>资料越完整，判断越准确</h3>
+          <p>清晰作品图、用途、权利状态和期望交付形式，会直接影响结构判断和报价方向。</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>公开展示和销售分开确认</h3>
+          <p>能做样本不等于可以销售。宣传、展览、销售、联名和分成都需要单独确认。</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>儿童作品需要监护人确认</h3>
+          <p>儿童画、学生作品和机构课程成果，在公开展示、宣传和销售前应确认监护人或机构授权边界。</p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>元维构 METRION</span>
+      <span>提交检查只用于资料准备与信息分流，不替代人工作品判断。</span>
+    </footer>
+    <script src="./submit-check.js?v=20260611-sample-match-v1"></script>
+    <script src="./pwa.js?v=20260611-sample-match-v1"></script>
+  </body>
+</html>
