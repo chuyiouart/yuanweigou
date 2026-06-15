@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f3ec" />
+    <title>METRION 元维构 · Klimt 结构转译实验室</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="METRION 元维构结构转译实验室">
+      <section class="app-screen">
+        <header class="topbar">
+          <div>
+            <p class="brand">METRION 元维构</p>
+            <h1>Klimt 的湖岸如何变成立体作品</h1>
+          </div>
+          <button class="icon-button" id="resetTop" type="button" aria-label="重新开始">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4.7 9.4a7.8 7.8 0 1 1 1.6 8.3" />
+              <path d="M4.5 4.9v4.7h4.7" />
+            </svg>
+          </button>
+        </header>
+
+        <section class="status-strip" aria-live="polite">
+          <span id="statusKicker">选结构</span>
+          <strong id="statusTitle">点击 3 个结构点</strong>
+          <span id="statusCount">0/3</span>
+        </section>
+
+        <section class="stage" id="stage">
+          <div class="artwork-card" id="artworkCard">
+            <img class="artwork" src="./assets/klimt/original.jpg" alt="Gustav Klimt 作品 Litzlberg am Attersee 原作" />
+            <div class="structure-overlay" aria-hidden="true">
+              <span class="layer-outline outline-trees" data-layer="trees"></span>
+              <span class="layer-outline outline-house" data-layer="house"></span>
+              <span class="layer-outline outline-water" data-layer="water"></span>
+            </div>
+
+            <button class="structure-point point-sky" data-layer="trees" data-point="树群背景" type="button">
+              <span></span><b>树群</b>
+            </button>
+            <button class="structure-point point-subject" data-layer="house" data-point="房屋主体" type="button">
+              <span></span><b>房屋</b>
+            </button>
+            <button class="structure-point point-base" data-layer="water" data-point="湖面承托" type="button">
+              <span></span><b>湖面</b>
+            </button>
+          </div>
+
+          <aside class="layer-panel" id="layerPanel" aria-live="polite">
+            <img id="layerPreview" src="./assets/klimt/layer-trees-generated.png" alt="树群背景转译层" />
+            <div>
+              <p id="layerName">点击结构点</p>
+              <strong id="layerTitle">提取画面中的空间层</strong>
+            </div>
+          </aside>
+
+          <section class="space-stage" id="spaceStage" aria-label="空间拆解层">
+            <div class="space-copy">
+              <strong>把画面归纳成 3 个可制作空间层</strong>
+              <span>点选每一层，确认它在最终模型里的位置。</span>
+            </div>
+            <div class="space-stack">
+              <button class="space-layer layer-trees-card" type="button" data-layer="trees">
+                <img src="./assets/klimt/layer-trees-generated.png" alt="树群背景空间层" />
+                <span>后景 · 树群围合</span>
+              </button>
+              <button class="space-layer layer-house-card" type="button" data-layer="house">
+                <img src="./assets/klimt/layer-house-generated.png" alt="房屋主体空间层" />
+                <span>中景 · 房屋主体</span>
+              </button>
+              <button class="space-layer layer-water-card" type="button" data-layer="water">
+                <img src="./assets/klimt/layer-water-generated.png" alt="湖面承托空间层" />
+                <span>前景 · 湖面基座</span>
+              </button>
+            </div>
+          </section>
+
+          <div class="model-stage" id="modelStage" aria-label="三维模型预览">
+            <div class="model-hint">拖动旋转模型</div>
+            <model-viewer
+              class="glb-viewer"
+              src="./assets/klimt/klimt-vr-lite.glb"
+              camera-controls
+              touch-action="pan-y"
+              auto-rotate
+              rotation-per-second="18deg"
+              shadow-intensity="0.8"
+              exposure="0.95"
+              camera-orbit="30deg 66deg 2.05m"
+              field-of-view="32deg"
+              min-camera-orbit="auto auto 1.2m"
+              max-camera-orbit="auto auto 3.2m"
+              ar
+              alt="Litzlberg am Attersee 转译三维模型"
+            ></model-viewer>
+            <img class="model-fallback" id="modelFallback" src="./assets/klimt/live.jpg" alt="Litzlberg am Attersee 转译实体实拍" />
+          </div>
+
+          <section class="archive-card" id="archiveCard">
+            <p class="archive-code">TS01-010 · Litzlberg am Attersee</p>
+            <h2>Klimt 结构档案卡</h2>
+            <dl>
+              <div><dt>原作信息</dt><dd>Gustav Klimt，1915，布面油画</dd></div>
+              <div><dt>转译对象</dt><dd>树群背景、房屋主体、湖面承托的空间重构</dd></div>
+              <div><dt>成品规格</dt><dd>约 12 x 8 x 12 cm，树脂 / 手工上色</dd></div>
+              <div><dt>文件策略</dt><dd>展示用 GLB，生产级文件保留在资产池</dd></div>
+            </dl>
+            <div class="archive-media">
+              <img src="./assets/klimt/intro.jpg" alt="Litzlberg am Attersee 转译说明图" />
+              <img src="./assets/klimt/live.jpg" alt="转译实体与说明牌实拍" />
+            </div>
+            <section class="product-styles" aria-label="完整产品样式">
+              <div class="product-heading">
+                <strong>完整产品样式</strong>
+                <span id="packLabel">高级硬盒</span>
+              </div>
+              <img id="packPreview" src="./assets/klimt/pack-premium-box.png" alt="Klimt 转译作品高级硬盒包装" />
+              <div class="pack-tabs" role="group" aria-label="包装样式切换">
+                <button class="pack-tab active" type="button" data-pack="premium">硬盒</button>
+                <button class="pack-tab" type="button" data-pack="header">挂袋</button>
+                <button class="pack-tab" type="button" data-pack="paper">纸盒</button>
+                <button class="pack-tab" type="button" data-pack="blister">吸塑卡</button>
+              </div>
+            </section>
+          </section>
+        </section>
+
+        <nav class="steps" aria-label="体验步骤">
+          <button class="step active" type="button" data-step="0"><span>1</span>选结构</button>
+          <button class="step" type="button" data-step="1"><span>2</span>拆空间</button>
+          <button class="step" type="button" data-step="2"><span>3</span>看模型</button>
+          <button class="step" type="button" data-step="3"><span>4</span>档案卡</button>
+        </nav>
+
+        <footer class="actions">
+          <button class="primary-action" id="primaryAction" type="button">继续选择结构点</button>
+          <button class="secondary-action" id="secondaryAction" type="button">去主页看看</button>
+          <button class="tertiary-action" id="restartAction" type="button">再体验一次</button>
+        </footer>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
