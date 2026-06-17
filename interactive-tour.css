@@ -1,0 +1,420 @@
+.tour-page {
+  min-height: 100vh;
+  background: #171717;
+}
+
+.tour-shell {
+  min-height: calc(100vh - 72px);
+  background: #171717;
+}
+
+.tour-stage {
+  position: relative;
+  min-height: calc(100vh - 72px);
+  overflow: hidden;
+  background: #171717;
+  color: #fffaf0;
+  touch-action: none;
+  user-select: none;
+}
+
+.tour-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.tour-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.tour-top-hud,
+.tour-prompt,
+.tour-controls-hint,
+.tour-joystick,
+.tour-fullscreen,
+.tour-panel {
+  position: absolute;
+  z-index: 2;
+}
+
+.tour-top-hud {
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.tour-objective,
+.tour-status,
+.tour-prompt,
+.tour-controls-hint span {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(18, 17, 15, 0.58);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+}
+
+.tour-objective {
+  display: grid;
+  gap: 4px;
+  max-width: min(620px, 58vw);
+  border-radius: 8px;
+  padding: 10px 13px;
+}
+
+.tour-objective span,
+.tour-status span,
+.tour-prompt span,
+.tour-controls-hint span {
+  color: rgba(255, 250, 240, 0.74);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.tour-objective strong {
+  color: #fffaf0;
+  font-size: clamp(14px, 1.7vw, 18px);
+  line-height: 1.35;
+}
+
+.tour-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  border-radius: 999px;
+  padding: 7px 8px 7px 12px;
+}
+
+.tour-status button,
+.tour-fullscreen,
+.tour-panel button,
+.tour-actions a {
+  font: inherit;
+}
+
+.tour-status button,
+.tour-fullscreen,
+.tour-panel-close {
+  min-height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 250, 240, 0.1);
+  color: #fffaf0;
+  cursor: pointer;
+}
+
+.tour-status button {
+  padding: 0 12px;
+  pointer-events: auto;
+}
+
+.tour-prompt {
+  left: 50%;
+  bottom: 88px;
+  max-width: min(560px, calc(100vw - 32px));
+  transform: translateX(-50%);
+  border-radius: 999px;
+  padding: 9px 13px;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.tour-prompt.is-visible {
+  opacity: 1;
+}
+
+.tour-controls-hint {
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: min(720px, calc(100% - 32px));
+  pointer-events: none;
+}
+
+.tour-controls-hint span {
+  border-radius: 999px;
+  padding: 7px 10px;
+}
+
+.tour-fullscreen {
+  right: 18px;
+  bottom: 18px;
+  min-width: 76px;
+  padding: 0 14px;
+  background: rgba(18, 17, 15, 0.58);
+  backdrop-filter: blur(12px);
+  display: none;
+}
+
+.tour-panel {
+  top: 88px;
+  right: 16px;
+  width: min(390px, calc(100vw - 32px));
+  max-height: calc(100vh - 124px);
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  padding: 22px;
+  background: rgba(255, 252, 246, 0.94);
+  color: #171717;
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.34);
+  transform: translateX(0);
+  transition: transform 220ms ease, opacity 220ms ease;
+  user-select: text;
+}
+
+.tour-panel.is-collapsed {
+  transform: translateX(calc(100% + 24px));
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tour-panel-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  padding: 0;
+  border-color: rgba(23, 23, 23, 0.12);
+  background: #fff;
+  color: #171717;
+  font-size: 20px;
+}
+
+.tour-panel h1 {
+  margin: 8px 0 12px;
+  max-width: 320px;
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+
+.tour-panel p:not(.eyebrow) {
+  color: #5f5a52;
+  line-height: 1.72;
+}
+
+.tour-audience-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.tour-audience-grid button {
+  display: grid;
+  gap: 4px;
+  min-height: 66px;
+  border: 1px solid rgba(23, 23, 23, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+  color: #171717;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tour-audience-grid button.is-selected {
+  border-color: #8c3c24;
+  background: #fbf5eb;
+}
+
+.tour-audience-grid span {
+  color: #746d63;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tour-progress {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.tour-progress button {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 8px;
+  align-items: center;
+  min-height: 42px;
+  border: 1px solid rgba(23, 23, 23, 0.1);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #fff;
+  color: #171717;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tour-progress button span {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #efe7dc;
+  color: #171717;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.tour-progress button.is-active {
+  border-color: #8c3c24;
+}
+
+.tour-progress button.is-complete span {
+  background: #171717;
+  color: #fff;
+}
+
+.tour-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.tour-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  border: 1px solid #171717;
+  border-radius: 8px;
+  padding: 0 14px;
+  color: #171717;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.tour-actions a:first-child {
+  background: #171717;
+  color: #fff;
+}
+
+.tour-joystick {
+  display: none;
+  left: 26px;
+  bottom: 26px;
+  width: 112px;
+  height: 112px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(18, 17, 15, 0.34);
+  backdrop-filter: blur(8px);
+  touch-action: none;
+}
+
+.tour-joystick span {
+  position: absolute;
+  left: 36px;
+  top: 36px;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: rgba(255, 250, 240, 0.8);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+}
+
+body.tour-fullscreen-mode {
+  overflow: hidden;
+  background: #171717;
+}
+
+body.tour-fullscreen-mode .site-header {
+  display: none;
+}
+
+body.tour-fullscreen-mode .tour-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  min-height: 100dvh;
+}
+
+body.tour-fullscreen-mode .tour-panel {
+  top: max(70px, calc(env(safe-area-inset-top) + 58px));
+  max-height: calc(100dvh - 92px);
+}
+
+@media (max-width: 900px) {
+  .tour-stage,
+  .tour-shell {
+    min-height: calc(100dvh - 108px);
+  }
+
+  .tour-top-hud {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+  }
+
+  .tour-objective {
+    max-width: 62vw;
+    padding: 8px 10px;
+  }
+
+  .tour-status {
+    padding: 6px;
+  }
+
+  .tour-status span {
+    display: none;
+  }
+
+  .tour-panel {
+    top: auto;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    width: auto;
+    max-height: 58vh;
+    padding: 18px;
+  }
+
+  .tour-panel h1 {
+    font-size: 28px;
+  }
+
+  .tour-controls-hint {
+    display: none;
+  }
+
+  .tour-joystick,
+  .tour-fullscreen {
+    display: block;
+  }
+
+  .tour-prompt {
+    bottom: 148px;
+  }
+}
+
+@media (max-width: 560px) {
+  .tour-objective strong {
+    font-size: 13px;
+  }
+
+  .tour-objective span {
+    font-size: 11px;
+  }
+
+  .tour-panel {
+    max-height: 64vh;
+  }
+
+  .tour-audience-grid button {
+    min-height: 58px;
+  }
+}

@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -10,10 +10,12 @@
     />
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+    <link rel="icon" href="./favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png" />
     <meta name="theme-color" content="#171717" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="METRION" />
-    <link rel="stylesheet" href="./styles.css?v=20260611-sample-match-v1" />
+    <link rel="stylesheet" href="./styles.css?v=20260616-nav-groups-v1" />
   </head>
   <body>
     <header class="site-header">
@@ -25,23 +27,57 @@
         </span>
       </a>
       <nav class="nav" aria-label="主导航">
-        <a href="./agent.html">咨询助手</a>
-        <a href="#display">展示</a>
-        <a href="#video">视频</a>
-        <a href="#method">方法</a>
-        <a href="#cases">案例</a>
-        <a href="./sample-match.html">样本匹配</a>
-        <a href="./mobile-structure-lab/">互动体验</a>
-        <a href="./cases/sample-data.html">样本数据</a>
-        <a href="./education.html">教育</a>
-        <a href="./trust.html">可信</a>
-        <a href="./spatial-archive.html">数字档案</a>
-        <a href="./virtual-gallery.html">虚拟展厅</a>
-        <a href="./quest-gallery.html">VR美术馆</a>
-        <a href="./licensing.html">授权</a>
-        <a href="./services.html">价格</a>
-        <a href="./submit-check.html">申请</a>
-        <a href="#contact">合作</a>
+        <details class="nav-group">
+          <summary>展示</summary>
+          <div class="nav-menu">
+            <a href="#display">展示模块</a>
+            <a href="#video">视频</a>
+            <a href="./virtual-gallery.html">虚拟展厅</a>
+            <a href="./quest-gallery.html">VR美术馆</a>
+            <a href="./spatial-archive.html">数字档案</a>
+          </div>
+        </details>
+        <details class="nav-group">
+          <summary>体验</summary>
+          <div class="nav-menu">
+            <a href="./translation-workshop.html">转译工坊</a>
+            <a href="./interactive-tour.html">互动导览</a>
+            <a href="./artwork-fit.html">适配判断</a>
+            <a href="./agent.html">咨询助手</a>
+          </div>
+        </details>
+        <details class="nav-group">
+          <summary>案例</summary>
+          <div class="nav-menu">
+            <a href="#cases">案例总览</a>
+            <a href="./cases/sample-data.html">样本数据</a>
+            <a href="./cases/foreign-artist.html">艺术家案例</a>
+            <a href="./cases/youth-creator.html">青少年案例</a>
+          </div>
+        </details>
+        <details class="nav-group">
+          <summary>资料</summary>
+          <div class="nav-menu">
+            <a href="#method">方法</a>
+            <a href="./education.html">教育</a>
+            <a href="./trust.html">可信与FAQ</a>
+            <a href="./licensing.html">授权模式</a>
+          </div>
+        </details>
+        <details class="nav-group">
+          <summary>服务</summary>
+          <div class="nav-menu">
+            <a href="./services.html">服务与价格</a>
+            <a href="./submit-check.html">提交申请</a>
+          </div>
+        </details>
+        <details class="nav-group">
+          <summary>合作</summary>
+          <div class="nav-menu">
+            <a href="#audiences">合作路径</a>
+            <a href="#contact">联系合作</a>
+          </div>
+        </details>
       </nav>
     </header>
 

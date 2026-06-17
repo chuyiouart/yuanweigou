@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>转译工坊 | 元维构 METRION</title>
+    <meta
+      name="description"
+      content="元维构 METRION 转译工坊：一个轻量浏览器互动体验，帮助访客理解二维作品如何经过结构判断、拆层、输出形态选择，进入三维结构资产。"
+    />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+    <link rel="icon" href="./favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png" />
+    <meta name="theme-color" content="#171717" />
+    <link rel="stylesheet" href="./styles.css?v=20260611-sample-match-v1" />
+    <link rel="stylesheet" href="./translation-workshop.css?v=20260615-mobile-live-preview" />
+  </head>
+  <body class="workshop-page">
+    <header class="site-header">
+      <a class="brand" href="./index.html#top" aria-label="元维构首页">
+        <img src="./assets/logo.jpg" alt="" />
+        <span>
+          <strong>元维构</strong>
+          <small>METRION</small>
+        </span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a href="./index.html#cases">案例</a>
+        <a href="./translation-workshop.html">转译工坊</a>
+        <a href="./interactive-tour.html">互动导览</a>
+        <a href="./artwork-fit.html">适配判断</a>
+        <a href="./education.html">教育</a>
+        <a href="./submit-check.html">申请</a>
+      </nav>
+    </header>
+
+    <main class="workshop-game" aria-live="polite">
+      <section class="workshop-hud" aria-label="游戏进度">
+        <div>
+          <span id="workshopStep">步骤 1/4</span>
+          <strong id="workshopObjective">选择一件作品，开始结构转译</strong>
+        </div>
+        <button id="resetWorkshop" type="button">重开</button>
+      </section>
+
+      <section class="workshop-board" id="workshopBoard">
+        <aside class="sample-rail" aria-label="作品选择">
+          <button class="sample-card is-selected" type="button" data-sample="youth">
+            <img src="./assets/workshop-art-youth-v2.jpg" alt="GPT 生成的儿童作品样本" />
+            <span>儿童 / 青少年作品</span>
+          </button>
+          <button class="sample-card" type="button" data-sample="artist">
+            <img src="./assets/workshop-art-artist-v2.jpg" alt="GPT 生成的艺术家作品样本" />
+            <span>艺术家作品</span>
+          </button>
+          <button class="sample-card" type="button" data-sample="institution">
+            <img src="./assets/workshop-art-institution-v2.jpg" alt="GPT 生成的机构样本库作品" />
+            <span>机构样本</span>
+          </button>
+        </aside>
+
+        <section class="work-area">
+          <div class="stage-frame">
+            <div class="source-panel">
+              <p>原作输入</p>
+              <img id="sourceImage" src="./assets/workshop-art-youth-v2.jpg" alt="当前选择的原作" />
+            </div>
+            <div class="translation-preview" id="translationPreview" data-sample="youth">
+              <div class="space-grid" aria-hidden="true"></div>
+              <div class="assembled-layer layer-bg" data-slot="background" data-label="背景层">背景层</div>
+              <div class="assembled-layer layer-body" data-slot="subject" data-label="主体层">主体层</div>
+              <div class="assembled-layer layer-detail" data-slot="detail" data-label="装饰层">装饰层</div>
+              <div class="sample-object" id="sampleObject" data-label="完成样本" aria-hidden="true"></div>
+              <div class="celebration-layer" id="celebrationLayer" aria-hidden="true"></div>
+            </div>
+          </div>
+
+          <div class="decision-panel" id="decisionPanel">
+            <div class="decision-copy">
+              <p class="eyebrow" id="phaseKicker">Step 01</p>
+              <h1 id="phaseTitle">这件作品适合转译吗？</h1>
+              <p id="phaseText">先做三个结构判断。元维构不是直接把图片变模型，而是先判断主体、层次和使用边界。</p>
+            </div>
+
+            <div class="check-grid" id="checkGrid">
+              <button type="button" data-check="subject">
+                <strong>主体清晰</strong>
+                <span>画面里有可识别角色、物件或空间中心</span>
+              </button>
+              <button type="button" data-check="layers">
+                <strong>层次明显</strong>
+                <span>前景、主体、背景能被拆成空间关系</span>
+              </button>
+              <button type="button" data-check="rights">
+                <strong>用途可确认</strong>
+                <span>展示、宣传、销售和授权边界可以分开确认</span>
+              </button>
+            </div>
+
+            <div class="layer-game is-hidden" id="layerGame">
+              <div class="pieces" id="pieces" aria-label="可拖动结构层">
+                <button type="button" class="piece piece-bg" draggable="true" data-piece="background">背景层</button>
+                <button type="button" class="piece piece-body" draggable="true" data-piece="subject">主体层</button>
+                <button type="button" class="piece piece-detail" draggable="true" data-piece="detail">装饰层</button>
+              </div>
+              <div class="slots" aria-label="结构槽位">
+                <button type="button" class="slot" data-accept="background">放入背景层</button>
+                <button type="button" class="slot" data-accept="subject">放入主体层</button>
+                <button type="button" class="slot" data-accept="detail">放入装饰层</button>
+              </div>
+            </div>
+
+            <div class="output-grid is-hidden" id="outputGrid">
+              <button type="button" data-output="keepsake">
+                <strong>纪念样本</strong>
+                <span>适合家长、儿童画、礼赠和家庭展示</span>
+              </button>
+              <button type="button" data-output="edition">
+                <strong>收藏版</strong>
+                <span>适合艺术家、编号证书、限量销售</span>
+              </button>
+              <button type="button" data-output="exhibition">
+                <strong>展厅档案</strong>
+                <span>适合机构、美术馆、二维码和网页 3D</span>
+              </button>
+            </div>
+
+            <div class="result-card is-hidden" id="resultCard">
+              <p class="eyebrow">Result</p>
+              <h2 id="resultTitle">已生成一件结构转译样本</h2>
+              <p id="resultText"></p>
+              <div class="result-actions" id="resultActions"></div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="./translation-workshop.js?v=20260615-mobile-live-preview" defer></script>
+  </body>
+</html>

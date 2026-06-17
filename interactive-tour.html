@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>互动导览 | 元维构 METRION</title>
+    <meta
+      name="description"
+      content="元维构 METRION 浏览器 3D 互动导览：在一个轻量展厅中理解二维作品如何进入结构转译、实体样本、数字档案和授权合作。"
+    />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+    <link rel="icon" href="./favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png" />
+    <meta name="theme-color" content="#171717" />
+    <link rel="stylesheet" href="./styles.css?v=20260611-sample-match-v1" />
+    <link rel="stylesheet" href="./interactive-tour.css?v=20260614-mvp1" />
+  </head>
+  <body class="tour-page">
+    <header class="site-header">
+      <a class="brand" href="./index.html#top" aria-label="元维构首页">
+        <img src="./assets/logo.jpg" alt="" />
+        <span>
+          <strong>元维构</strong>
+          <small>METRION</small>
+        </span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a href="./index.html#cases">案例</a>
+        <a href="./artwork-fit.html">适配判断</a>
+        <a href="./interactive-tour.html">互动导览</a>
+        <a href="./virtual-gallery.html">虚拟展厅</a>
+        <a href="./licensing.html">授权</a>
+        <a href="./submit-check.html">申请</a>
+      </nav>
+    </header>
+
+    <main class="tour-shell" id="top">
+      <section class="tour-stage" aria-label="元维构 3D 互动导览">
+        <div id="tourCanvas" class="tour-canvas" aria-hidden="true"></div>
+
+        <div class="tour-top-hud">
+          <div class="tour-objective">
+            <span id="tourStepCount">任务 1/4</span>
+            <strong id="tourObjective">选择你的参观路径</strong>
+          </div>
+          <div class="tour-status">
+            <span id="tourAudience">访客路径</span>
+            <button id="tourReset" type="button">重置</button>
+          </div>
+        </div>
+
+        <div id="tourPrompt" class="tour-prompt">
+          <span>靠近发光站点并点击，查看这一段转译说明</span>
+        </div>
+
+        <div class="tour-controls-hint">
+          <span>WASD / 方向键移动</span>
+          <span>拖动视角</span>
+          <span>点击站点查看</span>
+        </div>
+
+        <div class="tour-joystick" id="tourJoystick" aria-hidden="true">
+          <span id="tourStick"></span>
+        </div>
+
+        <button class="tour-fullscreen" id="tourFullscreen" type="button">全屏</button>
+
+        <aside class="tour-panel" id="tourPanel" aria-live="polite">
+          <button class="tour-panel-close" id="tourPanelClose" type="button" aria-label="关闭说明">×</button>
+          <p class="eyebrow" id="tourPanelKicker">METRION</p>
+          <h1 id="tourPanelTitle">让一幅画，成为一个空间。</h1>
+          <p id="tourPanelBody">
+            选择你的身份路径，导览会把元维构的结构转译、实体样本、数字档案和授权合作拆成四个可理解的站点。
+          </p>
+          <div class="tour-audience-grid" id="tourAudienceGrid">
+            <button type="button" data-audience="artist">
+              <strong>艺术家</strong>
+              <span>作品延展、收藏版、授权合作</span>
+            </button>
+            <button type="button" data-audience="family">
+              <strong>家长</strong>
+              <span>儿童画纪念、包装、家庭展示</span>
+            </button>
+            <button type="button" data-audience="education">
+              <strong>教育机构</strong>
+              <span>课程成果、班级礼赠、成果展</span>
+            </button>
+            <button type="button" data-audience="museum">
+              <strong>美术馆/画廊</strong>
+              <span>网页展厅、展签二维码、数字档案</span>
+            </button>
+          </div>
+          <div class="tour-progress" id="tourProgress" aria-label="导览进度"></div>
+          <div class="tour-actions" id="tourActions"></div>
+        </aside>
+      </section>
+    </main>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+        }
+      }
+    </script>
+    <script type="module" src="./interactive-tour.js?v=20260614-mvp1"></script>
+  </body>
+</html>
