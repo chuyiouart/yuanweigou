@@ -1,4 +1,4 @@
-const METRION_CACHE = "metrion-pwa-20260612-logo-metrion-v1";
+const METRION_CACHE = "metrion-pwa-20260711-home-vnext-v1";
 
 const CORE_ASSETS = [
   "./",
@@ -11,6 +11,8 @@ const CORE_ASSETS = [
   "./ar-artwork-card-changmao-scan-card.html",
   "./styles.css",
   "./script.js",
+  "./homepage-vnext.css",
+  "./homepage-vnext.js",
   "./pwa.js",
   "./agent.js",
   "./sw.js",
