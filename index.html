@@ -24,6 +24,16 @@
     <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
     <link rel="icon" href="./favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png" />
+    <script>
+      (() => {
+        const mobile = window.matchMedia("(max-width: 720px)").matches;
+        const desktopRequested = new URLSearchParams(window.location.search).get("desktop") === "1";
+        if (!mobile || desktopRequested) return;
+        const target = new URL("./mobile-home.html", window.location.href);
+        target.hash = window.location.hash;
+        window.location.replace(target.href);
+      })();
+    </script>
     <link rel="preload" as="image" href="./assets/hero-display.jpg" fetchpriority="high" />
     <link rel="stylesheet" href="./homepage-vnext.css?v=20260711-live-v2" />
   </head>

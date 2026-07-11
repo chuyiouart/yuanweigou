@@ -1,4 +1,4 @@
-const METRION_CACHE = "metrion-pwa-20260711-navigation-v2";
+const METRION_CACHE = "metrion-pwa-20260711-mobile-v3";
 
 const CORE_ASSETS = [
   "./",
@@ -13,6 +13,9 @@ const CORE_ASSETS = [
   "./script.js",
   "./homepage-vnext.css",
   "./homepage-vnext.js",
+  "./mobile-home.html",
+  "./mobile-home.css",
+  "./mobile-home.js",
   "./unified-nav.js",
   "./pwa.js",
   "./agent.js",
@@ -24,6 +27,7 @@ const CORE_ASSETS = [
   "./assets/icon-192.png",
   "./assets/icon-512.png",
   "./assets/hero-display.jpg",
+  "./assets/spatial-archive/daydream-live-mobile.jpg",
   "./assets/display-close.jpg",
   "./assets/display-close-enhanced.jpg",
   "./assets/assistant-float-icon.png",

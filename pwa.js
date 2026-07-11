@@ -1,6 +1,6 @@
 ﻿const metrionScriptUrl = document.currentScript?.src || new URL("pwa.js", location.href).href;
 const metrionSiteRoot = new URL(".", metrionScriptUrl);
-const METRION_BUILD_VERSION = "20260711-navigation-v2";
+const METRION_BUILD_VERSION = "20260711-mobile-v3";
 
 if (!document.querySelector('script[data-metrion-unified-nav-loader]')) {
   const unifiedNavScript = document.createElement("script");
