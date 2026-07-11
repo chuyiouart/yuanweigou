@@ -1,6 +1,14 @@
 ﻿const metrionScriptUrl = document.currentScript?.src || new URL("pwa.js", location.href).href;
 const metrionSiteRoot = new URL(".", metrionScriptUrl);
-const METRION_BUILD_VERSION = "20260606-sample-case-agent-v1";
+const METRION_BUILD_VERSION = "20260711-navigation-v2";
+
+if (!document.querySelector('script[data-metrion-unified-nav-loader]')) {
+  const unifiedNavScript = document.createElement("script");
+  unifiedNavScript.src = new URL("unified-nav.js?v=20260711-nav-v1", metrionSiteRoot).href;
+  unifiedNavScript.defer = true;
+  unifiedNavScript.dataset.metrionUnifiedNavLoader = "";
+  document.head.appendChild(unifiedNavScript);
+}
 
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
   let metrionReloadingForUpdate = false;

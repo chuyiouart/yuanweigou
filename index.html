@@ -25,7 +25,7 @@
     <link rel="icon" href="./favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png" />
     <link rel="preload" as="image" href="./assets/hero-display.jpg" fetchpriority="high" />
-    <link rel="stylesheet" href="./homepage-vnext.css?v=20260711-live-v1" />
+    <link rel="stylesheet" href="./homepage-vnext.css?v=20260711-live-v2" />
   </head>
   <body>
     <header class="site-nav" data-site-nav>
@@ -56,7 +56,7 @@
       <section id="display" class="hero" aria-labelledby="hero-title">
         <div class="hero-media" aria-hidden="true">
           <video autoplay muted loop playsinline preload="metadata" poster="./assets/hero-display.jpg" data-hero-video>
-            <source src="./assets/demo-apple-meta-hero-bg.mp4" type="video/mp4" media="(min-width: 681px)" />
+            <source src="./assets/demo-apple-meta-hero-bg-540p-blur.mp4" type="video/mp4" media="(min-width: 681px)" />
           </video>
         </div>
 
@@ -71,7 +71,7 @@
           </p>
           <div class="hero-actions" aria-label="主要入口">
             <a class="button button-primary" href="./virtual-gallery.html">进入虚拟展厅</a>
-            <a class="button button-glass" href="./translation-workshop.html">体验结构转译</a>
+            <a class="button button-glass" href="./mobile-structure-lab/">体验克林姆特转译</a>
             <a class="button button-glass" href="./submit-check.html">提交作品</a>
           </div>
         </div>
@@ -145,6 +145,76 @@
         </div>
       </section>
 
+      <section id="interactive-works" class="experience-section" aria-labelledby="experience-title">
+        <header class="experience-heading">
+          <p>INTERACTIVE WORKS</p>
+          <h2 id="experience-title">
+            <span>不只说明项目，</span>
+            <span>直接进入作品的空间变化。</span>
+          </h2>
+          <p>两个可实际操作的案例，分别展示结构转译和 AR / MR 数字档案如何发生。</p>
+        </header>
+
+        <article class="experience-story klimt-story">
+          <div class="experience-copy">
+            <p class="experience-index">01 / KLIMT STRUCTURE LAB</p>
+            <h3>克林姆特的湖岸，如何从一幅画变成可触碰的模型。</h3>
+            <p class="experience-lead">
+              点选树群、房屋和湖面，依次完成空间拆层、三维模型查看，再切换四种产品包装。这是网站中最完整的一条互动转译路径。
+            </p>
+            <ol class="experience-route" aria-label="克林姆特互动步骤">
+              <li><span>01</span><strong>选结构</strong></li>
+              <li><span>02</span><strong>拆空间</strong></li>
+              <li><span>03</span><strong>看模型</strong></li>
+              <li><span>04</span><strong>选包装</strong></li>
+            </ol>
+            <a class="experience-link" href="./mobile-structure-lab/">进入克林姆特结构互动</a>
+          </div>
+          <div class="experience-media klimt-media">
+            <figure class="experience-main-image">
+              <img src="./mobile-structure-lab/assets/klimt/live.jpg" alt="克林姆特湖岸作品转译后的实体模型" loading="lazy" />
+              <figcaption>实体模型与原作说明</figcaption>
+            </figure>
+            <div class="experience-media-strip">
+              <figure>
+                <img src="./mobile-structure-lab/assets/klimt/original.jpg" alt="克林姆特 Litzlberg am Attersee 原作" loading="lazy" />
+                <figcaption>原作</figcaption>
+              </figure>
+              <figure>
+                <img src="./mobile-structure-lab/assets/klimt/pack-premium-box.png" alt="克林姆特转译作品高级硬盒包装" loading="lazy" />
+                <figcaption>包装版本</figcaption>
+              </figure>
+            </div>
+          </div>
+        </article>
+
+        <article class="experience-story mucha-story">
+          <div class="experience-copy">
+            <p class="experience-index">02 / MUCHA SPATIAL ARCHIVE</p>
+            <h3>穆夏《Daydream》，从数字档案进入现实空间。</h3>
+            <p class="experience-lead">
+              在同一页面查看原作资料、实体实拍和可旋转的三维模型；使用支持 AR 的手机，还可以把模型放进真实空间，为展签二维码和混合现实展览提供入口。
+            </p>
+            <ol class="experience-route" aria-label="穆夏数字档案步骤">
+              <li><span>01</span><strong>读档案</strong></li>
+              <li><span>02</span><strong>看 3D</strong></li>
+              <li><span>03</span><strong>进入 AR</strong></li>
+            </ol>
+            <a class="experience-link experience-link-gold" href="./spatial-archive.html#viewer">打开穆夏数字档案与 AR</a>
+          </div>
+          <div class="experience-media mucha-media">
+            <figure class="experience-main-image">
+              <img src="./assets/spatial-archive/daydream-live.png" alt="穆夏 Daydream 转译模型与说明牌实拍" loading="lazy" />
+              <figcaption>实体模型与档案记录</figcaption>
+            </figure>
+            <figure class="mucha-info-image">
+              <img src="./assets/spatial-archive/daydream-info.jpg" alt="穆夏 Daydream 原作信息与结构转译说明" loading="lazy" />
+              <figcaption>原作与转译说明</figcaption>
+            </figure>
+          </div>
+        </article>
+      </section>
+
       <section id="flagship-case" class="case-section" aria-labelledby="case-title">
         <div class="case-main">
           <div class="case-copy">
@@ -215,6 +285,7 @@
       </div>
     </footer>
 
-    <script src="./homepage-vnext.js?v=20260711-live-v1" defer></script>
+    <script src="./unified-nav.js?v=20260711-nav-v1" defer></script>
+    <script src="./homepage-vnext.js?v=20260711-live-v2" defer></script>
   </body>
 </html>

@@ -625,7 +625,20 @@
   }
 
   .source-panel {
-    display: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 84px;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(23, 23, 23, 0.12);
+  }
+
+  .source-panel img {
+    width: 84px;
+    height: 84px;
+    max-height: none;
+    border-width: 3px;
   }
 
   .decision-panel {

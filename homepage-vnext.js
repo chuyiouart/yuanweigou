@@ -109,7 +109,7 @@ if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
   window.addEventListener("load", () => {
     const basePath = location.hostname.endsWith("github.io") ? "/yuanweigou/" : "/";
     navigator.serviceWorker
-      .register(`${basePath}sw.js?v=20260711-home-vnext-v1`)
+      .register(`${basePath}sw.js?v=20260711-navigation-v2`)
       .then((registration) => registration.update().catch(() => {}))
       .catch(() => {});
   });

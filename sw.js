@@ -1,4 +1,4 @@
-const METRION_CACHE = "metrion-pwa-20260711-home-vnext-v1";
+const METRION_CACHE = "metrion-pwa-20260711-navigation-v2";
 
 const CORE_ASSETS = [
   "./",
@@ -13,6 +13,7 @@ const CORE_ASSETS = [
   "./script.js",
   "./homepage-vnext.css",
   "./homepage-vnext.js",
+  "./unified-nav.js",
   "./pwa.js",
   "./agent.js",
   "./sw.js",
