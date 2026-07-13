@@ -911,6 +911,11 @@ button:focus-visible {
     max-height: 31svh;
   }
 
+  .app-screen[data-phase="select"] .artwork-card.has-active {
+    height: 330px;
+    align-self: start;
+  }
+
   .layer-panel {
     min-height: 70px;
     grid-template-columns: 70px 1fr;
