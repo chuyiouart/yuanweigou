@@ -14,9 +14,12 @@ const resetTop = document.querySelector("#resetTop");
 const artworkCard = document.querySelector("#artworkCard");
 const layerPanel = document.querySelector("#layerPanel");
 const layerPreview = document.querySelector("#layerPreview");
+const layerDepth = document.querySelector("#layerDepth");
 const layerName = document.querySelector("#layerName");
 const layerTitle = document.querySelector("#layerTitle");
+const spaceStage = document.querySelector("#spaceStage");
 const spaceLayers = [...document.querySelectorAll(".space-layer")];
+const depthStops = [...document.querySelectorAll(".depth-axis span")];
 const modelStage = document.querySelector("#modelStage");
 const modelViewer = document.querySelector(".glb-viewer");
 const packPreview = document.querySelector("#packPreview");
@@ -27,13 +30,17 @@ const selected = new Set();
 const confirmedSpaces = new Set();
 let phase = 0;
 let activeLayer = null;
+let packRequest = 0;
+
+const layerOrder = ["trees", "house", "water"];
 
 const layers = {
   trees: {
     key: "树群背景",
     name: "树群",
+    depth: "后景",
     title: "后景围合层：把浓密树墙转成可站立的浮雕背景",
-    src: "./assets/klimt/layer-trees-generated.png",
+    src: "./assets/klimt/layer-trees-mobile.jpg",
     alt: "树群背景转译层",
     x: 0.73,
     y: 0.23,
@@ -41,8 +48,9 @@ const layers = {
   house: {
     key: "房屋主体",
     name: "房屋",
+    depth: "中景",
     title: "主体结构层：保留白墙、深屋顶和侧向平台关系",
-    src: "./assets/klimt/layer-house-generated.png",
+    src: "./assets/klimt/layer-house-mobile.jpg",
     alt: "房屋主体转译层",
     x: 0.53,
     y: 0.44,
@@ -50,8 +58,9 @@ const layers = {
   water: {
     key: "湖面承托",
     name: "湖面",
+    depth: "前景",
     title: "前景基座层：把水面反光转成低矮承托平台",
-    src: "./assets/klimt/layer-water-generated.png",
+    src: "./assets/klimt/layer-water-mobile.jpg",
     alt: "湖面承托转译层",
     x: 0.3,
     y: 0.82,
@@ -61,22 +70,22 @@ const layers = {
 const packs = {
   premium: {
     label: "高级硬盒",
-    src: "./assets/klimt/pack-premium-box.png",
+    src: "./assets/klimt/pack-premium-box-mobile.jpg",
     alt: "Klimt 转译作品高级硬盒包装",
   },
   header: {
     label: "挂袋包装",
-    src: "./assets/klimt/pack-header-bag.png",
+    src: "./assets/klimt/pack-header-bag-mobile.jpg",
     alt: "Klimt 转译作品挂袋包装",
   },
   paper: {
     label: "纸盒贴纸",
-    src: "./assets/klimt/pack-paper-box.png",
+    src: "./assets/klimt/pack-paper-box-mobile.jpg",
     alt: "Klimt 转译作品纸盒贴纸包装",
   },
   blister: {
     label: "吸塑卡",
-    src: "./assets/klimt/pack-blister-card.png",
+    src: "./assets/klimt/pack-blister-card-mobile.jpg",
     alt: "Klimt 转译作品吸塑卡包装",
   },
 };
@@ -120,6 +129,7 @@ function updateLayerPanel(layerId) {
   }
   layerPreview.src = layer.src;
   layerPreview.alt = layer.alt;
+  layerDepth.textContent = layer.depth;
   layerName.textContent = layer.name;
   layerTitle.textContent = layer.title;
   layerPanel.classList.add("visible");
@@ -134,18 +144,26 @@ function render() {
   primaryAction.textContent = copy.action;
 
   if (phase === 0) {
-    primaryAction.textContent = selected.size < 3 ? "继续选择结构点" : "进入空间拆解";
-    statusTitle.textContent = selected.size < 3 ? "点击树群、房屋、湖面" : "结构层已提取";
+    const remaining = layerOrder.filter((key) => !selected.has(key)).map((key) => layers[key].name);
+    primaryAction.disabled = selected.size < 3;
+    primaryAction.textContent = selected.size < 3 ? `已发现 ${selected.size}/3 层` : "进入空间拆解";
+    statusTitle.textContent = selected.size < 3 ? `待发现：${remaining.join("、")}` : "三层结构已从原画中提取";
   }
 
   if (phase === 1) {
-    primaryAction.textContent = confirmedSpaces.size < 3 ? "点选空间层" : "打开三维模型";
-    statusTitle.textContent = confirmedSpaces.size < 3 ? "点选 3 个空间层" : "空间层已确认";
+    primaryAction.disabled = confirmedSpaces.size < 3;
+    primaryAction.textContent = confirmedSpaces.size < 3 ? `已归位 ${confirmedSpaces.size}/3 层` : "打开三维模型";
+    statusTitle.textContent = confirmedSpaces.size < 3 ? "依次确认后景、中景、前景" : "空间深度已经建立";
+  }
+
+  if (phase > 1) {
+    primaryAction.disabled = false;
   }
 
   points.forEach((point) => {
     const layerId = point.dataset.layer;
     point.classList.toggle("selected", selected.has(layerId));
+    point.setAttribute("aria-pressed", String(selected.has(layerId)));
   });
 
   outlines.forEach((outline) => {
@@ -157,7 +175,15 @@ function render() {
   spaceLayers.forEach((item) => {
     const layerId = item.dataset.layer;
     item.classList.toggle("selected", confirmedSpaces.has(layerId));
+    item.setAttribute("aria-pressed", String(confirmedSpaces.has(layerId)));
   });
+
+  depthStops.forEach((stop, index) => {
+    stop.classList.toggle("done", confirmedSpaces.has(layerOrder[index]));
+  });
+
+  artworkCard.classList.toggle("has-active", phase === 0 && Boolean(activeLayer));
+  spaceStage.dataset.active = activeLayer || "";
 
   steps.forEach((step, index) => {
     step.classList.toggle("active", index === phase);
@@ -165,7 +191,10 @@ function render() {
   });
 
   if (activeLayer) updateLayerPanel(activeLayer);
+  if (!activeLayer) layerPanel.classList.remove("visible");
   restartAction.hidden = phase !== 3;
+
+  if (phase >= 1) ensureModelLoaded();
 }
 
 function nudgeStatus() {
@@ -217,7 +246,7 @@ function togglePoint(layerId) {
   } else {
     selected.add(layerId);
   }
-  activeLayer = layerId;
+  activeLayer = selected.has(layerId) ? layerId : [...selected].at(-1) || null;
   render();
 }
 
@@ -226,17 +255,10 @@ function keyFromArtworkPosition(event) {
   const x = (event.clientX - rect.left) / rect.width;
   const y = (event.clientY - rect.top) / rect.height;
 
-  let best = "trees";
-  let bestDistance = Number.POSITIVE_INFINITY;
-  Object.entries(layers).forEach(([layerId, layer]) => {
-    const distance = Math.hypot(x - layer.x, y - layer.y);
-    if (distance < bestDistance) {
-      best = layerId;
-      bestDistance = distance;
-    }
-  });
-
-  return bestDistance < 0.22 ? best : null;
+  if (y > 0.68) return "water";
+  if (x > 0.28 && x < 0.78 && y > 0.3 && y < 0.66) return "house";
+  if (y < 0.72) return "trees";
+  return null;
 }
 
 points.forEach((point) => {
@@ -262,7 +284,7 @@ spaceLayers.forEach((item) => {
     } else {
       confirmedSpaces.add(layerId);
     }
-    activeLayer = layerId;
+    activeLayer = confirmedSpaces.has(layerId) ? layerId : [...confirmedSpaces].at(-1) || null;
     render();
   });
 });
@@ -293,16 +315,55 @@ secondaryAction.addEventListener("click", () => {
 restartAction.addEventListener("click", reset);
 resetTop.addEventListener("click", reset);
 
-packTabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    const pack = packs[tab.dataset.pack];
-    if (!pack) return;
-    packPreview.src = pack.src;
-    packPreview.alt = pack.alt;
-    packLabel.textContent = pack.label;
-    packTabs.forEach((item) => item.classList.toggle("active", item === tab));
+const packCache = new Map();
+
+function warmImage(src) {
+  if (packCache.has(src)) return packCache.get(src);
+  const image = new Image();
+  image.decoding = "async";
+  image.src = src;
+  packCache.set(src, image);
+  return image;
+}
+
+function preloadPacks() {
+  Object.values(packs).forEach((pack) => {
+    const image = warmImage(pack.src);
+    if (image.decode) image.decode().catch(() => {});
   });
+}
+
+async function selectPack(tab) {
+  const pack = packs[tab.dataset.pack];
+  if (!pack) return;
+  const request = ++packRequest;
+  const cached = warmImage(pack.src);
+  packPreview.classList.add("switching");
+
+  if (!cached.complete) {
+    await new Promise((resolve) => {
+      cached.addEventListener("load", resolve, { once: true });
+      cached.addEventListener("error", resolve, { once: true });
+    });
+  }
+  if (request !== packRequest) return;
+
+  packPreview.src = pack.src;
+  packPreview.alt = pack.alt;
+  packLabel.textContent = pack.label;
+  packTabs.forEach((item) => item.classList.toggle("active", item === tab));
+  requestAnimationFrame(() => packPreview.classList.remove("switching"));
+}
+
+packTabs.forEach((tab) => {
+  tab.addEventListener("click", () => selectPack(tab));
 });
+
+function ensureModelLoaded() {
+  if (!modelViewer || modelViewer.getAttribute("src")) return;
+  const source = modelViewer.dataset.src;
+  if (source) modelViewer.setAttribute("src", source);
+}
 
 if (modelViewer) {
   modelViewer.addEventListener("error", () => {
@@ -311,6 +372,12 @@ if (modelViewer) {
   modelViewer.addEventListener("load", () => {
     modelStage.classList.remove("model-failed");
   });
+}
+
+if ("requestIdleCallback" in window) {
+  window.requestIdleCallback(preloadPacks, { timeout: 1400 });
+} else {
+  window.setTimeout(preloadPacks, 600);
 }
 
 render();
