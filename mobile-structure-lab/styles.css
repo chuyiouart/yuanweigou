@@ -916,6 +916,10 @@ button:focus-visible {
     align-self: start;
   }
 
+  .app-screen[data-phase="select"] .stage {
+    grid-template-rows: 330px 70px;
+  }
+
   .layer-panel {
     min-height: 70px;
     grid-template-columns: 70px 1fr;
