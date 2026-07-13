@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f7f3ec" />
     <title>METRION 元维构 · Klimt 结构转译实验室</title>
-    <link rel="stylesheet" href="./styles.css?v=20260713-structure-v4" />
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <link rel="stylesheet" href="./styles.css?v=20260713-model-fix-v1" />
+    <script type="module" src="./vendor/model-viewer-4.3.1.min.js"></script>
   </head>
   <body>
     <main class="phone-shell" aria-label="METRION 元维构结构转译实验室">
@@ -101,9 +101,14 @@
 
           <div class="model-stage" id="modelStage" aria-label="三维模型预览">
             <div class="model-hint">拖动旋转模型</div>
+            <div class="model-loader" id="modelLoader" role="status" aria-live="polite">
+              <span class="model-progress-track" aria-hidden="true"><i id="modelProgress"></i></span>
+              <strong id="modelLoadTitle">正在准备三维模型</strong>
+              <small id="modelLoadDetail">轻量模型载入中</small>
+            </div>
             <model-viewer
               class="glb-viewer"
-              data-src="./assets/klimt/klimt-vr-lite.glb"
+              data-src="./assets/klimt/klimt-vr-web.glb"
               camera-controls
               touch-action="pan-y"
               auto-rotate
@@ -115,10 +120,19 @@
               min-camera-orbit="auto auto 1.2m"
               max-camera-orbit="auto auto 3.2m"
               ar
-              loading="lazy"
+              loading="eager"
+              reveal="auto"
+              poster="./assets/klimt/live.jpg"
               alt="Litzlberg am Attersee 转译三维模型"
             ></model-viewer>
-            <img class="model-fallback" id="modelFallback" src="./assets/klimt/live.jpg" alt="Litzlberg am Attersee 转译实体实拍" />
+            <figure class="model-fallback" id="modelFallback">
+              <img src="./assets/klimt/live.jpg" alt="Litzlberg am Attersee 转译实体实拍" />
+              <figcaption>
+                <strong>实体预览已显示</strong>
+                <span id="modelFallbackText">三维视图暂时未能载入</span>
+                <button id="modelRetry" type="button">重试三维模型</button>
+              </figcaption>
+            </figure>
           </div>
 
           <section class="archive-card" id="archiveCard">
@@ -166,6 +180,6 @@
     </main>
 
     <script src="../unified-nav.js?v=20260711-nav-v1" defer></script>
-    <script src="./script.js?v=20260713-structure-v4"></script>
+    <script src="./script.js?v=20260713-model-fix-v1"></script>
   </body>
 </html>

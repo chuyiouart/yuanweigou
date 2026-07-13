@@ -22,6 +22,10 @@ const spaceLayers = [...document.querySelectorAll(".space-layer")];
 const depthStops = [...document.querySelectorAll(".depth-axis span")];
 const modelStage = document.querySelector("#modelStage");
 const modelViewer = document.querySelector(".glb-viewer");
+const modelLoadTitle = document.querySelector("#modelLoadTitle");
+const modelLoadDetail = document.querySelector("#modelLoadDetail");
+const modelFallbackText = document.querySelector("#modelFallbackText");
+const modelRetry = document.querySelector("#modelRetry");
 const packPreview = document.querySelector("#packPreview");
 const packLabel = document.querySelector("#packLabel");
 const packTabs = [...document.querySelectorAll(".pack-tab")];
@@ -31,6 +35,8 @@ const confirmedSpaces = new Set();
 let phase = 0;
 let activeLayer = null;
 let packRequest = 0;
+let modelState = "idle";
+let modelLoadTimeout = null;
 
 const layerOrder = ["trees", "house", "water"];
 
@@ -159,6 +165,8 @@ function render() {
   if (phase > 1) {
     primaryAction.disabled = false;
   }
+
+  if (phase === 2) updateModelStatus();
 
   points.forEach((point) => {
     const layerId = point.dataset.layer;
@@ -359,20 +367,108 @@ packTabs.forEach((tab) => {
   tab.addEventListener("click", () => selectPack(tab));
 });
 
-function ensureModelLoaded() {
-  if (!modelViewer || modelViewer.getAttribute("src")) return;
-  const source = modelViewer.dataset.src;
-  if (source) modelViewer.setAttribute("src", source);
+function updateModelStatus() {
+  if (phase !== 2) return;
+  if (modelState === "loading") {
+    statusTitle.textContent = "三维模型正在打开";
+  } else if (modelState === "ready") {
+    statusTitle.textContent = "拖动查看空间关系";
+  } else if (modelState === "failed") {
+    statusTitle.textContent = "已切换为实体预览";
+  }
+}
+
+function clearModelLoadTimeout() {
+  if (!modelLoadTimeout) return;
+  window.clearTimeout(modelLoadTimeout);
+  modelLoadTimeout = null;
+}
+
+function setModelLoading() {
+  modelState = "loading";
+  modelStage.classList.remove("model-ready", "model-failed");
+  modelStage.classList.add("model-loading");
+  modelStage.style.setProperty("--model-progress", "8%");
+  modelLoadTitle.textContent = "正在准备三维模型";
+  modelLoadDetail.textContent = "轻量模型载入中";
+  updateModelStatus();
+}
+
+function setModelReady() {
+  clearModelLoadTimeout();
+  modelState = "ready";
+  modelStage.classList.remove("model-loading", "model-failed");
+  modelStage.classList.add("model-ready");
+  modelStage.style.setProperty("--model-progress", "100%");
+  updateModelStatus();
+}
+
+function setModelFailed(message = "三维视图暂时未能载入") {
+  clearModelLoadTimeout();
+  modelState = "failed";
+  modelStage.classList.remove("model-loading", "model-ready");
+  modelStage.classList.add("model-failed");
+  modelFallbackText.textContent = message;
+  updateModelStatus();
+}
+
+function waitForModelViewer() {
+  if (window.customElements?.get("model-viewer")) return Promise.resolve();
+  if (!window.customElements) return Promise.reject(new Error("Custom elements unavailable"));
+
+  return Promise.race([
+    window.customElements.whenDefined("model-viewer"),
+    new Promise((_, reject) => {
+      window.setTimeout(() => reject(new Error("Model viewer unavailable")), 5000);
+    }),
+  ]);
+}
+
+async function ensureModelLoaded(force = false) {
+  if (!modelViewer || modelState === "ready") return;
+  if (modelState === "loading" && !force) return;
+
+  clearModelLoadTimeout();
+  setModelLoading();
+
+  try {
+    await waitForModelViewer();
+    const source = modelViewer.dataset.src;
+    if (!source) throw new Error("Model source unavailable");
+
+    if (force) modelViewer.removeAttribute("src");
+    if (force || !modelViewer.getAttribute("src")) modelViewer.setAttribute("src", source);
+
+    if (modelViewer.loaded) {
+      setModelReady();
+      return;
+    }
+
+    modelLoadTimeout = window.setTimeout(() => {
+      setModelFailed("载入时间较长，请重试三维模型");
+    }, 15000);
+  } catch (error) {
+    setModelFailed("当前浏览器未能启动三维视图");
+  }
 }
 
 if (modelViewer) {
   modelViewer.addEventListener("error", () => {
-    modelStage.classList.add("model-failed");
+    setModelFailed("模型载入失败，请重试");
   });
   modelViewer.addEventListener("load", () => {
-    modelStage.classList.remove("model-failed");
+    setModelReady();
+  });
+  modelViewer.addEventListener("progress", (event) => {
+    const progress = Math.max(0.08, Math.min(1, event.detail?.totalProgress || 0));
+    modelStage.style.setProperty("--model-progress", `${Math.round(progress * 100)}%`);
+    modelLoadDetail.textContent = progress < 0.9 ? `模型载入 ${Math.round(progress * 100)}%` : "正在准备材质";
   });
 }
+
+modelRetry?.addEventListener("click", () => {
+  ensureModelLoaded(true);
+});
 
 if ("requestIdleCallback" in window) {
   window.requestIdleCallback(preloadPacks, { timeout: 1400 });
