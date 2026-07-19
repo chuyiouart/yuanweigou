@@ -431,9 +431,12 @@ footer {
   transform: scale(1.025);
 }
 
-.asset-frame-original,
-.asset-frame-archive {
+.asset-frame-original {
   aspect-ratio: 0.9;
+}
+
+.asset-frame-archive {
+  aspect-ratio: 0.75;
 }
 
 .asset-frame-structure,
