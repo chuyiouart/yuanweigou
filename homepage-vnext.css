@@ -581,12 +581,15 @@ footer {
 }
 
 .experience-copy h3 {
+  min-width: 0;
   max-width: 660px;
   margin: 0;
   font-size: clamp(36px, 4vw, 62px);
   line-height: 1.12;
   font-weight: 590;
-  word-break: keep-all;
+  line-break: strict;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
 .experience-lead {
