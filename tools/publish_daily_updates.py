@@ -227,8 +227,8 @@ def validate_package(payload: dict, allowed_image_root: Path) -> list[dict]:
     approved_root = allowed_image_root.resolve(strict=True)
     if not approved_root.is_dir():
         raise ValueError("allowed image root must be a directory")
-    if payload.get("schema_version") != 1:
-        raise ValueError("schema_version must be 1")
+    if payload.get("schema_version") != 2:
+        raise ValueError("schema_version must be 2")
     package_date = clean_text(payload.get("date"), "date")
     dt.date.fromisoformat(package_date)
     entries = payload.get("entries")
@@ -278,6 +278,16 @@ def validate_package(payload: dict, allowed_image_root: Path) -> list[dict]:
         image_files = raw.get("image_files", [])
         if not isinstance(image_files, list):
             raise ValueError("image_files must be a list")
+        declared_image_hashes = raw.get("image_sha256", [])
+        if not isinstance(declared_image_hashes, list) or len(declared_image_hashes) != len(image_files):
+            raise ValueError("image_sha256 must contain one digest per image")
+        if any(
+            not isinstance(digest, str)
+            or len(digest) != 64
+            or any(character not in "0123456789abcdef" for character in digest)
+            for digest in declared_image_hashes
+        ):
+            raise ValueError("image_sha256 contains an invalid digest")
         if kind == "metrion" and len(image_files) != 4:
             raise ValueError("METRION website entry requires exactly four approved images")
         if kind == "metrion" and raw.get("images_approved") is not True:
@@ -286,7 +296,7 @@ def validate_package(payload: dict, allowed_image_root: Path) -> list[dict]:
         validated_images = []
         image_paths = set()
         image_hashes = set()
-        for image in image_files:
+        for image_index, image in enumerate(image_files):
             path = Path(image).resolve(strict=True)
             try:
                 path.relative_to(approved_root)
@@ -300,6 +310,8 @@ def validate_package(payload: dict, allowed_image_root: Path) -> list[dict]:
             if valid_image_dimensions(path, image_bytes) is None:
                 raise ValueError(f"invalid image content: {path}")
             digest = hashlib.sha256(image_bytes).hexdigest()
+            if digest != declared_image_hashes[image_index]:
+                raise ValueError(f"image digest does not match immutable package: {path}")
             if path in image_paths or digest in image_hashes:
                 raise ValueError("METRION images must be distinct")
             image_paths.add(path)
@@ -307,6 +319,7 @@ def validate_package(payload: dict, allowed_image_root: Path) -> list[dict]:
             approved_images.append(str(path))
             validated_images.append({"path": str(path), "sha256": digest, "bytes": image_bytes})
         item["image_files"] = approved_images
+        item["image_sha256"] = list(declared_image_hashes)
         item["_validated_images"] = validated_images
         validated.append(item)
     return validated
@@ -482,9 +495,17 @@ def publish(package_path: Path, site_root: Path, allowed_image_root: Path, lock_
             atomic_write(target, article_html(entry, image_urls))
             written.append(str(target.relative_to(site_root)).replace("\\", "/"))
         update_index(site_root, entries)
+        public_paths = ["daily-updates/index.json", *written, *written_assets]
+        files = [
+            {
+                "path": relative_name,
+                "sha256": hashlib.sha256((site_root / relative_name).read_bytes()).hexdigest(),
+            }
+            for relative_name in public_paths
+        ]
         state = {
             "date": payload["date"], "status": "published_locally", "entries": written,
-            "assets": written_assets,
+            "assets": written_assets, "files": files,
             "package_sha256": hashlib.sha256(package_bytes).hexdigest(),
         }
         atomic_write(site_root / ".daily-sync-state" / f'{payload["date"]}.json', json.dumps(state, ensure_ascii=False, indent=2) + "\n")

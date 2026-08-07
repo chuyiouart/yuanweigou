@@ -48,6 +48,7 @@ class DailyPublisherTests(unittest.TestCase):
 
     def package(self, kind="metrion", status="delivered_verified"):
         images = self.images if kind == "metrion" else []
+        image_hashes = [hashlib.sha256(Path(image).read_bytes()).hexdigest() for image in images]
         entry = {
             "date": "2026-08-06",
             "kind": kind,
@@ -59,12 +60,13 @@ class DailyPublisherTests(unittest.TestCase):
             "website_eligible": True,
             "source_status": status,
             "image_files": images,
+            "image_sha256": image_hashes,
         }
         if kind == "metrion":
             entry["images_approved"] = True
         if kind == "art-briefing":
             entry["briefing_period"] = "morning"
-        return {"schema_version": 1, "date": "2026-08-06", "entries": [entry]}
+        return {"schema_version": 2, "date": "2026-08-06", "entries": [entry]}
 
     def write_package(self, payload):
         path = self.root / "package.json"
@@ -119,6 +121,7 @@ class DailyPublisherTests(unittest.TestCase):
     def test_rejects_metrion_without_four_images(self):
         payload = self.package()
         payload["entries"][0]["image_files"] = self.images[:3]
+        payload["entries"][0]["image_sha256"] = payload["entries"][0]["image_sha256"][:3]
         with self.assertRaisesRegex(ValueError, "exactly four"):
             self.publish(payload)
 
@@ -278,9 +281,16 @@ class DailyPublisherTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "invalid image content"):
             self.publish(payload)
 
+    def test_rejects_image_digest_not_bound_to_immutable_package(self):
+        payload = self.package()
+        payload["entries"][0]["image_sha256"][0] = "0" * 64
+        with self.assertRaisesRegex(ValueError, "image digest does not match immutable package"):
+            self.publish(payload)
+
     def test_rejects_duplicate_image_path_or_content(self):
         payload = self.package()
         payload["entries"][0]["image_files"][1] = self.images[0]
+        payload["entries"][0]["image_sha256"][1] = payload["entries"][0]["image_sha256"][0]
         with self.assertRaisesRegex(ValueError, "images must be distinct"):
             self.publish(payload)
 
@@ -288,6 +298,7 @@ class DailyPublisherTests(unittest.TestCase):
         duplicate.write_bytes(Path(self.images[0]).read_bytes())
         payload = self.package()
         payload["entries"][0]["image_files"][1] = str(duplicate)
+        payload["entries"][0]["image_sha256"][1] = hashlib.sha256(duplicate.read_bytes()).hexdigest()
         with self.assertRaisesRegex(ValueError, "images must be distinct"):
             self.publish(payload)
 
