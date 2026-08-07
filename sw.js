@@ -1,4 +1,4 @@
-const METRION_CACHE = "metrion-pwa-20260711-mobile-v3";
+const METRION_CACHE = "metrion-pwa-20260807-daily-v1";
 
 const CORE_ASSETS = [
   "./",

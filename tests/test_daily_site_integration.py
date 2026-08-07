@@ -43,6 +43,10 @@ class DailySiteIntegrationTests(unittest.TestCase):
             self.assertIn("每日新构", content)
         self.assertIn('data-mobile-dock="daily-updates"', mobile)
 
+    def test_service_worker_cache_version_covers_daily_release(self):
+        service_worker = (ROOT / "sw.js").read_text(encoding="utf-8")
+        self.assertIn('metrion-pwa-20260807-daily-v1', service_worker)
+
     def test_json_contract_has_latest_of_both_types_and_excludes_evening(self):
         payload = json.loads((ROOT / "daily-updates" / "index.json").read_text(encoding="utf-8"))
         kinds = {entry["kind"] for entry in payload["entries"]}
