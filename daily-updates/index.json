@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-08-07T00:22:57+08:00",
+  "content_through": "2026-07-23",
+  "scope": {
+    "included": [
+      "metrion",
+      "art-briefing"
+    ],
+    "excluded": [
+      "ai-evening"
+    ]
+  },
+  "entries": [
+    {
+      "date": "2026-07-23",
+      "kind": "art-briefing",
+      "title": "机构治理、文化政治与AI档案同时进入前台",
+      "summary": "Tate换帅、威尼斯双年展撤资、卢浮宫调整安全，以及生成式AI、AR与XR转向文化档案解释。",
+      "url": "daily-updates/2026-07-23-visual-art-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-07-17",
+      "kind": "metrion",
+      "title": "你的作品，适合从哪一步进入元维构？",
+      "summary": "艺术家、教育机构与展览空间，可以从实体转译、成果方案或数字延展选择合适的合作入口。",
+      "url": "daily-updates/2026-07-17-metrion-collaboration-entry.html",
+      "source_status": "delivered_verified"
+    }
+  ]
+}

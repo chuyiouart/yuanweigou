@@ -73,6 +73,7 @@ self.addEventListener("fetch", (event) => {
     url.pathname.endsWith(".html") ||
     url.pathname.endsWith(".css") ||
     url.pathname.endsWith(".js") ||
+    url.pathname.endsWith(".json") ||
     url.pathname.endsWith(".webmanifest");
   const isVirtualGallery =
     url.pathname.endsWith("/virtual-gallery.html") ||

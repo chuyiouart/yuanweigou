@@ -15,6 +15,7 @@
     <link rel="icon" href="./favicon.ico" sizes="any" />
     <link rel="preload" as="image" href="./assets/hero-display.jpg" fetchpriority="high" />
     <link rel="stylesheet" href="./mobile-home.css?v=20260711-mobile-v4" />
+    <link rel="stylesheet" href="./daily-updates.css?v=20260807-daily-v1" />
   </head>
   <body>
     <main id="top" class="mobile-home">
@@ -157,8 +158,32 @@
         </div>
       </section>
 
+      <section id="daily-updates" class="daily-home-section" aria-labelledby="mobile-daily-title">
+        <div class="daily-home-inner">
+          <header class="daily-home-heading">
+            <div><p class="daily-home-kicker">04 / DAILY UPDATE</p><h2 id="mobile-daily-title">每日新构</h2></div>
+            <p class="daily-home-intro">元维构项目日更与视觉艺术早报，持续归档，随时回看。</p>
+          </header>
+          <div class="daily-latest-grid" data-daily-latest aria-live="polite">
+            <article class="daily-card" data-kind="metrion">
+              <div class="daily-card-meta"><p class="daily-card-kind">元维构项目日更</p><time datetime="2026-07-17">2026年7月17日</time></div>
+              <h3>你的作品，适合从哪一步进入元维构？</h3>
+              <p class="daily-card-summary">从实体转译、教育成果或数字延展，判断适合当前作品的合作入口。</p>
+              <a class="daily-card-link" href="./daily-updates/2026-07-17-metrion-collaboration-entry.html">阅读全文 →</a>
+            </article>
+            <article class="daily-card" data-kind="art-briefing">
+              <div class="daily-card-meta"><p class="daily-card-kind">视觉艺术早报</p><time datetime="2026-07-23">2026年7月23日</time></div>
+              <h3>机构治理、文化政治与AI档案同时进入前台</h3>
+              <p class="daily-card-summary">筛选今日值得创作者与艺术教育者关注的全球视觉艺术变化。</p>
+              <a class="daily-card-link" href="./daily-updates/2026-07-23-visual-art-briefing.html">阅读全文 →</a>
+            </article>
+          </div>
+          <div class="daily-home-footer"><p data-daily-updated>持续归档每日内容</p><a class="daily-archive-link" href="./daily-updates/">查看全部归档 →</a></div>
+        </div>
+      </section>
+
       <section class="mobile-service-band" aria-labelledby="mobile-service-title">
-        <p>04 / NEXT STEP</p>
+        <p>05 / NEXT STEP</p>
         <h2 id="mobile-service-title">从一件作品开始。</h2>
         <p>先提交作品和用途，我们会判断它是否适合进入结构转译、实体制作或数字档案流程。</p>
         <a class="mobile-button mobile-button-gold" href="./submit-check.html">提交作品判断</a>
@@ -179,11 +204,13 @@
     <nav class="mobile-dock" aria-label="移动端快速导航">
       <a class="is-current" href="#top" data-mobile-dock="top"><span></span>首页</a>
       <a href="#interactive-works" data-mobile-dock="interactive-works"><span></span>体验</a>
+      <a href="#daily-updates" data-mobile-dock="daily-updates"><span></span>日更</a>
       <a href="./spatial-archive.html#viewer"><span></span>AR</a>
       <a href="./submit-check.html"><span></span>提交</a>
     </nav>
 
     <script src="./unified-nav.js?v=20260711-nav-v1" defer></script>
     <script src="./mobile-home.js?v=20260711-mobile-v4" defer></script>
+    <script src="./daily-updates.js?v=20260807-daily-v1" defer></script>
   </body>
 </html>

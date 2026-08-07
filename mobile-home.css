@@ -557,7 +557,7 @@ img {
   width: min(calc(100% - 16px), 504px);
   min-height: var(--dock-height);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   padding: 6px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 7px;
