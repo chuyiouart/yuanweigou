@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-07T00:22:57+08:00",
-  "content_through": "2026-07-23",
+  "updated_at": "2026-08-07T13:45:54+08:00",
+  "content_through": "2026-08-07",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,94 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-08-07",
+      "kind": "art-briefing",
+      "title": "扩容与脆弱性：网络艺术入史，文化遗产承压",
+      "summary": "网络艺术进入博物馆史，跨国借展与亚洲双年展扩张，遗产损毁、公共政策和AI规则同时承压。",
+      "url": "daily-updates/2026-08-07-visual-art-morning-briefing.html",
+      "source_status": "formal_archived"
+    },
+    {
+      "date": "2026-08-06",
+      "kind": "metrion",
+      "title": "三枚三角形绕着一点站起来",
+      "summary": "从偏心轴点、三角形朝向与三段离墙层距，观察一张几何版画如何进入壁挂结构。",
+      "url": "daily-updates/2026-08-06-metrion-triangles-around-axis.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-06",
+      "kind": "art-briefing",
+      "title": "所有权、归还与全球艺术基础设施正在重组",
+      "summary": "从阿布扎比新馆任命、跨馆借展与祖先遗存归还，到AI来源追踪和艺术市场监管。",
+      "url": "daily-updates/2026-08-06-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-05",
+      "kind": "metrion",
+      "title": "洋红布的三道折痕站起来",
+      "summary": "沿一条长脊、一条短谷和一道竖脊，把洋红布的光线变化转成可调整折面。",
+      "url": "daily-updates/2026-08-05-metrion-magenta-cloth-three-folds.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-05",
+      "kind": "art-briefing",
+      "title": "扩张叙事与基础制度同时承压",
+      "summary": "新馆、双年展与跨媒介项目持续扩张，公共预算、免费入场、劳动和档案归属把机构拉回现实。",
+      "url": "daily-updates/2026-08-05-visual-art-morning-briefing.html",
+      "source_status": "formal_archived"
+    },
+    {
+      "date": "2026-08-04",
+      "kind": "metrion",
+      "title": "儿童画里的四格，站起来了",
+      "summary": "从偏心格线、四个不等色域和右下开放格，建立一套可调的全尺度结构样本。",
+      "url": "daily-updates/2026-08-04-metrion-four-color-fields-open-grid.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-04",
+      "kind": "art-briefing",
+      "title": "艺术机构的制度外壳正在被检验",
+      "summary": "财政、劳动、场馆适应与画廊网点重组，同时地方经验、参与式方法和跨学科教学进入国际平台。",
+      "url": "daily-updates/2026-08-04-visual-art-morning-briefing.html",
+      "source_status": "formal_archived"
+    },
+    {
+      "date": "2026-08-03",
+      "kind": "art-briefing",
+      "title": "实体与数字基础设施同步扩张",
+      "summary": "新馆、艺博会和数字艺术档案同步扩张，劳动、平台审查、文化归属与公共健康成为制度议题。",
+      "url": "daily-updates/2026-08-03-visual-art-morning-briefing.html",
+      "source_status": "formal_archived"
+    },
+    {
+      "date": "2026-08-02",
+      "kind": "art-briefing",
+      "title": "基础设施扩张与技术可信度",
+      "summary": "新馆、博物馆恢复与文化主权持续推进，生成式视觉工具开始直面责任、标识和验证问题。",
+      "url": "daily-updates/2026-08-02-visual-art-morning-briefing.html",
+      "source_status": "formal_archived"
+    },
+    {
+      "date": "2026-08-01",
+      "kind": "metrion",
+      "title": "燕尾的空隙怎样站起来",
+      "summary": "从燕尾V形负空间、前后折线梁与穿透开口，观察一张黑白木刻稿如何进入空间。",
+      "url": "daily-updates/2026-08-01-metrion-swallow-tail-negative-space.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-01",
+      "kind": "art-briefing",
+      "title": "扩容、经典重写与AI创作规则",
+      "summary": "大型机构扩容与经典叙事重写并行，AI署名、竞赛规则和文化机构自主性同时受到检验。",
+      "url": "daily-updates/2026-08-01-visual-art-morning-briefing.html",
+      "source_status": "formal_archived"
+    },
     {
       "date": "2026-07-23",
       "kind": "art-briefing",

@@ -26,6 +26,10 @@
   const shadow = host.attachShadow({ mode: "open" });
   const groups = [
     {
+      label: "每日新构",
+      href: "index.html#daily-updates",
+    },
+    {
       label: "体验",
       items: [
         ["mobile-structure-lab/", "克林姆特结构互动", "分层、模型与包装"],
@@ -65,7 +69,9 @@
 
   const groupMarkup = groups
     .map(
-      (group) => `
+      (group) => group.href
+        ? `<a class="nav-direct" href="${toUrl(group.href)}">${group.label}</a>`
+        : `
         <details class="nav-group">
           <summary>${group.label}<span aria-hidden="true"></span></summary>
           <div class="submenu">
@@ -147,6 +153,7 @@
 
       .groups { display: flex; align-items: center; justify-content: center; gap: clamp(18px, 2.4vw, 38px); }
       .nav-group { position: relative; }
+      .nav-direct,
       .nav-group summary {
         min-height: 44px;
         display: inline-flex;
@@ -252,6 +259,13 @@
           border-bottom: 1px solid rgba(255,255,255,.16);
         }
         .groups.is-open { display: grid; gap: 0; }
+        .nav-direct {
+          min-height: 52px;
+          display: flex;
+          align-items: center;
+          border-bottom: 1px solid rgba(255,255,255,.1);
+          font-size: 14px;
+        }
         .nav-group { border-bottom: 1px solid rgba(255,255,255,.1); }
         .nav-group summary { width: 100%; min-height: 52px; justify-content: space-between; font-size: 14px; }
         .submenu {

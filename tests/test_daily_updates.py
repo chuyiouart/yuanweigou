@@ -101,6 +101,23 @@ class DailyPublisherTests(unittest.TestCase):
         self.assertIn("<h3>新闻标题</h3>", page)
         self.assertIn("<li>保持为列表</li>", page)
 
+    def test_art_brief_renders_safe_external_markdown_links(self):
+        payload = self.package("art-briefing", "formal_archived")
+        payload["entries"][0]["body_markdown"] = (
+            "## 来源\n\n"
+            "- [The Met](https://www.metmuseum.org/art/collection/search/123)\n"
+            "- [危险链接](javascript:alert(1))"
+        )
+        state = self.publish(payload)
+        page = (self.root / state["entries"][0]).read_text(encoding="utf-8")
+        self.assertIn(
+            '<a href="https://www.metmuseum.org/art/collection/search/123" rel="external nofollow noopener">The Met</a>',
+            page,
+        )
+        self.assertNotIn('href="javascript:', page)
+        self.assertIn("[危险链接](javascript:alert(1))", page)
+        self.assertNotIn("合作方向场景示意", page)
+
     def test_rejects_evening_brief(self):
         payload = self.package("art-briefing", "formal_archived")
         payload["entries"][0]["kind"] = "ai-evening"

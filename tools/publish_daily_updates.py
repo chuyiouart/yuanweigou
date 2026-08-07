@@ -32,6 +32,7 @@ FORBIDDEN_PATH_PATTERNS = (
     re.compile(r"(?i)appdata[\\/]local[\\/]hermes(?:[\\/]|\b)"),
 )
 KIND_LABEL = {"metrion": "元维构项目日更", "art-briefing": "视觉艺术早报"}
+MARKDOWN_LINK = re.compile(r"\[([^\]\r\n]+)\]\((https?://[^\s<>\"']+?)\)")
 
 
 def valid_image_dimensions(path: Path, data: bytes | None = None) -> tuple[int, int] | None:
@@ -325,6 +326,21 @@ def validate_package(payload: dict, allowed_image_root: Path) -> list[dict]:
     return validated
 
 
+def inline_markdown_to_html(value: str) -> str:
+    output = []
+    cursor = 0
+    for match in MARKDOWN_LINK.finditer(value):
+        output.append(html.escape(value[cursor:match.start()]))
+        label, href = match.groups()
+        output.append(
+            f'<a href="{html.escape(href, quote=True)}" rel="external nofollow noopener">'
+            f'{html.escape(label)}</a>'
+        )
+        cursor = match.end()
+    output.append(html.escape(value[cursor:]))
+    return "".join(output)
+
+
 def markdown_to_html(markdown: str) -> str:
     lines = markdown.replace("\r\n", "\n").split("\n")
     output: list[str] = []
@@ -334,7 +350,7 @@ def markdown_to_html(markdown: str) -> str:
 
     def flush_paragraph() -> None:
         if paragraph:
-            output.append(f"<p>{html.escape(' '.join(paragraph))}</p>")
+            output.append(f"<p>{inline_markdown_to_html(' '.join(paragraph))}</p>")
             paragraph.clear()
 
     def close_list() -> None:
@@ -349,27 +365,27 @@ def markdown_to_html(markdown: str) -> str:
             flush_paragraph(); close_list(); continue
         if line in {"今日一句话总览", "信息来源与检索范围"} or re.match(r"^[一二三四五六七八九十]+、", line):
             flush_paragraph(); close_list()
-            output.append(f"<h2>{html.escape(line)}</h2>")
+            output.append(f"<h2>{inline_markdown_to_html(line)}</h2>")
             numbered_headings = any(keyword in line for keyword in ("必看头条", "最新展览", "机构动态", "市场与政策", "技术、知识"))
             continue
         heading = re.match(r"^(#{2,3})\s+(.+)$", line)
         if heading:
             flush_paragraph(); close_list()
             level = len(heading.group(1))
-            output.append(f"<h{level}>{html.escape(heading.group(2))}</h{level}>")
+            output.append(f"<h{level}>{inline_markdown_to_html(heading.group(2))}</h{level}>")
             continue
         bullet = re.match(r"^[-*]\s+(.+)$", line)
         numbered = re.match(r"^\d+[.)]\s+(.+)$", line)
         if numbered and numbered_headings:
             flush_paragraph(); close_list()
-            output.append(f"<h3>{html.escape(numbered.group(1))}</h3>")
+            output.append(f"<h3>{inline_markdown_to_html(numbered.group(1))}</h3>")
             continue
         if bullet or numbered:
             flush_paragraph()
             wanted = "ul" if bullet else "ol"
             if list_type != wanted:
                 close_list(); output.append(f"<{wanted}>"); list_type = wanted
-            output.append(f"<li>{html.escape((bullet or numbered).group(1))}</li>")
+            output.append(f"<li>{inline_markdown_to_html((bullet or numbered).group(1))}</li>")
             continue
         close_list()
         paragraph.append(line)
@@ -399,8 +415,9 @@ def article_html(entry: dict, image_urls: Iterable[str]) -> str:
     gallery = ""
     urls = list(image_urls)
     if urls:
+        caption = "合作方向场景示意" if entry["kind"] == "metrion" else "开放馆藏参考图"
         figures = "".join(
-            f'<figure><img src="{html.escape(url)}" alt="{html.escape(entry["title"])} 配图{index}" loading="lazy" /><figcaption>合作方向场景示意 {index}</figcaption></figure>'
+            f'<figure><img src="{html.escape(url)}" alt="{html.escape(entry["title"])} 配图{index}" loading="lazy" /><figcaption>{caption} {index}</figcaption></figure>'
             for index, url in enumerate(urls, 1)
         )
         gallery = f'<div class="daily-article-gallery" aria-label="文章配图">{figures}</div>'

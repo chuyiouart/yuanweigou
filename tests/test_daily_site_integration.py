@@ -33,6 +33,20 @@ def local_target(page: Path, value: str):
 
 
 class DailySiteIntegrationTests(unittest.TestCase):
+    def test_daily_section_is_immediately_after_hero_and_first_in_unified_nav(self):
+        desktop = (ROOT / "index.html").read_text(encoding="utf-8")
+        hero_end = desktop.index("</section>", desktop.index('id="display"'))
+        daily_start = desktop.index('<section id="daily-updates"')
+        translation_start = desktop.index('<section id="translation"')
+        self.assertLess(hero_end, daily_start)
+        self.assertLess(daily_start, translation_start)
+
+        unified_nav = (ROOT / "unified-nav.js").read_text(encoding="utf-8")
+        daily_link = unified_nav.index('label: "每日新构"')
+        experience_group = unified_nav.index('label: "体验"')
+        self.assertLess(daily_link, experience_group)
+        self.assertIn('href: "index.html#daily-updates"', unified_nav)
+
     def test_homepages_expose_daily_section_and_scripts(self):
         desktop = (ROOT / "index.html").read_text(encoding="utf-8")
         mobile = (ROOT / "mobile-home.html").read_text(encoding="utf-8")
