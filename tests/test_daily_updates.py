@@ -1,3 +1,4 @@
+import hashlib
 import importlib.util
 import json
 import struct
@@ -6,6 +7,7 @@ import sys
 import tempfile
 import unittest
 import zlib
+from unittest import mock
 from pathlib import Path
 
 MODULE_PATH = Path(__file__).resolve().parents[1] / "tools" / "publish_daily_updates.py"
@@ -132,12 +134,49 @@ class DailyPublisherTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "non-public operational text"):
             self.publish(payload)
 
-    def test_rejects_windows_internal_filesystem_path(self):
-        for internal_path in (r"C:\private\secret.txt", "/root/private/secret.txt", "/home/user/private.txt"):
+    def test_rejects_absolute_filesystem_paths_without_boundary_assumptions(self):
+        internal_paths = (
+            r"prefix=C:\private\secret.txt",
+            "unix=/root/secret",
+            "/home/user/private.txt",
+            "/Users/alice/.ssh/id_rsa",
+            "/tmp/secret",
+            r"\server\share\secret.jpg",
+            r"\server/share/secret.jpg",
+            r"\\server\share\secret.jpg",
+            "//server/share/secret.jpg",
+            r"\\\\server\\share\\secret.jpg",
+            "/workspace/secret",
+            "/data/secret",
+            "/Applications/Secret.app",
+            "/Library/Secrets/file",
+            "/System/Library/key",
+            "/media/user/secret",
+            "/boot/secret",
+            "/c/Users/saint/secret",
+        )
+        for internal_path in internal_paths:
             payload = self.package()
             payload["entries"][0]["body_markdown"] = f"内部文件 {internal_path}"
             with self.subTest(path=internal_path), self.assertRaisesRegex(ValueError, "non-public filesystem path"):
                 self.publish(payload)
+
+    def test_allows_public_urls_while_scanning_local_paths(self):
+        public_urls = (
+            "https://example.com/news",
+            "https://example.com/data/story",
+            "http://example.com/Users/guide",
+            "ftp://example.com/library/file.txt",
+        )
+        for public_url in public_urls:
+            with self.subTest(url=public_url):
+                text = f"公开来源 {public_url}"
+                self.assertEqual(publisher.clean_text(text, "body"), text)
+        for prose in ("Use root/home labels in prose", "The data/library collection is public"):
+            with self.subTest(prose=prose):
+                self.assertEqual(publisher.clean_text(prose, "body"), prose)
+        with self.assertRaisesRegex(ValueError, "non-public filesystem path"):
+            publisher.clean_text("'http://example.com/Users/guide'D:/data/secret", "body")
 
     def test_rejects_image_outside_approved_root(self):
         outside = self.root / "outside.png"
@@ -260,6 +299,25 @@ class DailyPublisherTests(unittest.TestCase):
         urls = publisher.copy_images(self.root, entries[0])
         target = self.root / urls[0].removeprefix("../")
         self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), expected)
+
+    def test_publish_uses_one_immutable_package_byte_snapshot(self):
+        package = self.write_package(self.package())
+        original_bytes = package.read_bytes()
+        original_validate = publisher.validate_package
+
+        def validate_then_mutate(payload, approved_root):
+            entries = original_validate(payload, approved_root)
+            mutated = json.loads(original_bytes.decode("utf-8"))
+            mutated["entries"][0]["title"] = "被竞态替换的标题"
+            package.write_text(json.dumps(mutated, ensure_ascii=False), encoding="utf-8")
+            return entries
+
+        with mock.patch.object(publisher, "validate_package", side_effect=validate_then_mutate):
+            state = publisher.publish(package, self.root, self.approved)
+        self.assertEqual(state["package_sha256"], hashlib.sha256(original_bytes).hexdigest())
+        article = (self.root / state["entries"][0]).read_text(encoding="utf-8")
+        self.assertIn("测试标题", article)
+        self.assertNotIn("被竞态替换的标题", article)
 
     def test_rejects_slug_collision_between_kinds(self):
         payload = self.package()

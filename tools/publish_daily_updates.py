@@ -24,8 +24,11 @@ ALLOWED_KINDS = {"metrion", "art-briefing"}
 FORBIDDEN_KINDS = {"ai-evening", "art-evening", "evening-briefing"}
 FORBIDDEN_PUBLIC_TEXT = ("/root/.hermes", "FAIL_CLOSED", "TELEGRAM_API", "BOT_TOKEN", "api_hash")
 FORBIDDEN_PATH_PATTERNS = (
-    re.compile(r"(?i)(?:^|[\s('\"`])[a-z]:[\\/]"),
-    re.compile(r"(?i)(?:^|[\s('\"`])/(?:root|home|etc|var|opt|srv|mnt)/"),
+    re.compile(r"(?i)(?<![a-z0-9+.-])[a-z]:[\\/]"),
+    re.compile(r"(?i)(?<![a-z0-9._-])/+(?:root|home|users|tmp|etc|usr|var|opt|srv|mnt|private|volumes|applications|library|system|workspace|data|media|boot|bin|sbin|dev|proc|sys|run)(?:/|\b)"),
+    re.compile(r"(?i)(?<![a-z0-9._-])/+[a-z]/users(?:/|\b)"),
+    re.compile(r"\\+[^\\/\s]+[\\/]+[^\\/\s]+"),
+    re.compile(r"(?<!:)/{2,}[^/\s]+/+[^/\s]+"),
     re.compile(r"(?i)appdata[\\/]local[\\/]hermes(?:[\\/]|\b)"),
 )
 KIND_LABEL = {"metrion": "元维构项目日更", "art-briefing": "视觉艺术早报"}
@@ -214,7 +217,8 @@ def clean_text(value: object, field: str) -> str:
     text = value.strip()
     if any(marker.lower() in text.lower() for marker in FORBIDDEN_PUBLIC_TEXT):
         raise ValueError(f"{field} contains non-public operational text")
-    if any(pattern.search(text) for pattern in FORBIDDEN_PATH_PATTERNS):
+    path_scan_text = re.sub(r"(?i)\b(?:https?|ftp)://[^\s<>\"'`()\[\]{}]+", "", text)
+    if any(pattern.search(path_scan_text) for pattern in FORBIDDEN_PATH_PATTERNS):
         raise ValueError(f"{field} contains non-public filesystem path")
     return text
 
@@ -463,12 +467,13 @@ def validate_against_existing_index(site_root: Path, entries: list[dict]) -> Non
 
 
 def publish(package_path: Path, site_root: Path, allowed_image_root: Path, lock_fd: int | None = None) -> dict:
-    payload = json.loads(package_path.read_text(encoding="utf-8"))
-    entries = validate_package(payload, allowed_image_root)
     written = []
     written_assets = []
     lock_context = inherited_site_lock(site_root, lock_fd) if lock_fd is not None else site_lock(site_root)
     with lock_context:
+        package_bytes = package_path.read_bytes()
+        payload = json.loads(package_bytes.decode("utf-8"))
+        entries = validate_package(payload, allowed_image_root)
         validate_against_existing_index(site_root, entries)
         for entry in entries:
             image_urls = copy_images(site_root, entry)
@@ -480,7 +485,7 @@ def publish(package_path: Path, site_root: Path, allowed_image_root: Path, lock_
         state = {
             "date": payload["date"], "status": "published_locally", "entries": written,
             "assets": written_assets,
-            "package_sha256": hashlib.sha256(package_path.read_bytes()).hexdigest(),
+            "package_sha256": hashlib.sha256(package_bytes).hexdigest(),
         }
         atomic_write(site_root / ".daily-sync-state" / f'{payload["date"]}.json', json.dumps(state, ensure_ascii=False, indent=2) + "\n")
     return state
