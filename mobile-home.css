@@ -72,7 +72,7 @@ img {
 
 .mobile-hero {
   position: relative;
-  min-height: calc(88svh - 62px);
+  min-height: min(68svh, 560px);
   display: grid;
   align-items: end;
   overflow: hidden;
@@ -99,7 +99,7 @@ img {
 }
 
 .mobile-hero-copy {
-  padding: 74px var(--gutter) 34px;
+  padding: 64px var(--gutter) 28px;
 }
 
 .mobile-kicker,

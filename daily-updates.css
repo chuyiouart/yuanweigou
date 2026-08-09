@@ -359,6 +359,8 @@
 /* mobile-home.html remains a narrow mobile canvas inside wide desktop previews. */
 .mobile-home .daily-home-heading,
 .mobile-home .daily-latest-grid { grid-template-columns: 1fr; }
+.mobile-home .daily-home-section { padding-top: 48px; padding-bottom: 56px; }
+.mobile-home .daily-home-heading { margin-bottom: 28px; }
 .mobile-home .daily-card { min-height: 0; }
 .mobile-home .daily-home-footer { align-items: flex-start; }
 

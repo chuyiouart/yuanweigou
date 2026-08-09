@@ -47,6 +47,20 @@ class DailySiteIntegrationTests(unittest.TestCase):
         self.assertLess(daily_link, experience_group)
         self.assertIn('href: "index.html#daily-updates"', unified_nav)
 
+    def test_mobile_daily_section_follows_hero_and_uses_compact_hero_contract(self):
+        mobile = (ROOT / "mobile-home.html").read_text(encoding="utf-8")
+        hero_start = mobile.index('<section class="mobile-hero"')
+        hero_end = mobile.index("</section>", hero_start)
+        daily_start = mobile.index('<section id="daily-updates"')
+        translation_start = mobile.index('<section id="translation"')
+        self.assertLess(hero_end, daily_start)
+        self.assertLess(daily_start, translation_start)
+
+        mobile_css = (ROOT / "mobile-home.css").read_text(encoding="utf-8")
+        hero_rule = mobile_css[mobile_css.index(".mobile-hero {"):mobile_css.index("}", mobile_css.index(".mobile-hero {"))]
+        self.assertIn("min-height: min(68svh, 560px);", hero_rule)
+        self.assertNotIn("88svh", hero_rule)
+
     def test_homepages_expose_daily_section_and_scripts(self):
         desktop = (ROOT / "index.html").read_text(encoding="utf-8")
         mobile = (ROOT / "mobile-home.html").read_text(encoding="utf-8")
@@ -59,7 +73,9 @@ class DailySiteIntegrationTests(unittest.TestCase):
 
     def test_service_worker_cache_version_covers_daily_release(self):
         service_worker = (ROOT / "sw.js").read_text(encoding="utf-8")
-        self.assertIn('metrion-pwa-20260807-daily-v1', service_worker)
+        self.assertIn('metrion-pwa-20260809-mobile-daily-v2', service_worker)
+        self.assertIn('"./mobile-home.css?v=20260809-mobile-v1"', service_worker)
+        self.assertIn('"./daily-updates.css?v=20260809-mobile-v1"', service_worker)
 
     def test_json_contract_has_latest_of_both_types_and_excludes_evening(self):
         payload = json.loads((ROOT / "daily-updates" / "index.json").read_text(encoding="utf-8"))
