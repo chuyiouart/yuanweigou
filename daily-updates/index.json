@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-10T16:35:24+08:00",
+  "updated_at": "2026-08-10T19:28:12+08:00",
   "content_through": "2026-08-10",
   "scope": {
     "included": [
@@ -18,6 +18,14 @@
       "title": "三片纸岛，靠两处小桥站起来",
       "summary": "一张已经完成、来源与权利边界清楚的手撕纸拼贴里，三片大小不同的赭黄纸岛沿对角线错开。",
       "url": "daily-updates/2026-08-10-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-10",
+      "kind": "art-briefing",
+      "title": "2026-08-10 视觉艺术每日早报",
+      "summary": "本周末的主线不是单一大展，而是**“如何重新解释、重新流通与重新看见文化遗产”**：从萨迪斯巨像、亚马孙雨林地景到《奥德赛》纸草残片，技术、修复与跨馆借展正在改写旧叙事；与此同时，博物馆基础设施、治理权和艺术家的生态责任成为不能回避的制度议题。",
+      "url": "daily-updates/2026-08-10-visual-art-morning-briefing.html",
       "source_status": "delivered_verified"
     },
     {
