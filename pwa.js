@@ -1,6 +1,6 @@
 ﻿const metrionScriptUrl = document.currentScript?.src || new URL("pwa.js", location.href).href;
 const metrionSiteRoot = new URL(".", metrionScriptUrl);
-const METRION_BUILD_VERSION = "20260810-home-agent-v1";
+const METRION_BUILD_VERSION = "20260811-image-performance-v2";
 
 const metrionHasUnifiedNav = [...document.scripts].some((script) =>
   script.dataset.metrionUnifiedNavLoader !== undefined || /(?:^|\/)unified-nav\.js(?:\?|$)/.test(script.src)
@@ -73,6 +73,30 @@ function metrionAddAssistantMessage(messages, role, content) {
 function metrionScrollToMessage(messages, message) {
   if (!message) return;
   messages.scrollTop = Math.max(0, message.offsetTop - messages.offsetTop - 12);
+}
+
+function metrionInitImagePerformance() {
+  const images = document.querySelectorAll("img");
+  images.forEach((image) => {
+    if (!image.hasAttribute("decoding")) image.decoding = "async";
+    if (!image.hasAttribute("loading")) image.loading = "lazy";
+    if (image.loading === "lazy") image.fetchPriority = "low";
+  });
+
+  document.addEventListener(
+    "error",
+    (event) => {
+      const image = event.target;
+      if (!(image instanceof HTMLImageElement)) return;
+      const fallback = image.dataset.imageFallback;
+      if (!fallback || image.dataset.imageFallbackApplied === "true") return;
+      image.dataset.imageFallbackApplied = "true";
+      image.removeAttribute("srcset");
+      image.removeAttribute("sizes");
+      image.src = fallback;
+    },
+    true,
+  );
 }
 
 function metrionCreateAssistantWidget() {
@@ -201,4 +225,7 @@ function metrionCreateAssistantWidget() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", metrionCreateAssistantWidget);
+document.addEventListener("DOMContentLoaded", () => {
+  metrionInitImagePerformance();
+  metrionCreateAssistantWidget();
+});

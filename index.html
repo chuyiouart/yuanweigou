@@ -34,7 +34,7 @@
         window.location.replace(target.href);
       })();
     </script>
-    <link rel="preload" as="image" href="./assets/hero-display.jpg" fetchpriority="high" />
+    <link rel="preload" as="image" href="./assets/hero-display-960.webp" fetchpriority="high" />
     <link rel="stylesheet" href="./homepage-vnext.css?v=20260810-sample-library-v1" />
     <link rel="stylesheet" href="./assistant-widget.css?v=20260810-home-agent-v1" />
     <link rel="stylesheet" href="./daily-updates.css?v=20260807-daily-v1" />
@@ -42,7 +42,7 @@
   <body>
     <header class="site-nav" data-site-nav>
       <a class="brand" href="#top" aria-label="元维构首页">
-        <img src="./assets/logo.jpg" alt="" width="36" height="36" />
+        <img src="assets/logo-960.webp" alt="" width="36" height="36" srcset="assets/logo-480.webp 480w, assets/logo-960.webp 960w, assets/logo-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./assets/logo.jpg" loading="lazy" decoding="async" />
         <span>
           <strong>元维构</strong>
           <small>METRION</small>
@@ -68,7 +68,7 @@
     <main id="top">
       <section id="display" class="hero" aria-labelledby="hero-title">
         <div class="hero-media" aria-hidden="true">
-          <video autoplay muted loop playsinline preload="metadata" poster="./assets/hero-display.jpg" data-hero-video>
+          <video autoplay muted loop playsinline preload="metadata" poster="./assets/hero-display-960.webp" data-hero-video>
             <source src="./assets/demo-apple-meta-hero-bg-540p-blur.mp4" type="video/mp4" media="(min-width: 681px)" />
           </video>
         </div>
@@ -140,7 +140,7 @@
           <div class="asset-flow-track" aria-live="polite">
             <figure class="asset-stage" data-flow-stage="original">
               <div class="asset-frame asset-frame-original">
-                <img src="./assets/case-jp-original.jpg" alt="Stage play 原作" loading="lazy" />
+                <img src="assets/case-jp-original-960.webp" alt="Stage play 原作" loading="lazy" srcset="assets/case-jp-original-480.webp 480w, assets/case-jp-original-960.webp 960w, assets/case-jp-original-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./assets/case-jp-original.jpg" decoding="async" />
               </div>
               <figcaption>原作</figcaption>
             </figure>
@@ -155,7 +155,7 @@
                   aria-pressed="true"
                   aria-label="查看 Stage play 拆件平铺视图"
                 >
-                  <img src="./assets/case-jp-process-parts.jpg" alt="Stage play 三维部件拆分平铺" loading="lazy" />
+                  <img src="assets/case-jp-process-parts-960.webp" alt="Stage play 三维部件拆分平铺" loading="lazy" srcset="assets/case-jp-process-parts-480.webp 480w, assets/case-jp-process-parts-960.webp 960w, assets/case-jp-process-parts-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./assets/case-jp-process-parts.jpg" decoding="async" />
                   <span>拆件平铺</span>
                 </button>
                 <button
@@ -166,7 +166,7 @@
                   aria-pressed="false"
                   aria-label="查看 Stage play 空间装配视图"
                 >
-                  <img src="./assets/case-jp-process-layout.jpg" alt="Stage play 三维结构空间装配" loading="lazy" />
+                  <img src="assets/case-jp-process-layout-960.webp" alt="Stage play 三维结构空间装配" loading="lazy" srcset="assets/case-jp-process-layout-480.webp 480w, assets/case-jp-process-layout-960.webp 960w, assets/case-jp-process-layout-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./assets/case-jp-process-layout.jpg" decoding="async" />
                   <span>空间装配</span>
                 </button>
                 <span class="asset-stack-count" aria-hidden="true">2 视图</span>
@@ -184,7 +184,7 @@
                   aria-pressed="true"
                   aria-label="查看 Stage play 灰模结构"
                 >
-                  <img src="./assets/case-jp-process-gray.jpg" alt="Stage play 灰模结构" loading="lazy" />
+                  <img src="assets/case-jp-process-gray-960.webp" alt="Stage play 灰模结构" loading="lazy" srcset="assets/case-jp-process-gray-480.webp 480w, assets/case-jp-process-gray-960.webp 960w, assets/case-jp-process-gray-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./assets/case-jp-process-gray.jpg" decoding="async" />
                   <span>灰模结构</span>
                 </button>
                 <button
@@ -195,7 +195,7 @@
                   aria-pressed="false"
                   aria-label="查看 Stage play 完成模型实拍"
                 >
-                  <img src="./assets/case-jp-model-finished.jpg" alt="Stage play 完成模型正面实拍" loading="lazy" />
+                  <img src="assets/case-jp-model-finished-960.webp" alt="Stage play 完成模型正面实拍" loading="lazy" srcset="assets/case-jp-model-finished-480.webp 480w, assets/case-jp-model-finished-960.webp 960w, assets/case-jp-model-finished-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./assets/case-jp-model-finished.jpg" decoding="async" />
                   <span>完成模型</span>
                 </button>
                 <span class="asset-stack-count" aria-hidden="true">2 视图</span>
@@ -216,8 +216,7 @@
                   <img
                     src="./assets/case-jp-physical-color.webp"
                     alt="Stage play 彩色灯光实体作品"
-                    loading="lazy"
-                  />
+                    loading="lazy" decoding="async" />
                   <span>实体成品</span>
                 </button>
                 <button
@@ -228,7 +227,7 @@
                   aria-pressed="false"
                   aria-label="查看 Stage play 展览现场"
                 >
-                  <img src="./assets/case-jp-exhibition-view.jpg" alt="观众在展厅观看 Stage play 实体作品" loading="lazy" />
+                  <img src="assets/case-jp-exhibition-view-960.webp" alt="观众在展厅观看 Stage play 实体作品" loading="lazy" srcset="assets/case-jp-exhibition-view-480.webp 480w, assets/case-jp-exhibition-view-960.webp 960w, assets/case-jp-exhibition-view-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./assets/case-jp-exhibition-view.jpg" decoding="async" />
                   <span>展览现场</span>
                 </button>
                 <span class="asset-stack-count" aria-hidden="true">2 视图</span>
@@ -241,8 +240,7 @@
                 <img
                   src="./assets/case-jp-archive-license.webp"
                   alt="Stage play 数字档案、三维资产与授权用途记录"
-                  loading="lazy"
-                />
+                  loading="lazy" decoding="async" />
               </div>
               <figcaption>档案与授权</figcaption>
             </figure>
@@ -289,16 +287,16 @@
           </div>
           <div class="experience-media klimt-media">
             <figure class="experience-main-image">
-              <img src="./mobile-structure-lab/assets/klimt/live.jpg" alt="克林姆特湖岸作品转译后的实体模型" loading="lazy" />
+              <img src="mobile-structure-lab/assets/klimt/live-960.webp" alt="克林姆特湖岸作品转译后的实体模型" loading="lazy" srcset="mobile-structure-lab/assets/klimt/live-480.webp 480w, mobile-structure-lab/assets/klimt/live-960.webp 960w, mobile-structure-lab/assets/klimt/live-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./mobile-structure-lab/assets/klimt/live.jpg" decoding="async" />
               <figcaption>实体模型与原作说明</figcaption>
             </figure>
             <div class="experience-media-strip">
               <figure>
-                <img src="./mobile-structure-lab/assets/klimt/original.jpg" alt="克林姆特 Litzlberg am Attersee 原作" loading="lazy" />
+                <img src="mobile-structure-lab/assets/klimt/original-960.webp" alt="克林姆特 Litzlberg am Attersee 原作" loading="lazy" srcset="mobile-structure-lab/assets/klimt/original-480.webp 480w, mobile-structure-lab/assets/klimt/original-960.webp 960w, mobile-structure-lab/assets/klimt/original-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./mobile-structure-lab/assets/klimt/original.jpg" decoding="async" />
                 <figcaption>原作</figcaption>
               </figure>
               <figure>
-                <img src="./mobile-structure-lab/assets/klimt/pack-premium-box.png" alt="克林姆特转译作品高级硬盒包装" loading="lazy" />
+                <img src="mobile-structure-lab/assets/klimt/pack-premium-box-960.webp" alt="克林姆特转译作品高级硬盒包装" loading="lazy" srcset="mobile-structure-lab/assets/klimt/pack-premium-box-480.webp 480w, mobile-structure-lab/assets/klimt/pack-premium-box-960.webp 960w, mobile-structure-lab/assets/klimt/pack-premium-box-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./mobile-structure-lab/assets/klimt/pack-premium-box.png" decoding="async" />
                 <figcaption>包装版本</figcaption>
               </figure>
             </div>
@@ -321,11 +319,11 @@
           </div>
           <div class="experience-media mucha-media">
             <figure class="experience-main-image">
-              <img src="./assets/spatial-archive/daydream-live.png" alt="穆夏 Daydream 转译模型与说明牌实拍" loading="lazy" />
+              <img src="assets/spatial-archive/daydream-live-960.webp" alt="穆夏 Daydream 转译模型与说明牌实拍" loading="lazy" srcset="assets/spatial-archive/daydream-live-480.webp 480w, assets/spatial-archive/daydream-live-960.webp 960w, assets/spatial-archive/daydream-live-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./assets/spatial-archive/daydream-live.png" decoding="async" />
               <figcaption>实体模型与档案记录</figcaption>
             </figure>
             <figure class="mucha-info-image">
-              <img src="./assets/spatial-archive/daydream-info.jpg" alt="穆夏 Daydream 原作信息与结构转译说明" loading="lazy" />
+              <img src="assets/spatial-archive/daydream-info-960.webp" alt="穆夏 Daydream 原作信息与结构转译说明" loading="lazy" srcset="assets/spatial-archive/daydream-info-480.webp 480w, assets/spatial-archive/daydream-info-960.webp 960w, assets/spatial-archive/daydream-info-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./assets/spatial-archive/daydream-info.jpg" decoding="async" />
               <figcaption>原作与转译说明</figcaption>
             </figure>
           </div>
@@ -351,19 +349,19 @@
 
           <div class="sample-preview-grid" aria-label="测试系列案例预览">
             <a class="sample-preview-card" href="./cases/samples/ts01-001.html">
-              <figure><img src="./assets/sample-archive/ts01-001/thumb.jpg" alt="Laws of night and honey 作品转译介绍图" loading="lazy" /></figure>
+              <figure><img src="assets/sample-archive/ts01-001/thumb-960.webp" alt="Laws of night and honey 作品转译介绍图" loading="lazy" srcset="assets/sample-archive/ts01-001/thumb-480.webp 480w, assets/sample-archive/ts01-001/thumb-960.webp 960w, assets/sample-archive/ts01-001/thumb-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./assets/sample-archive/ts01-001/thumb.jpg" decoding="async" /></figure>
               <div><span>抽象绘画</span><h3>Laws of night and honey</h3><p>Emma McIntyre · 包装 4 款</p></div>
             </a>
             <a class="sample-preview-card" href="./cases/samples/ts01-002.html">
-              <figure><img src="./assets/sample-archive/ts01-002/thumb.jpg" alt="Portrait of Princesse de Broglie 作品转译介绍图" loading="lazy" /></figure>
+              <figure><img src="assets/sample-archive/ts01-002/thumb-960.webp" alt="Portrait of Princesse de Broglie 作品转译介绍图" loading="lazy" srcset="assets/sample-archive/ts01-002/thumb-480.webp 480w, assets/sample-archive/ts01-002/thumb-960.webp 960w, assets/sample-archive/ts01-002/thumb-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./assets/sample-archive/ts01-002/thumb.jpg" decoding="async" /></figure>
               <div><span>古典肖像</span><h3>Portrait of Princesse de Broglie</h3><p>Ingres · 包装 4 款</p></div>
             </a>
             <a class="sample-preview-card" href="./cases/samples/ts01-003.html">
-              <figure><img src="./assets/sample-archive/ts01-003/thumb.jpg" alt="The Garden of Earthly Delights 作品转译介绍图" loading="lazy" /></figure>
+              <figure><img src="assets/sample-archive/ts01-003/thumb-960.webp" alt="The Garden of Earthly Delights 作品转译介绍图" loading="lazy" srcset="assets/sample-archive/ts01-003/thumb-480.webp 480w, assets/sample-archive/ts01-003/thumb-960.webp 960w, assets/sample-archive/ts01-003/thumb-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./assets/sample-archive/ts01-003/thumb.jpg" decoding="async" /></figure>
               <div><span>叙事场景</span><h3>The Garden of Earthly Delights</h3><p>Bosch · 包装 4 款</p></div>
             </a>
             <a class="sample-preview-card" href="./cases/samples/ts01-004.html">
-              <figure><img src="./assets/sample-archive/ts01-004/thumb.jpg" alt="Chii-chan and Chin 作品转译介绍图" loading="lazy" /></figure>
+              <figure><img src="assets/sample-archive/ts01-004/thumb-960.webp" alt="Chii-chan and Chin 作品转译介绍图" loading="lazy" srcset="assets/sample-archive/ts01-004/thumb-480.webp 480w, assets/sample-archive/ts01-004/thumb-960.webp 960w, assets/sample-archive/ts01-004/thumb-1600.webp 1600w" sizes="(max-width: 680px) 100vw, 720px" data-image-fallback="./assets/sample-archive/ts01-004/thumb.jpg" decoding="async" /></figure>
               <div><span>角色与图像 IP</span><h3>Chii-chan and Chin</h3><p>Yayoi Kusama · 包装 4 款</p></div>
             </a>
           </div>
