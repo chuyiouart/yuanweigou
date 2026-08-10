@@ -347,6 +347,26 @@ class DailyPublisherTests(unittest.TestCase):
         self.assertIn("测试标题", article)
         self.assertNotIn("被竞态替换的标题", article)
 
+    def test_same_day_kinds_publish_separately_without_overwrite_or_duplicate(self):
+        metrion = self.package("metrion", "delivered_verified")
+        art = self.package("art-briefing", "formal_archived")
+        art["entries"][0]["body_markdown"] = (
+            "一、必看头条（1条）\n\n1. 新闻标题\n\n- 来源：机构\n\n"
+            "五、今日组合观察\n\n1. 保持为列表"
+        )
+        first = self.publish(metrion)
+        metrion_page = (self.root / first["entries"][0]).read_bytes()
+        self.publish(art)
+        index_path = self.root / "daily-updates" / "index.json"
+        index = json.loads(index_path.read_text(encoding="utf-8"))
+        keys = [(entry["date"], entry["kind"]) for entry in index["entries"]]
+        self.assertEqual(keys.count(("2026-08-06", "metrion")), 1)
+        self.assertEqual(keys.count(("2026-08-06", "art-briefing")), 1)
+        self.assertEqual((self.root / first["entries"][0]).read_bytes(), metrion_page)
+        frozen_index = index_path.read_bytes()
+        self.publish(art)
+        self.assertEqual(index_path.read_bytes(), frozen_index)
+
     def test_rejects_slug_collision_between_kinds(self):
         payload = self.package()
         art = self.package("art-briefing", "formal_archived")["entries"][0]
