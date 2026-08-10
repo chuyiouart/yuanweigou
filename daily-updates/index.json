@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-10T14:57:03+08:00",
+  "updated_at": "2026-08-10T16:35:24+08:00",
   "content_through": "2026-08-10",
   "scope": {
     "included": [
@@ -26,6 +26,14 @@
       "title": "三条密纹，立成两道留白",
       "summary": "一张已经完成、来源与权利边界清楚的单色织物压印里，三条深墨色密纹横向延伸，两道未着色的锯齿空带穿在其间。",
       "url": "daily-updates/2026-08-09-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-08",
+      "kind": "art-briefing",
+      "title": "2026-08-08 视觉艺术每日早报",
+      "summary": "过去 72 小时的主线，是**机构基础设施与数字基础设施同时被重写**：乌菲齐启动大规模改造、史密森尼因制冷故障临时闭馆，另一边大都会博物馆上线语义检索、Adobe 把创作工具接入 ChatGPT。",
+      "url": "daily-updates/2026-08-08-visual-art-morning-briefing.html",
       "source_status": "delivered_verified"
     },
     {
