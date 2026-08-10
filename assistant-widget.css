@@ -1,0 +1,366 @@
+.metrion-assistant-widget {
+  --assistant-ink: #111512;
+  --assistant-muted: #656a66;
+  --assistant-line: rgba(17, 21, 18, 0.16);
+  --assistant-accent: #96503c;
+  --assistant-deep: #071d17;
+  position: fixed;
+  left: 22px;
+  bottom: 22px;
+  z-index: 200;
+  color: var(--assistant-ink);
+  color-scheme: light;
+  font-family: Inter, "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif;
+  letter-spacing: 0;
+}
+
+.metrion-assistant-widget,
+.metrion-assistant-widget * {
+  box-sizing: border-box;
+}
+
+.metrion-assistant-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(260px, calc(100vw - 44px));
+  padding: 8px 16px 8px 8px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  background: #151817;
+  box-shadow: 0 18px 44px rgba(10, 16, 13, 0.25);
+  cursor: pointer;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.metrion-assistant-trigger:hover {
+  background: #092b22;
+}
+
+.metrion-assistant-trigger:focus-visible,
+.metrion-assistant-panel button:focus-visible,
+.metrion-assistant-panel textarea:focus-visible,
+.metrion-assistant-panel a:focus-visible {
+  outline: 3px solid #82c7a7;
+  outline-offset: 3px;
+}
+
+.metrion-assistant-trigger img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.metrion-assistant-panel {
+  position: absolute;
+  left: 0;
+  bottom: 68px;
+  display: grid;
+  grid-template-rows: auto auto minmax(180px, 1fr) auto auto;
+  width: min(420px, calc(100vw - 44px));
+  max-height: min(650px, calc(100vh - 164px));
+  overflow: hidden;
+  color: var(--assistant-ink);
+  border: 1px solid var(--assistant-line);
+  border-radius: 8px;
+  background: #fffaf2;
+  box-shadow: 0 24px 70px rgba(10, 16, 13, 0.28);
+}
+
+.metrion-assistant-panel[hidden] {
+  display: none;
+}
+
+.metrion-assistant-panel header {
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 0;
+  padding: 14px 16px;
+  color: var(--assistant-ink);
+  border-bottom: 1px solid var(--assistant-line);
+  background: #fffaf2;
+}
+
+.metrion-assistant-panel header span {
+  display: block;
+  color: var(--assistant-accent);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.metrion-assistant-panel header strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--assistant-ink);
+  font-size: 17px;
+}
+
+.metrion-assistant-panel header button {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  color: var(--assistant-ink);
+  border: 1px solid var(--assistant-line);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.metrion-assistant-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #fffaf2;
+}
+
+.metrion-assistant-suggestions button,
+.metrion-assistant-form button,
+.metrion-assistant-message .agent-followups button,
+.metrion-assistant-message .agent-answer-links a {
+  min-height: 34px;
+  padding: 8px 10px;
+  color: #3e3b36;
+  border: 1px solid var(--assistant-line);
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.metrion-assistant-suggestions button:hover,
+.metrion-assistant-message .agent-followups button:hover,
+.metrion-assistant-message .agent-answer-links a:hover {
+  background: #f0eee8;
+}
+
+.metrion-assistant-messages {
+  min-height: 180px;
+  overflow: auto;
+  padding: 14px;
+  border-top: 1px solid rgba(17, 21, 18, 0.08);
+  border-bottom: 1px solid rgba(17, 21, 18, 0.08);
+  background: #fffdfa;
+}
+
+.metrion-assistant-message {
+  max-width: 92%;
+  margin-bottom: 10px;
+  padding: 12px 13px;
+  border-radius: 8px;
+}
+
+.metrion-assistant-message.user {
+  margin-left: auto;
+  color: #2b211b;
+  border: 1px solid #98523d;
+  background: #fff3e8;
+  font-weight: 700;
+}
+
+.metrion-assistant-message.agent {
+  margin-right: auto;
+  color: #4c4943;
+  border: 1px solid var(--assistant-line);
+  background: #fff;
+}
+
+.metrion-assistant-message h3 {
+  margin: 0 0 8px;
+  color: var(--assistant-ink);
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.metrion-assistant-message p,
+.metrion-assistant-message li {
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.metrion-assistant-message p {
+  margin: 0 0 8px;
+}
+
+.metrion-assistant-message ul {
+  margin: 8px 0 0;
+  padding-left: 1.15em;
+}
+
+.metrion-assistant-message .agent-answer-meta,
+.metrion-assistant-message .agent-answer-links,
+.metrion-assistant-message .agent-followups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.metrion-assistant-message .agent-answer-meta {
+  margin: 0 0 10px;
+}
+
+.metrion-assistant-message .agent-answer-meta span {
+  padding: 7px 9px;
+  color: var(--assistant-accent);
+  border: 1px solid rgba(150, 80, 60, 0.24);
+  border-radius: 999px;
+  background: rgba(150, 80, 60, 0.08);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.metrion-assistant-message .agent-template,
+.metrion-assistant-message .agent-collect {
+  margin: 12px 0;
+  padding: 10px;
+  border: 1px solid rgba(17, 21, 18, 0.1);
+  border-radius: 6px;
+  background: #fffaf2;
+}
+
+.metrion-assistant-message .agent-template strong,
+.metrion-assistant-message .agent-collect strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #2f2b24;
+  font-size: 13px;
+}
+
+.metrion-assistant-message .agent-caution {
+  padding-left: 10px;
+  color: var(--assistant-accent);
+  border-left: 3px solid var(--assistant-accent);
+  font-weight: 700;
+}
+
+.metrion-assistant-message .agent-related {
+  color: var(--assistant-muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.metrion-assistant-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  padding: 12px 14px 8px;
+  background: #fffaf2;
+}
+
+.metrion-assistant-form textarea {
+  width: 100%;
+  min-height: 56px;
+  resize: vertical;
+  padding: 10px;
+  color: var(--assistant-ink);
+  border: 1px solid var(--assistant-line);
+  border-radius: 6px;
+  background: #fff;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.metrion-assistant-form button {
+  align-self: stretch;
+  padding-inline: 14px;
+  color: #fff;
+  border-radius: 6px;
+  background: var(--assistant-deep);
+}
+
+.metrion-assistant-note {
+  margin: 0;
+  padding: 0 14px 12px;
+  color: var(--assistant-muted);
+  background: #fffaf2;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.metrion-assistant-widget .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .metrion-assistant-widget {
+    left: 14px;
+    right: 14px;
+    bottom: calc(82px + env(safe-area-inset-bottom));
+  }
+
+  .metrion-assistant-trigger {
+    max-width: 100%;
+    padding: 6px 13px 6px 6px;
+    font-size: 13px;
+  }
+
+  .metrion-assistant-trigger img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .metrion-assistant-panel {
+    left: 0;
+    right: 0;
+    bottom: 58px;
+    width: auto;
+    max-height: calc(100svh - 220px);
+  }
+
+  .metrion-assistant-suggestions {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .metrion-assistant-suggestions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .metrion-assistant-suggestions button {
+    flex: 0 0 auto;
+  }
+
+  .metrion-assistant-messages {
+    max-height: calc(100svh - 380px);
+  }
+
+  .metrion-assistant-form {
+    grid-template-columns: 1fr auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metrion-assistant-widget *,
+  .metrion-assistant-widget *::before,
+  .metrion-assistant-widget *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

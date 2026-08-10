@@ -1,8 +1,12 @@
 ﻿const metrionScriptUrl = document.currentScript?.src || new URL("pwa.js", location.href).href;
 const metrionSiteRoot = new URL(".", metrionScriptUrl);
-const METRION_BUILD_VERSION = "20260711-mobile-v3";
+const METRION_BUILD_VERSION = "20260810-home-agent-v1";
 
-if (!document.querySelector('script[data-metrion-unified-nav-loader]')) {
+const metrionHasUnifiedNav = [...document.scripts].some((script) =>
+  script.dataset.metrionUnifiedNavLoader !== undefined || /(?:^|\/)unified-nav\.js(?:\?|$)/.test(script.src)
+);
+
+if (!metrionHasUnifiedNav) {
   const unifiedNavScript = document.createElement("script");
   unifiedNavScript.src = new URL("unified-nav.js?v=20260711-nav-v1", metrionSiteRoot).href;
   unifiedNavScript.defer = true;

@@ -1,4 +1,4 @@
-const METRION_CACHE = "metrion-pwa-20260809-mobile-daily-v2";
+const METRION_CACHE = "metrion-pwa-20260810-home-agent-v1";
 
 const CORE_ASSETS = [
   "./",
@@ -13,6 +13,7 @@ const CORE_ASSETS = [
   "./script.js",
   "./homepage-vnext.css",
   "./homepage-vnext.js",
+  "./assistant-widget.css",
   "./mobile-home.html",
   "./mobile-home.css?v=20260809-mobile-v1",
   "./daily-updates.css?v=20260809-mobile-v1",
