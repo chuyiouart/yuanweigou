@@ -404,6 +404,7 @@ h1 {
   border-radius: 26px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255, 250, 241, 0.92));
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   transform: translateY(14px) scale(0.98);
 }
@@ -746,6 +747,7 @@ h1 {
   background: linear-gradient(180deg, rgba(255, 250, 241, 0.98), rgba(248, 242, 232, 0.98));
   box-shadow: 0 18px 42px rgba(66, 48, 31, 0.13);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   transform: translateY(14px) scale(0.98);
 }
@@ -849,8 +851,19 @@ h1 {
   transition: opacity 160ms ease;
 }
 
+#packPreview:not([src]) {
+  background: linear-gradient(110deg, #eee6da 30%, #f8f3ea 50%, #eee6da 70%);
+  background-size: 220% 100%;
+  animation: pack-loading 1.4s ease-in-out infinite;
+}
+
 #packPreview.switching {
   opacity: 0.46;
+}
+
+@keyframes pack-loading {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
 }
 
 .pack-tabs {
@@ -886,15 +899,25 @@ h1 {
   transform: translateY(-16px) scale(0.96);
 }
 
+.space-stage,
+.model-stage,
+.archive-card {
+  display: none;
+}
+
 .app-screen[data-phase="layers"] .space-stage,
 .app-screen[data-phase="model"] .model-stage {
+  display: grid;
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
   transform: translateY(0) scale(1);
 }
 
 .app-screen[data-phase="archive"] .archive-card {
+  display: block;
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
   transform: translateY(0) scale(1);
 }

@@ -22,6 +22,7 @@ const spaceLayers = [...document.querySelectorAll(".space-layer")];
 const depthStops = [...document.querySelectorAll(".depth-axis span")];
 const modelStage = document.querySelector("#modelStage");
 const modelViewer = document.querySelector(".glb-viewer");
+const modelViewerModule = document.querySelector("#modelViewerModule");
 const modelLoadTitle = document.querySelector("#modelLoadTitle");
 const modelLoadDetail = document.querySelector("#modelLoadDetail");
 const modelFallbackText = document.querySelector("#modelFallbackText");
@@ -37,6 +38,9 @@ let activeLayer = null;
 let packRequest = 0;
 let modelState = "idle";
 let modelLoadTimeout = null;
+let packsActivated = false;
+let packPreloadPromise = null;
+let packDisplayFailures = 0;
 
 const layerOrder = ["trees", "house", "water"];
 
@@ -77,21 +81,25 @@ const packs = {
   premium: {
     label: "高级硬盒",
     src: "./assets/klimt/pack-premium-box-mobile.jpg",
+    fallbackSrc: "./assets/klimt/pack-premium-box.png",
     alt: "Klimt 转译作品高级硬盒包装",
   },
   header: {
     label: "挂袋包装",
     src: "./assets/klimt/pack-header-bag-mobile.jpg",
+    fallbackSrc: "./assets/klimt/pack-header-bag.png",
     alt: "Klimt 转译作品挂袋包装",
   },
   paper: {
     label: "纸盒贴纸",
     src: "./assets/klimt/pack-paper-box-mobile.jpg",
+    fallbackSrc: "./assets/klimt/pack-paper-box.png",
     alt: "Klimt 转译作品纸盒贴纸包装",
   },
   blister: {
     label: "吸塑卡",
     src: "./assets/klimt/pack-blister-card-mobile.jpg",
+    fallbackSrc: "./assets/klimt/pack-blister-card.png",
     alt: "Klimt 转译作品吸塑卡包装",
   },
 };
@@ -202,7 +210,8 @@ function render() {
   if (!activeLayer) layerPanel.classList.remove("visible");
   restartAction.hidden = phase !== 3;
 
-  if (phase >= 1) ensureModelLoaded();
+  if (phase === 2) ensureModelLoaded();
+  if (phase === 3) activatePacks();
 }
 
 function nudgeStatus() {
@@ -323,44 +332,83 @@ secondaryAction.addEventListener("click", () => {
 restartAction.addEventListener("click", reset);
 resetTop.addEventListener("click", reset);
 
+const ASSET_REVISION = "20260811-mobile-recovery-v2";
 const packCache = new Map();
 
-function warmImage(src) {
-  if (packCache.has(src)) return packCache.get(src);
-  const image = new Image();
-  image.decoding = "async";
-  image.src = src;
-  packCache.set(src, image);
-  return image;
+function versionedAsset(src, retry = false) {
+  const separator = src.includes("?") ? "&" : "?";
+  const retryToken = retry ? `&retry=${Date.now()}` : "";
+  return `${src}${separator}v=${ASSET_REVISION}${retryToken}`;
 }
 
-function preloadPacks() {
-  Object.values(packs).forEach((pack) => {
-    const image = warmImage(pack.src);
-    if (image.decode) image.decode().catch(() => {});
+function loadImage(src, retry = false) {
+  const url = versionedAsset(src, retry);
+  if (!retry && packCache.has(url)) return packCache.get(url);
+
+  const request = new Promise((resolve) => {
+    const image = new Image();
+    image.decoding = "async";
+    image.onload = () => resolve({ ok: image.naturalWidth > 0, url, image });
+    image.onerror = () => resolve({ ok: false, url, image });
+    image.src = url;
   });
+
+  if (!retry) packCache.set(url, request);
+  return request;
 }
 
-async function selectPack(tab) {
+async function resolvePackImage(pack, retry = false) {
+  const sources = retry ? [pack.fallbackSrc, pack.src] : [pack.src, pack.fallbackSrc];
+  for (const source of sources) {
+    if (!source) continue;
+    const result = await loadImage(source, retry);
+    if (result.ok) return result;
+  }
+  return null;
+}
+
+async function preloadPacks() {
+  if (packPreloadPromise) return packPreloadPromise;
+  packPreloadPromise = (async () => {
+    for (const pack of Object.values(packs)) {
+      await resolvePackImage(pack);
+    }
+  })();
+  return packPreloadPromise;
+}
+
+async function selectPack(tab, retry = false) {
   const pack = packs[tab.dataset.pack];
   if (!pack) return;
   const request = ++packRequest;
-  const cached = warmImage(pack.src);
   packPreview.classList.add("switching");
-
-  if (!cached.complete) {
-    await new Promise((resolve) => {
-      cached.addEventListener("load", resolve, { once: true });
-      cached.addEventListener("error", resolve, { once: true });
-    });
-  }
+  packPreview.setAttribute("aria-busy", "true");
+  const loaded = await resolvePackImage(pack, retry);
   if (request !== packRequest) return;
 
-  packPreview.src = pack.src;
+  if (!loaded) {
+    packPreview.removeAttribute("src");
+    packPreview.alt = `${pack.alt}（图片正在重新加载）`;
+    packPreview.classList.remove("switching");
+    packPreview.removeAttribute("aria-busy");
+    return;
+  }
+
+  packPreview.src = loaded.url;
   packPreview.alt = pack.alt;
   packLabel.textContent = pack.label;
   packTabs.forEach((item) => item.classList.toggle("active", item === tab));
+  packPreview.removeAttribute("aria-busy");
   requestAnimationFrame(() => packPreview.classList.remove("switching"));
+}
+
+function activatePacks() {
+  if (packsActivated) return;
+  packsActivated = true;
+  packPreview.fetchPriority = "high";
+  const activeTab = packTabs.find((tab) => tab.classList.contains("active")) || packTabs[0];
+  selectPack(activeTab);
+  window.setTimeout(preloadPacks, 500);
 }
 
 packTabs.forEach((tab) => {
@@ -412,16 +460,16 @@ function setModelFailed(message = "三维视图暂时未能载入") {
   updateModelStatus();
 }
 
-function waitForModelViewer() {
+async function waitForModelViewer(force = false) {
   if (window.customElements?.get("model-viewer")) return Promise.resolve();
   if (!window.customElements) return Promise.reject(new Error("Custom elements unavailable"));
 
-  return Promise.race([
-    window.customElements.whenDefined("model-viewer"),
-    new Promise((_, reject) => {
-      window.setTimeout(() => reject(new Error("Model viewer unavailable")), 5000);
-    }),
-  ]);
+  if (force && modelViewerModule?.src) {
+    const separator = modelViewerModule.src.includes("?") ? "&" : "?";
+    import(`${modelViewerModule.src}${separator}retry=${Date.now()}`).catch(() => {});
+  }
+
+  return window.customElements.whenDefined("model-viewer");
 }
 
 async function ensureModelLoaded(force = false) {
@@ -432,12 +480,17 @@ async function ensureModelLoaded(force = false) {
   setModelLoading();
 
   try {
-    await waitForModelViewer();
+    await waitForModelViewer(force);
     const source = modelViewer.dataset.src;
     if (!source) throw new Error("Model source unavailable");
 
     if (force) modelViewer.removeAttribute("src");
-    if (force || !modelViewer.getAttribute("src")) modelViewer.setAttribute("src", source);
+    if (force) await new Promise((resolve) => requestAnimationFrame(resolve));
+    if (force || !modelViewer.getAttribute("src")) {
+      const separator = source.includes("?") ? "&" : "?";
+      const requestSource = force ? `${source}${separator}retry=${Date.now()}` : source;
+      modelViewer.setAttribute("src", requestSource);
+    }
 
     if (modelViewer.loaded) {
       setModelReady();
@@ -445,8 +498,8 @@ async function ensureModelLoaded(force = false) {
     }
 
     modelLoadTimeout = window.setTimeout(() => {
-      setModelFailed("载入时间较长，请重试三维模型");
-    }, 15000);
+      setModelFailed("网络较慢，点此重新载入三维模型");
+    }, 45000);
   } catch (error) {
     setModelFailed("当前浏览器未能启动三维视图");
   }
@@ -470,10 +523,34 @@ modelRetry?.addEventListener("click", () => {
   ensureModelLoaded(true);
 });
 
-if ("requestIdleCallback" in window) {
-  window.requestIdleCallback(preloadPacks, { timeout: 1400 });
-} else {
-  window.setTimeout(preloadPacks, 600);
-}
+modelViewerModule?.addEventListener("error", () => {
+  if (phase === 2 && modelState !== "ready") {
+    setModelFailed("三维组件未能载入，请点此重试");
+  }
+});
+
+packPreview?.addEventListener("error", () => {
+  if (packDisplayFailures >= 1) {
+    packPreview.removeAttribute("src");
+    packPreview.alt = "包装图正在重新加载";
+    packPreview.classList.remove("switching");
+    return;
+  }
+  packDisplayFailures += 1;
+  const activeTab = packTabs.find((tab) => tab.classList.contains("active")) || packTabs[0];
+  selectPack(activeTab, true);
+});
+
+packPreview?.addEventListener("load", () => {
+  packDisplayFailures = 0;
+});
+
+window.addEventListener("online", () => {
+  if (phase === 2 && modelState !== "ready") ensureModelLoaded(true);
+  if (phase === 3 && !packPreview.naturalWidth) {
+    const activeTab = packTabs.find((tab) => tab.classList.contains("active")) || packTabs[0];
+    selectPack(activeTab, true);
+  }
+});
 
 render();

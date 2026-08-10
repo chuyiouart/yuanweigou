@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f7f3ec" />
     <title>METRION 元维构 · Klimt 结构转译实验室</title>
-    <link rel="stylesheet" href="./styles.css?v=20260713-model-fix-v1" />
-    <script type="module" src="./vendor/model-viewer-4.3.1.min.js"></script>
+    <link rel="stylesheet" href="./styles.css?v=20260811-mobile-recovery-v2" />
+    <script id="modelViewerModule" type="module" src="./vendor/model-viewer-4.3.1.min.js?v=20260811-mobile-recovery-v2"></script>
   </head>
   <body>
     <main class="phone-shell" aria-label="METRION 元维构结构转译实验室">
@@ -108,7 +108,7 @@
             </div>
             <model-viewer
               class="glb-viewer"
-              data-src="./assets/klimt/klimt-vr-web.glb"
+              data-src="./assets/klimt/klimt-vr-web.glb?v=20260811-mobile-recovery-v2"
               camera-controls
               touch-action="pan-y"
               auto-rotate
@@ -122,7 +122,7 @@
               ar
               loading="eager"
               reveal="auto"
-              poster="./assets/klimt/live.jpg"
+              poster="./assets/klimt/live.jpg?v=20260811-mobile-recovery-v2"
               alt="Litzlberg am Attersee 转译三维模型"
             ></model-viewer>
             <figure class="model-fallback" id="modelFallback">
@@ -153,7 +153,7 @@
                 <strong>完整产品样式</strong>
                 <span id="packLabel">高级硬盒</span>
               </div>
-              <img id="packPreview" src="./assets/klimt/pack-premium-box-mobile.jpg" alt="Klimt 转译作品高级硬盒包装" decoding="async" fetchpriority="low" />
+              <img id="packPreview" alt="Klimt 转译作品高级硬盒包装" decoding="async" />
               <div class="pack-tabs" role="group" aria-label="包装样式切换">
                 <button class="pack-tab active" type="button" data-pack="premium">硬盒</button>
                 <button class="pack-tab" type="button" data-pack="header">挂袋</button>
@@ -180,6 +180,6 @@
     </main>
 
     <script src="../unified-nav.js?v=20260711-nav-v1" defer></script>
-    <script src="./script.js?v=20260713-model-fix-v1"></script>
+    <script src="./script.js?v=20260811-mobile-recovery-v2"></script>
   </body>
 </html>
