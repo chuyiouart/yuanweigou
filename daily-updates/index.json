@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-09T14:29:53+08:00",
-  "content_through": "2026-08-09",
+  "updated_at": "2026-08-10T14:57:03+08:00",
+  "content_through": "2026-08-10",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-08-10",
+      "kind": "metrion",
+      "title": "三片纸岛，靠两处小桥站起来",
+      "summary": "一张已经完成、来源与权利边界清楚的手撕纸拼贴里，三片大小不同的赭黄纸岛沿对角线错开。",
+      "url": "daily-updates/2026-08-10-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-08-09",
       "kind": "metrion",
