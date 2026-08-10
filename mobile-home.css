@@ -482,6 +482,121 @@ img {
   background: var(--forest);
 }
 
+.mobile-sample-library {
+  padding-bottom: 72px;
+  background: #f3f1eb;
+}
+
+.mobile-sample-intro {
+  margin: -8px var(--gutter) 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.mobile-sample-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 24px var(--gutter) 34px;
+}
+
+.mobile-sample-stats span {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 12px 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--muted);
+  font-size: 10px;
+  text-align: center;
+}
+
+.mobile-sample-stats strong {
+  color: var(--ink);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.mobile-sample-track {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 0 var(--gutter) 18px;
+  scroll-padding-inline: var(--gutter);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.mobile-sample-track::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-sample-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  flex: 0 0 min(82vw, 330px);
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.78);
+  scroll-snap-align: center;
+}
+
+.mobile-sample-card:first-child {
+  scroll-snap-align: start;
+}
+
+.mobile-sample-card figure {
+  aspect-ratio: 1.34;
+  margin: 0;
+  padding: 7px;
+  background: #fff;
+}
+
+.mobile-sample-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mobile-sample-card > div {
+  display: flex;
+  flex-direction: column;
+  min-height: 132px;
+  padding: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.mobile-sample-card span {
+  color: #9a4c39;
+  font-size: 10px;
+  font-weight: 760;
+}
+
+.mobile-sample-card h3 {
+  margin: 10px 0 9px;
+  overflow-wrap: anywhere;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.mobile-sample-card p {
+  margin: auto 0 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.mobile-sample-cta {
+  display: flex;
+  width: auto;
+  margin: 12px var(--gutter) 0;
+}
+
 .mobile-case {
   padding-bottom: 72px;
   background: var(--white);
