@@ -37,6 +37,8 @@ class DailyPublisherTests(unittest.TestCase):
         )
         self.approved = self.root / "approved-images"
         self.approved.mkdir()
+        self.art_approved = self.root / "art-approved-images"
+        self.art_approved.mkdir()
         self.images = []
         for index in range(4):
             path = self.approved / f"source-{index}.png"
@@ -100,6 +102,22 @@ class DailyPublisherTests(unittest.TestCase):
         self.assertIn("视觉艺术早报", page)
         self.assertIn("<h3>新闻标题</h3>", page)
         self.assertIn("<li>保持为列表</li>", page)
+
+    def test_art_briefing_image_uses_separate_narrow_approved_root(self):
+        image = self.art_approved / "source-preview.png"
+        image.write_bytes(png_bytes(80, 90, 100))
+        payload = self.package("art-briefing", "delivered_verified")
+        payload["entries"][0]["image_files"] = [str(image)]
+        payload["entries"][0]["image_sha256"] = [hashlib.sha256(image.read_bytes()).hexdigest()]
+        package = self.write_package(payload)
+        state = publisher.publish(
+            package, self.root, self.approved,
+            art_allowed_image_root=self.art_approved,
+        )
+        self.assertEqual(state["assets"], ["assets/daily-updates/2026-08-06/art-briefing-01.png"])
+        page = (self.root / state["entries"][0]).read_text(encoding="utf-8")
+        self.assertIn("../assets/daily-updates/2026-08-06/art-briefing-01.png", page)
+        self.assertIn("来源文章配图", page)
 
     def test_art_brief_renders_safe_external_markdown_links(self):
         payload = self.package("art-briefing", "formal_archived")
@@ -333,8 +351,8 @@ class DailyPublisherTests(unittest.TestCase):
         original_bytes = package.read_bytes()
         original_validate = publisher.validate_package
 
-        def validate_then_mutate(payload, approved_root):
-            entries = original_validate(payload, approved_root)
+        def validate_then_mutate(payload, approved_root, art_approved_root=None):
+            entries = original_validate(payload, approved_root, art_approved_root)
             mutated = json.loads(original_bytes.decode("utf-8"))
             mutated["entries"][0]["title"] = "被竞态替换的标题"
             package.write_text(json.dumps(mutated, ensure_ascii=False), encoding="utf-8")

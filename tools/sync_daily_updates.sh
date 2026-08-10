@@ -17,6 +17,7 @@ if [[ ! -f "$PACKAGE" ]]; then
 fi
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 ALLOWED_IMAGE_ROOT=${DAILY_IMAGE_ROOT:-/root/.hermes/context-pack/metrion/outputs/final-accepted}
+ART_ALLOWED_IMAGE_ROOT=${DAILY_ART_IMAGE_ROOT:-/root/.hermes/context-pack/visual-art-briefing/source-images}
 STATE="$ROOT/.daily-sync-state"
 mkdir -p "$STATE"
 
@@ -79,7 +80,7 @@ FROZEN_PREVIOUS_INDEX_SHA=$(sha256sum "$PREVIOUS_INDEX" | cut -d ' ' -f 1)
   printf 'working index does not match trusted HEAD before publication\n' >&2
   exit 3
 }
-python tools/publish_daily_updates.py --package "$PACKAGE" --site-root "$ROOT" --allowed-image-root "$ALLOWED_IMAGE_ROOT" --lock-fd "$DAILY_LOCK_FD"
+python tools/publish_daily_updates.py --package "$PACKAGE" --site-root "$ROOT" --allowed-image-root "$ALLOWED_IMAGE_ROOT" --art-allowed-image-root "$ART_ALLOWED_IMAGE_ROOT" --lock-fd "$DAILY_LOCK_FD"
 verify_frozen_package
 python -m unittest discover -s tests -p 'test_*.py'
 python -m json.tool daily-updates/index.json >/dev/null
@@ -88,13 +89,13 @@ PUBLICATION_STATE="$STATE/${DATE}.json"
 mapfile -t VERIFIED_PUBLIC_FILES < <(
   python tools/validate_daily_publication_state.py \
     --site-root "$ROOT" --package "$PACKAGE" --state "$PUBLICATION_STATE" \
-    --allowed-image-root "$ALLOWED_IMAGE_ROOT" --previous-index "$PREVIOUS_INDEX" \
+    --allowed-image-root "$ALLOWED_IMAGE_ROOT" --art-allowed-image-root "$ART_ALLOWED_IMAGE_ROOT" --previous-index "$PREVIOUS_INDEX" \
     --previous-index-sha256 "$FROZEN_PREVIOUS_INDEX_SHA"
 )
 (( ${#VERIFIED_PUBLIC_FILES[@]} > 0 )) || { printf 'verified public manifest is empty\n' >&2; exit 3; }
 verify_frozen_package
 mapfile -t EXPECTED_PUBLIC_PATHS < <(
-  python -c 'import json, pathlib, sys; p=json.load(open(sys.argv[1], encoding="utf-8")); print("daily-updates/index.json"); [(print("daily-updates/{}.html".format(e["slug"])), [print("assets/daily-updates/{}/{}-{:02d}{}".format(p["date"], e["kind"], i, pathlib.Path(name).suffix.lower())) for i,name in enumerate(e.get("image_files", []),1)]) for e in p["entries"]]' "$PACKAGE"
+  python tools/list_daily_expected_paths.py "$PACKAGE"
 )
 
 validate_manifest_structure() {

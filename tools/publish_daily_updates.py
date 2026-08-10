@@ -224,10 +224,21 @@ def clean_text(value: object, field: str) -> str:
     return text
 
 
-def validate_package(payload: dict, allowed_image_root: Path) -> list[dict]:
+def validate_package(
+    payload: dict,
+    allowed_image_root: Path,
+    art_allowed_image_root: Path | None = None,
+) -> list[dict]:
     approved_root = allowed_image_root.resolve(strict=True)
+    art_approved_root = (
+        art_allowed_image_root.resolve(strict=True)
+        if art_allowed_image_root is not None
+        else approved_root
+    )
     if not approved_root.is_dir():
         raise ValueError("allowed image root must be a directory")
+    if not art_approved_root.is_dir():
+        raise ValueError("art allowed image root must be a directory")
     if payload.get("schema_version") != 2:
         raise ValueError("schema_version must be 2")
     package_date = clean_text(payload.get("date"), "date")
@@ -291,16 +302,19 @@ def validate_package(payload: dict, allowed_image_root: Path) -> list[dict]:
             raise ValueError("image_sha256 contains an invalid digest")
         if kind == "metrion" and len(image_files) != 4:
             raise ValueError("METRION website entry requires exactly four approved images")
+        if kind == "art-briefing" and len(image_files) > 1:
+            raise ValueError("art briefing website entry allows at most one source image")
         if kind == "metrion" and raw.get("images_approved") is not True:
             raise ValueError("METRION requires images_approved=true")
         approved_images = []
         validated_images = []
         image_paths = set()
         image_hashes = set()
+        entry_approved_root = art_approved_root if kind == "art-briefing" else approved_root
         for image_index, image in enumerate(image_files):
             path = Path(image).resolve(strict=True)
             try:
-                path.relative_to(approved_root)
+                path.relative_to(entry_approved_root)
             except ValueError as exc:
                 raise ValueError(f"image outside approved root: {path}") from exc
             if not path.is_file() or path.stat().st_size <= 0:
@@ -415,7 +429,7 @@ def article_html(entry: dict, image_urls: Iterable[str]) -> str:
     gallery = ""
     urls = list(image_urls)
     if urls:
-        caption = "合作方向场景示意" if entry["kind"] == "metrion" else "开放馆藏参考图"
+        caption = "合作方向场景示意" if entry["kind"] == "metrion" else "来源文章配图"
         figures = "".join(
             f'<figure><img src="{html.escape(url)}" alt="{html.escape(entry["title"])} 配图{index}" loading="lazy" /><figcaption>{caption} {index}</figcaption></figure>'
             for index, url in enumerate(urls, 1)
@@ -496,14 +510,20 @@ def validate_against_existing_index(site_root: Path, entries: list[dict]) -> Non
             raise ValueError(f"article path already exists outside index key: {entry['slug']}")
 
 
-def publish(package_path: Path, site_root: Path, allowed_image_root: Path, lock_fd: int | None = None) -> dict:
+def publish(
+    package_path: Path,
+    site_root: Path,
+    allowed_image_root: Path,
+    lock_fd: int | None = None,
+    art_allowed_image_root: Path | None = None,
+) -> dict:
     written = []
     written_assets = []
     lock_context = inherited_site_lock(site_root, lock_fd) if lock_fd is not None else site_lock(site_root)
     with lock_context:
         package_bytes = package_path.read_bytes()
         payload = json.loads(package_bytes.decode("utf-8"))
-        entries = validate_package(payload, allowed_image_root)
+        entries = validate_package(payload, allowed_image_root, art_allowed_image_root)
         validate_against_existing_index(site_root, entries)
         for entry in entries:
             image_urls = copy_images(site_root, entry)
@@ -534,9 +554,13 @@ def main() -> int:
     parser.add_argument("--package", required=True, type=Path)
     parser.add_argument("--site-root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--allowed-image-root", required=True, type=Path)
+    parser.add_argument("--art-allowed-image-root", required=True, type=Path)
     parser.add_argument("--lock-fd", type=int, help=argparse.SUPPRESS)
     args = parser.parse_args()
-    print(json.dumps(publish(args.package.resolve(), args.site_root.resolve(), args.allowed_image_root, args.lock_fd), ensure_ascii=False))
+    print(json.dumps(publish(
+        args.package.resolve(), args.site_root.resolve(), args.allowed_image_root,
+        args.lock_fd, args.art_allowed_image_root,
+    ), ensure_ascii=False))
     return 0
 
 

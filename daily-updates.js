@@ -62,13 +62,25 @@
   const renderHome = async (container) => {
     try {
       const payload = await loadData();
+      const latestByKind = new Map();
+      payload.entries.forEach((entry) => {
+        if (!['metrion', 'art-briefing'].includes(entry.kind)) return;
+        const current = latestByKind.get(entry.kind);
+        if (!current || entry.date > current.date) latestByKind.set(entry.kind, entry);
+      });
       const entries = ["metrion", "art-briefing"]
-        .map((kind) => payload.entries.find((entry) => entry.kind === kind))
+        .map((kind) => latestByKind.get(kind))
         .filter(Boolean);
       if (!entries.length) return;
       container.replaceChildren(...entries.map(createCard));
       const stamp = document.querySelector("[data-daily-updated]");
-      if (stamp && payload.content_through) stamp.textContent = `内容更新至：${dateLabel(payload.content_through)}`;
+      if (stamp) {
+        const metrion = latestByKind.get("metrion");
+        const artBriefing = latestByKind.get("art-briefing");
+        const metrionDate = metrion ? dateLabel(metrion.date) : "暂无";
+        const artDate = artBriefing ? dateLabel(artBriefing.date) : "暂无";
+        stamp.textContent = `元维构更新至：${metrionDate} · 视觉艺术早报更新至：${artDate}`;
+      }
     } catch (error) {
       console.warn("每日新构数据加载失败，保留页面内置内容。", error);
     }

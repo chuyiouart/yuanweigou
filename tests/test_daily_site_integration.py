@@ -71,6 +71,14 @@ class DailySiteIntegrationTests(unittest.TestCase):
             self.assertIn("每日新构", content)
         self.assertIn('data-mobile-dock="daily-updates"', mobile)
 
+    def test_home_freshness_stamp_reports_each_lane_independently(self):
+        script = (ROOT / "daily-updates.js").read_text(encoding="utf-8")
+        self.assertIn("元维构更新至：", script)
+        self.assertIn("视觉艺术早报更新至：", script)
+        self.assertNotIn("`内容更新至：${dateLabel(payload.content_through)}`", script)
+        self.assertIn('latestByKind.get("metrion")', script)
+        self.assertIn('latestByKind.get("art-briefing")', script)
+
     def test_service_worker_cache_version_covers_daily_release(self):
         service_worker = (ROOT / "sw.js").read_text(encoding="utf-8")
         self.assertIn('metrion-pwa-20260809-mobile-daily-v2', service_worker)

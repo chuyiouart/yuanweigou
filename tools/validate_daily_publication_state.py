@@ -43,6 +43,7 @@ def validate(
     allowed_image_root: Path | None = None,
     previous_index_path: Path | None = None,
     previous_index_sha256: str | None = None,
+    art_allowed_image_root: Path | None = None,
 ) -> list[dict[str, str]]:
     site_root = site_root.resolve(strict=True)
     package_bytes = package_path.read_bytes()
@@ -61,7 +62,12 @@ def validate(
         raise ValueError("publication state package hash mismatch")
 
     approved_root = derive_allowed_root(package, allowed_image_root, site_root)
-    entries = publisher.validate_package(package, approved_root)
+    art_approved_root = (
+        art_allowed_image_root.resolve(strict=True)
+        if art_allowed_image_root is not None
+        else approved_root
+    )
+    entries = publisher.validate_package(package, approved_root, art_approved_root)
     expected_articles: list[str] = []
     expected_assets: list[str] = []
     independently_expected: dict[str, bytes] = {}
@@ -224,12 +230,14 @@ def main() -> int:
     parser.add_argument("--package", required=True, type=Path)
     parser.add_argument("--state", required=True, type=Path)
     parser.add_argument("--allowed-image-root", type=Path)
+    parser.add_argument("--art-allowed-image-root", type=Path)
     parser.add_argument("--previous-index", required=True, type=Path)
     parser.add_argument("--previous-index-sha256", required=True)
     args = parser.parse_args()
     manifest = validate(
         args.site_root, args.package, args.state, args.allowed_image_root,
         args.previous_index, args.previous_index_sha256,
+        args.art_allowed_image_root,
     )
     for record in manifest:
         print(f"{record['sha256']}\t{record['path']}")
