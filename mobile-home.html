@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
     <link rel="icon" href="./favicon.ico" sizes="any" />
     <link rel="preload" as="image" href="./assets/hero-display.jpg" fetchpriority="high" />
-    <link rel="stylesheet" href="./mobile-home.css?v=20260809-mobile-v1" />
+    <link rel="stylesheet" href="./mobile-home.css?v=20260810-process-stacks-v1" />
     <link rel="stylesheet" href="./daily-updates.css?v=20260809-mobile-v1" />
   </head>
   <body>
@@ -74,27 +74,57 @@
         <div class="mobile-flow" data-mobile-flow>
           <div class="mobile-flow-track" data-mobile-flow-track>
             <button class="is-active" type="button" data-mobile-stage="original" aria-pressed="true">
-              <span>01</span>
+              <span class="mobile-flow-index">01</span>
               <img src="./assets/case-jp-original.jpg" alt="Stage play 原作" />
               <strong>原作</strong>
             </button>
             <button type="button" data-mobile-stage="structure" aria-pressed="false">
-              <span>02</span>
-              <img src="./assets/case-jp-process-parts.jpg" alt="Stage play 三维结构拆分" loading="lazy" />
+              <span class="mobile-flow-index">02</span>
+              <span class="mobile-flow-visual" data-mobile-stack>
+                <span class="mobile-flow-image" data-mobile-stack-image data-stack-depth="0">
+                  <img src="./assets/case-jp-process-parts.jpg" alt="Stage play 三维部件拆分平铺" loading="lazy" />
+                  <em>拆件平铺</em>
+                </span>
+                <span class="mobile-flow-image" data-mobile-stack-image data-stack-depth="1">
+                  <img src="./assets/case-jp-process-layout.jpg" alt="Stage play 三维结构空间装配" loading="lazy" />
+                  <em>空间装配</em>
+                </span>
+                <span class="mobile-flow-stack-count" aria-hidden="true">2 视图</span>
+              </span>
               <strong>结构层</strong>
             </button>
             <button type="button" data-mobile-stage="model" aria-pressed="false">
-              <span>03</span>
-              <img src="./assets/case-jp-process-gray.jpg" alt="Stage play 三维灰模" loading="lazy" />
+              <span class="mobile-flow-index">03</span>
+              <span class="mobile-flow-visual" data-mobile-stack>
+                <span class="mobile-flow-image" data-mobile-stack-image data-stack-depth="0">
+                  <img src="./assets/case-jp-process-gray.jpg" alt="Stage play 三维灰模" loading="lazy" />
+                  <em>灰模结构</em>
+                </span>
+                <span class="mobile-flow-image" data-mobile-stack-image data-stack-depth="1">
+                  <img src="./assets/case-jp-model-finished.jpg" alt="Stage play 完成模型正面实拍" loading="lazy" />
+                  <em>完成模型</em>
+                </span>
+                <span class="mobile-flow-stack-count" aria-hidden="true">2 视图</span>
+              </span>
               <strong>三维模型</strong>
             </button>
             <button type="button" data-mobile-stage="physical" aria-pressed="false">
-              <span>04</span>
-              <img src="./assets/case-jp-physical-color.webp" alt="Stage play 彩色灯光完成实体" loading="lazy" />
+              <span class="mobile-flow-index">04</span>
+              <span class="mobile-flow-visual" data-mobile-stack>
+                <span class="mobile-flow-image" data-mobile-stack-image data-stack-depth="0">
+                  <img src="./assets/case-jp-physical-color.webp" alt="Stage play 彩色灯光完成实体" loading="lazy" />
+                  <em>实体成品</em>
+                </span>
+                <span class="mobile-flow-image" data-mobile-stack-image data-stack-depth="1">
+                  <img src="./assets/case-jp-exhibition-view.jpg" alt="观众在展厅观看 Stage play 实体作品" loading="lazy" />
+                  <em>展览现场</em>
+                </span>
+                <span class="mobile-flow-stack-count" aria-hidden="true">2 视图</span>
+              </span>
               <strong>实体展示</strong>
             </button>
             <button type="button" data-mobile-stage="archive" aria-pressed="false">
-              <span>05</span>
+              <span class="mobile-flow-index">05</span>
               <img
                 src="./assets/case-jp-archive-license.webp"
                 alt="Stage play 数字档案、三维资产与授权用途记录"
@@ -211,7 +241,7 @@
     </nav>
 
     <script src="./unified-nav.js?v=20260711-nav-v1" defer></script>
-    <script src="./mobile-home.js?v=20260711-mobile-v4" defer></script>
+    <script src="./mobile-home.js?v=20260810-process-stacks-v1" defer></script>
     <script src="./daily-updates.js?v=20260810-freshness-v1" defer></script>
   </body>
 </html>

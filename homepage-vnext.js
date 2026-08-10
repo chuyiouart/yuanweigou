@@ -100,7 +100,30 @@ function selectFlowStage(stage) {
   }
 }
 
+function bringStackCardForward(card) {
+  const stack = card.closest("[data-asset-stack]");
+  if (!stack) return;
+
+  const cards = [...stack.querySelectorAll("[data-stack-card]")];
+  const selectedDepth = Number(card.dataset.stackDepth || 0);
+
+  cards.forEach((item) => {
+    const currentDepth = Number(item.dataset.stackDepth || 0);
+    const nextDepth = item === card ? 0 : currentDepth < selectedDepth ? currentDepth + 1 : currentDepth;
+    item.dataset.stackDepth = String(nextDepth);
+    item.setAttribute("aria-pressed", String(item === card));
+  });
+}
+
 flow?.addEventListener("click", (event) => {
+  const stackCard = event.target.closest("[data-stack-card]");
+  if (stackCard) {
+    bringStackCardForward(stackCard);
+    const stage = stackCard.closest("[data-flow-stage]")?.dataset.flowStage;
+    if (stage) selectFlowStage(stage);
+    return;
+  }
+
   const control = event.target.closest("[data-flow-control]");
   if (control) selectFlowStage(control.dataset.flowControl);
 });

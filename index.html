@@ -35,7 +35,7 @@
       })();
     </script>
     <link rel="preload" as="image" href="./assets/hero-display.jpg" fetchpriority="high" />
-    <link rel="stylesheet" href="./homepage-vnext.css?v=20260719-license-archive-v1" />
+    <link rel="stylesheet" href="./homepage-vnext.css?v=20260810-process-stacks-v1" />
     <link rel="stylesheet" href="./daily-updates.css?v=20260807-daily-v1" />
   </head>
   <body>
@@ -145,26 +145,92 @@
             </figure>
 
             <figure class="asset-stage" data-flow-stage="structure">
-              <div class="asset-frame asset-frame-structure">
-                <img src="./assets/case-jp-process-parts.jpg" alt="Stage play 三维结构拆分" loading="lazy" />
+              <div class="asset-frame asset-frame-structure asset-stack" data-asset-stack>
+                <button
+                  class="asset-stack-card"
+                  type="button"
+                  data-stack-card
+                  data-stack-depth="0"
+                  aria-pressed="true"
+                  aria-label="查看 Stage play 拆件平铺视图"
+                >
+                  <img src="./assets/case-jp-process-parts.jpg" alt="Stage play 三维部件拆分平铺" loading="lazy" />
+                  <span>拆件平铺</span>
+                </button>
+                <button
+                  class="asset-stack-card"
+                  type="button"
+                  data-stack-card
+                  data-stack-depth="1"
+                  aria-pressed="false"
+                  aria-label="查看 Stage play 空间装配视图"
+                >
+                  <img src="./assets/case-jp-process-layout.jpg" alt="Stage play 三维结构空间装配" loading="lazy" />
+                  <span>空间装配</span>
+                </button>
+                <span class="asset-stack-count" aria-hidden="true">2 视图</span>
               </div>
               <figcaption>结构层</figcaption>
             </figure>
 
             <figure class="asset-stage is-active" data-flow-stage="model">
-              <div class="asset-frame asset-frame-model">
-                <img src="./assets/case-jp-process-gray.jpg" alt="Stage play 灰模结构" loading="lazy" />
+              <div class="asset-frame asset-frame-model asset-stack" data-asset-stack>
+                <button
+                  class="asset-stack-card"
+                  type="button"
+                  data-stack-card
+                  data-stack-depth="0"
+                  aria-pressed="true"
+                  aria-label="查看 Stage play 灰模结构"
+                >
+                  <img src="./assets/case-jp-process-gray.jpg" alt="Stage play 灰模结构" loading="lazy" />
+                  <span>灰模结构</span>
+                </button>
+                <button
+                  class="asset-stack-card"
+                  type="button"
+                  data-stack-card
+                  data-stack-depth="1"
+                  aria-pressed="false"
+                  aria-label="查看 Stage play 完成模型实拍"
+                >
+                  <img src="./assets/case-jp-model-finished.jpg" alt="Stage play 完成模型正面实拍" loading="lazy" />
+                  <span>完成模型</span>
+                </button>
+                <span class="asset-stack-count" aria-hidden="true">2 视图</span>
               </div>
               <figcaption>三维模型</figcaption>
             </figure>
 
             <figure class="asset-stage" data-flow-stage="physical">
-              <div class="asset-frame asset-frame-physical">
-                <img
-                  src="./assets/case-jp-physical-color.webp"
-                  alt="Stage play 彩色灯光实体作品"
-                  loading="lazy"
-                />
+              <div class="asset-frame asset-frame-physical asset-stack" data-asset-stack>
+                <button
+                  class="asset-stack-card"
+                  type="button"
+                  data-stack-card
+                  data-stack-depth="0"
+                  aria-pressed="true"
+                  aria-label="查看 Stage play 彩色灯光实体作品"
+                >
+                  <img
+                    src="./assets/case-jp-physical-color.webp"
+                    alt="Stage play 彩色灯光实体作品"
+                    loading="lazy"
+                  />
+                  <span>实体成品</span>
+                </button>
+                <button
+                  class="asset-stack-card"
+                  type="button"
+                  data-stack-card
+                  data-stack-depth="1"
+                  aria-pressed="false"
+                  aria-label="查看 Stage play 展览现场"
+                >
+                  <img src="./assets/case-jp-exhibition-view.jpg" alt="观众在展厅观看 Stage play 实体作品" loading="lazy" />
+                  <span>展览现场</span>
+                </button>
+                <span class="asset-stack-count" aria-hidden="true">2 视图</span>
               </div>
               <figcaption>实体与展厅</figcaption>
             </figure>
@@ -341,7 +407,7 @@
     </footer>
 
     <script src="./unified-nav.js?v=20260711-nav-v1" defer></script>
-    <script src="./homepage-vnext.js?v=20260711-live-v2" defer></script>
+    <script src="./homepage-vnext.js?v=20260810-process-stacks-v1" defer></script>
     <script src="./daily-updates.js?v=20260810-freshness-v1" defer></script>
   </body>
 </html>

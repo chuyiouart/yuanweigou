@@ -11,6 +11,7 @@
   --line: rgba(17, 21, 18, 0.15);
   --gutter: 20px;
   --dock-height: 68px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
   font-family: Inter, "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif;
   font-synthesis: none;
 }
@@ -285,7 +286,7 @@ img {
   background: var(--white);
 }
 
-.mobile-flow-track button > span {
+.mobile-flow-index {
   color: var(--green);
   font-size: 10px;
   font-weight: 760;
@@ -296,6 +297,80 @@ img {
   height: 280px;
   object-fit: contain;
   background: #e7e8e3;
+}
+
+.mobile-flow-visual {
+  position: relative;
+  display: block;
+  height: 280px;
+  margin-right: 12px;
+  isolation: isolate;
+}
+
+.mobile-flow-image {
+  position: absolute;
+  inset: 8px 0 8px 0;
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(17, 35, 29, 0.12);
+  border-radius: 4px;
+  background: #e7e8e3;
+  box-shadow: 0 12px 28px rgba(13, 28, 23, 0.13);
+  transform-origin: center;
+  transition: transform 360ms var(--ease), filter 240ms ease, box-shadow 240ms ease;
+}
+
+.mobile-flow-image[data-stack-depth="0"] {
+  z-index: 3;
+  transform: translateY(7px);
+  box-shadow: 0 18px 34px rgba(13, 28, 23, 0.19);
+}
+
+.mobile-flow-image[data-stack-depth="1"] {
+  z-index: 2;
+  transform: translate(15px, -4px) rotate(0.8deg);
+  filter: saturate(0.72) brightness(0.97);
+}
+
+.mobile-flow-image[data-stack-depth="2"] {
+  z-index: 1;
+  transform: translate(22px, -10px) rotate(1.5deg);
+  filter: saturate(0.56) brightness(0.94);
+}
+
+.mobile-flow-image img {
+  display: block;
+  height: 100%;
+}
+
+.mobile-flow-image em {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  padding: 6px 8px;
+  border-radius: 3px;
+  background: rgba(7, 19, 15, 0.82);
+  color: #fff;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 740;
+  line-height: 1;
+}
+
+.mobile-flow-stack-count {
+  position: absolute;
+  top: 17px;
+  right: 8px;
+  z-index: 4;
+  padding: 5px 7px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 12px rgba(13, 28, 23, 0.1);
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 760;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .mobile-flow-track strong {

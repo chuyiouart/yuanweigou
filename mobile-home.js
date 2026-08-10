@@ -51,7 +51,24 @@ function selectMobileStage(stage, shouldCenter = true) {
   }
 }
 
+function bringMobileImageForward(image) {
+  const stack = image.closest("[data-mobile-stack]");
+  if (!stack) return;
+
+  const images = [...stack.querySelectorAll("[data-mobile-stack-image]")];
+  const selectedDepth = Number(image.dataset.stackDepth || 0);
+
+  images.forEach((item) => {
+    const currentDepth = Number(item.dataset.stackDepth || 0);
+    const nextDepth = item === image ? 0 : currentDepth < selectedDepth ? currentDepth + 1 : currentDepth;
+    item.dataset.stackDepth = String(nextDepth);
+  });
+}
+
 mobileFlow?.addEventListener("click", (event) => {
+  const stackImage = event.target.closest("[data-mobile-stack-image]");
+  if (stackImage) bringMobileImageForward(stackImage);
+
   const control = event.target.closest("[data-mobile-stage]");
   if (control) selectMobileStage(control.dataset.mobileStage);
 });

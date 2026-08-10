@@ -423,6 +423,94 @@ footer {
   transition: transform 600ms var(--ease), filter 360ms ease;
 }
 
+.asset-stack {
+  position: relative;
+  display: block;
+  overflow: visible;
+  isolation: isolate;
+  background: transparent;
+}
+
+.asset-stack-card {
+  position: absolute;
+  inset: 8px 12px 8px 0;
+  display: block;
+  overflow: hidden;
+  width: auto;
+  min-width: 0;
+  padding: 0;
+  border: 1px solid rgba(20, 25, 22, 0.12);
+  border-radius: 4px;
+  background: #eeeeea;
+  box-shadow: 0 12px 28px rgba(18, 24, 21, 0.1);
+  cursor: pointer;
+  transform-origin: center;
+  transition: transform 420ms var(--ease), box-shadow 320ms ease, filter 320ms ease;
+}
+
+.asset-stack-card[data-stack-depth="0"] {
+  z-index: 3;
+  transform: translateY(7px);
+  box-shadow: 0 18px 36px rgba(18, 24, 21, 0.17);
+}
+
+.asset-stack-card[data-stack-depth="1"] {
+  z-index: 2;
+  transform: translate(10px, -3px) rotate(1deg);
+  filter: saturate(0.72) brightness(0.97);
+}
+
+.asset-stack-card[data-stack-depth="2"] {
+  z-index: 1;
+  transform: translate(17px, -10px) rotate(1.8deg);
+  filter: saturate(0.58) brightness(0.94);
+}
+
+.asset-stack-card:hover:not([data-stack-depth="0"]) {
+  transform: translate(8px, -7px) rotate(0.4deg);
+}
+
+.asset-stack-card:focus-visible {
+  outline: 3px solid var(--forest);
+  outline-offset: 3px;
+}
+
+.asset-stack-card img {
+  display: block;
+  max-height: none;
+  background: #eeeeea;
+}
+
+.asset-stack-card > span {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  z-index: 1;
+  padding: 5px 7px;
+  border-radius: 3px;
+  background: rgba(7, 19, 15, 0.82);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 720;
+  line-height: 1;
+}
+
+.asset-stack-count {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  z-index: 4;
+  padding: 5px 7px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 4px 14px rgba(18, 24, 21, 0.1);
+  color: var(--forest);
+  font-size: 10px;
+  font-weight: 760;
+  line-height: 1;
+  pointer-events: none;
+}
+
 .asset-stage:not(.is-active) img {
   filter: saturate(0.65) contrast(0.93);
 }
@@ -1184,6 +1272,14 @@ footer div a:hover {
 
   .asset-frame {
     min-height: 300px;
+  }
+
+  .asset-stack-card {
+    inset: 8px 14px 10px 0;
+  }
+
+  .asset-stack-card[data-stack-depth="1"] {
+    transform: translate(12px, -3px) rotate(0.8deg);
   }
 
   .flow-controls {
