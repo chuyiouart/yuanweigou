@@ -15,10 +15,21 @@ import io
 import json
 import os
 import re
+import sys
 import tempfile
 import zlib
 from pathlib import Path
 from typing import Iterable
+
+HERMES_ROOT = Path(__file__).resolve().parents[3]
+if str(HERMES_ROOT / "lib") not in sys.path:
+    sys.path.insert(0, str(HERMES_ROOT / "lib"))
+from web_image_delivery import (  # noqa: E402
+    EFFECTIVE_DATE as RESPONSIVE_IMAGE_EFFECTIVE_DATE,
+    build_picture_html,
+    derive_responsive_assets,
+    validate_web_image_manifest,
+)
 
 ALLOWED_KINDS = {"metrion", "art-briefing"}
 FORBIDDEN_KINDS = {"ai-evening", "art-evening", "evening-briefing"}
@@ -336,6 +347,36 @@ def validate_package(
         item["image_files"] = approved_images
         item["image_sha256"] = list(declared_image_hashes)
         item["_validated_images"] = validated_images
+        if package_date >= RESPONSIVE_IMAGE_EFFECTIVE_DATE and validated_images:
+            delivery = raw.get("web_image_delivery")
+            if not isinstance(delivery, list) or len(delivery) != len(validated_images):
+                raise ValueError("web_image_delivery must contain one SHA-bound record per image")
+            checked_delivery = []
+            for image_index, record in enumerate(delivery):
+                if not isinstance(record, dict) or record.get("source_sha256") != declared_image_hashes[image_index]:
+                    raise ValueError("web_image_delivery source_sha256 does not match immutable package")
+                expected_text = record.get("expected_text", [])
+                if not isinstance(expected_text, list) or any(not isinstance(value, str) or not value for value in expected_text):
+                    raise ValueError("web_image_delivery expected_text must be a list of non-empty strings")
+                receipts = record.get("qa_receipts", {})
+                if kind == "metrion":
+                    if not isinstance(receipts, dict) or not receipts:
+                        raise ValueError("METRION web_image_delivery requires WebP and fallback QA receipts")
+                    for receipt in receipts.values():
+                        if (
+                            not isinstance(receipt, dict)
+                            or not re.fullmatch(r"[0-9a-f]{64}", str(receipt.get("image_sha256", "")))
+                            or receipt.get("ocr_exact_match") is not True
+                            or receipt.get("vision_mobile_readable") is not True
+                            or receipt.get("artifacts") is not False
+                        ):
+                            raise ValueError("METRION web_image_delivery QA receipt is incomplete")
+                checked_delivery.append({
+                    "source_sha256": record["source_sha256"],
+                    "expected_text": list(expected_text),
+                    "qa_receipts": dict(receipts),
+                })
+            item["_web_image_delivery"] = checked_delivery
         validated.append(item)
     return validated
 
@@ -424,16 +465,53 @@ def copy_images(site_root: Path, entry: dict) -> list[str]:
     return urls
 
 
+def deliver_responsive_images(site_root: Path, entry: dict, original_urls: list[str]) -> tuple[list[str], list[dict], list[str]]:
+    """Derive future website assets while the caller holds the publisher site lock."""
+    target_dir = site_root / "assets" / "daily-updates" / entry["date"]
+    pictures: list[str] = []
+    manifests: list[dict] = []
+    public_assets: list[str] = []
+    for index, (validated, qa, original_url) in enumerate(
+        zip(entry["_validated_images"], entry["_web_image_delivery"], original_urls, strict=True), 1
+    ):
+        published_original = site_root / original_url.removeprefix("../")
+        if hashlib.sha256(published_original.read_bytes()).hexdigest() != qa["source_sha256"]:
+            raise ValueError("web_image_delivery published source identity drift")
+        manifest = derive_responsive_assets(
+            published_original, target_dir, f"{entry['kind']}-{index:02d}",
+            widths=(480, 768, 1280), page_role="gallery",
+            original_url=original_url, expected_text=qa["expected_text"],
+            require_text_qa=entry["kind"] == "metrion",
+        )
+        manifest["qa_receipts"] = qa["qa_receipts"]
+        validate_web_image_manifest(manifest, require_qa=entry["kind"] == "metrion")
+        pictures.append(build_picture_html(
+            manifest, alt=f'{entry["title"]} 配图{index}', lcp=index == 1,
+            relative_prefix=f"../assets/daily-updates/{entry['date']}/",
+        ))
+        manifests.append(manifest)
+        for row in [*manifest["derivatives"], manifest["fallback"]]:
+            public_assets.append(str(Path(row["path"]).relative_to(site_root)).replace("\\", "/"))
+    return pictures, manifests, public_assets
+
+
 def article_html(entry: dict, image_urls: Iterable[str]) -> str:
     date_cn = dt.date.fromisoformat(entry["date"]).strftime("%Y年%m月%d日").replace("年0", "年").replace("月0", "月")
     gallery = ""
     urls = list(image_urls)
     if urls:
         caption = "合作方向场景示意" if entry["kind"] == "metrion" else "来源文章配图"
-        figures = "".join(
-            f'<figure><img src="{html.escape(url)}" alt="{html.escape(entry["title"])} 配图{index}" loading="lazy" /><figcaption>{caption} {index}</figcaption></figure>'
-            for index, url in enumerate(urls, 1)
-        )
+        def render_figure(url: str, index: int) -> str:
+            if url.startswith("<picture>"):
+                image_markup = url
+            else:
+                image_markup = (
+                    f'<img src="{html.escape(url)}" '
+                    f'alt="{html.escape(entry["title"])} 配图{index}" loading="lazy" />'
+                )
+            return f"<figure>{image_markup}<figcaption>{caption} {index}</figcaption></figure>"
+
+        figures = "".join(render_figure(url, index) for index, url in enumerate(urls, 1))
         gallery = f'<div class="daily-article-gallery" aria-label="文章配图">{figures}</div>'
     body = markdown_to_html(entry["body_markdown"])
     aside_title = "从作品开始判断" if entry["kind"] == "metrion" else "阅读说明"
@@ -519,6 +597,7 @@ def publish(
 ) -> dict:
     written = []
     written_assets = []
+    web_image_delivery = []
     lock_context = inherited_site_lock(site_root, lock_fd) if lock_fd is not None else site_lock(site_root)
     with lock_context:
         package_bytes = package_path.read_bytes()
@@ -528,8 +607,13 @@ def publish(
         for entry in entries:
             image_urls = copy_images(site_root, entry)
             written_assets.extend(url.removeprefix("../") for url in image_urls)
+            rendered_images = image_urls
+            if entry["date"] >= RESPONSIVE_IMAGE_EFFECTIVE_DATE and image_urls:
+                rendered_images, manifests, responsive_assets = deliver_responsive_images(site_root, entry, image_urls)
+                web_image_delivery.extend(manifests)
+                written_assets.extend(responsive_assets)
             target = site_root / "daily-updates" / f'{entry["slug"]}.html'
-            atomic_write(target, article_html(entry, image_urls))
+            atomic_write(target, article_html(entry, rendered_images))
             written.append(str(target.relative_to(site_root)).replace("\\", "/"))
         update_index(site_root, entries)
         public_paths = ["daily-updates/index.json", *written, *written_assets]
@@ -545,6 +629,8 @@ def publish(
             "assets": written_assets, "files": files,
             "package_sha256": hashlib.sha256(package_bytes).hexdigest(),
         }
+        if web_image_delivery:
+            state["web_image_delivery"] = web_image_delivery
         atomic_write(site_root / ".daily-sync-state" / f'{payload["date"]}.json', json.dumps(state, ensure_ascii=False, indent=2) + "\n")
     return state
 

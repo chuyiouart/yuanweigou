@@ -7,6 +7,7 @@ import sys
 import tempfile
 import unittest
 import zlib
+from PIL import Image
 from unittest import mock
 from pathlib import Path
 
@@ -48,17 +49,17 @@ class DailyPublisherTests(unittest.TestCase):
     def tearDown(self):
         self.temp.cleanup()
 
-    def package(self, kind="metrion", status="delivered_verified"):
+    def package(self, kind="metrion", status="delivered_verified", date="2026-08-06"):
         images = self.images if kind == "metrion" else []
         image_hashes = [hashlib.sha256(Path(image).read_bytes()).hexdigest() for image in images]
         entry = {
-            "date": "2026-08-06",
+            "date": date,
             "kind": kind,
             "title": "测试标题",
             "summary": "公开摘要",
             "deck": "公开导语",
             "body_markdown": "## 第一节\n\n正文。\n\n- 要点一",
-            "slug": f"2026-08-06-{kind}",
+            "slug": f"{date}-{kind}",
             "website_eligible": True,
             "source_status": status,
             "image_files": images,
@@ -68,7 +69,7 @@ class DailyPublisherTests(unittest.TestCase):
             entry["images_approved"] = True
         if kind == "art-briefing":
             entry["briefing_period"] = "morning"
-        return {"schema_version": 2, "date": "2026-08-06", "entries": [entry]}
+        return {"schema_version": 2, "date": date, "entries": [entry]}
 
     def write_package(self, payload):
         path = self.root / "package.json"
@@ -77,6 +78,36 @@ class DailyPublisherTests(unittest.TestCase):
 
     def publish(self, payload):
         return publisher.publish(self.write_package(payload), self.root, self.approved)
+
+    def add_future_delivery(self, payload, *, text_qa=True):
+        records = []
+        for index, image_name in enumerate(payload["entries"][0]["image_files"], 1):
+            source = Path(image_name)
+            preview_dir = self.root / "receipt-preview" / str(index)
+            manifest = publisher.derive_responsive_assets(
+                source, preview_dir, f"preview-{index}", widths=(480, 768, 1280),
+                page_role="gallery", expected_text=[f"图中文字 {index}"],
+                require_text_qa=text_qa,
+            )
+            receipts = {}
+            if text_qa:
+                for key, row in [
+                    *[(str(row["width"]), row) for row in manifest["derivatives"]],
+                    ("fallback", manifest["fallback"]),
+                ]:
+                    receipts[key] = {
+                        "image_sha256": row["sha256"],
+                        "ocr_exact_match": True,
+                        "vision_mobile_readable": True,
+                        "artifacts": False,
+                    }
+            records.append({
+                "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
+                "expected_text": [f"图中文字 {index}"] if text_qa else [],
+                "qa_receipts": receipts,
+            })
+        payload["entries"][0]["web_image_delivery"] = records
+        return payload
 
     def test_publishes_verified_metrion_and_is_idempotent(self):
         package = self.write_package(self.package())
@@ -93,6 +124,52 @@ class DailyPublisherTests(unittest.TestCase):
         index = json.loads((self.root / "daily-updates" / "index.json").read_text(encoding="utf-8"))
         self.assertEqual(index["entries"][0]["source_status"], "delivered_verified")
         self.assertEqual(len(list((self.root / "assets" / "daily-updates" / "2026-08-06").glob("*"))), 4)
+
+    def test_future_metrion_requires_package_bound_web_image_qa(self):
+        payload = self.package(date="2026-08-12")
+        with self.assertRaisesRegex(ValueError, "web_image_delivery"):
+            self.publish(payload)
+
+    def test_future_metrion_derives_sha_bound_responsive_picture_chain(self):
+        for index, image_name in enumerate(self.images):
+            Image.new("RGB", (1400, 900), (20 + index, 40 + index, 60 + index)).save(image_name)
+        payload = self.add_future_delivery(self.package(date="2026-08-12"))
+        state = self.publish(payload)
+        page = (self.root / state["entries"][0]).read_text(encoding="utf-8")
+
+        self.assertEqual(len(state["web_image_delivery"]), 4)
+        self.assertEqual(page.count("<picture>"), 4)
+        self.assertEqual(page.count('loading="eager"'), 1)
+        self.assertEqual(page.count('fetchpriority="high"'), 1)
+        self.assertEqual(page.count('loading="lazy"'), 3)
+        self.assertEqual(page.count('sizes="(max-width: 680px) 100vw, 50vw"'), 8)
+        self.assertIn(" 480w", page)
+        self.assertIn(" 768w", page)
+        self.assertIn(" 1280w", page)
+        for manifest in state["web_image_delivery"]:
+            self.assertEqual([row["width"] for row in manifest["derivatives"]], [480, 768, 1280])
+            self.assertTrue(manifest["require_text_qa"])
+            self.assertEqual(set(manifest["qa_receipts"]), {"480", "768", "1280", "fallback"})
+            self.assertTrue(all(row["width"] <= manifest["original_width"] for row in manifest["derivatives"]))
+            publisher.validate_web_image_manifest(manifest, require_qa=True)
+        self.assertTrue(all((self.root / asset).is_file() for asset in state["assets"]))
+
+    def test_future_art_image_is_responsive_without_canonical_text_qa(self):
+        image = self.art_approved / "future-art.png"
+        Image.new("RGB", (900, 600), (90, 100, 110)).save(image)
+        payload = self.package("art-briefing", "delivered_verified", date="2026-08-12")
+        payload["entries"][0]["image_files"] = [str(image)]
+        payload["entries"][0]["image_sha256"] = [hashlib.sha256(image.read_bytes()).hexdigest()]
+        self.add_future_delivery(payload, text_qa=False)
+        state = publisher.publish(
+            self.write_package(payload), self.root, self.approved,
+            art_allowed_image_root=self.art_approved,
+        )
+        manifest = state["web_image_delivery"][0]
+        self.assertFalse(manifest["require_text_qa"])
+        self.assertEqual(manifest["qa_receipts"], {})
+        self.assertLessEqual(manifest["fallback"]["bytes"], 1024 * 1024)
+        publisher.validate_web_image_manifest(manifest, require_qa=False)
 
     def test_accepts_formal_art_brief_without_images(self):
         payload = self.package("art-briefing", "formal_archived")
