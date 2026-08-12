@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-12T16:21:14+08:00",
-  "content_through": "2026-08-11",
+  "updated_at": "2026-08-12T16:53:20+08:00",
+  "content_through": "2026-08-12",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,22 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-08-12",
+      "kind": "metrion",
+      "title": "一根墨线，抬成三个高度",
+      "summary": "一张已经完成、来源与权利边界清楚的单线墨稿里，一根粗细不均的黑线从左下起笔，向上绕出宽弧，再折回右下。",
+      "url": "daily-updates/2026-08-12-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-12",
+      "kind": "art-briefing",
+      "title": "2026-08-12 视觉艺术每日早报",
+      "summary": "过去 24—72 小时的主线不是单一“大展”，而是美术馆公共责任的多重拉扯：收藏扩容与空间升级同步发生，票价、策展自主权和公共资金使用则受到审视。",
+      "url": "daily-updates/2026-08-12-visual-art-morning-briefing.html",
+      "source_status": "formal_archived"
+    },
     {
       "date": "2026-08-11",
       "kind": "metrion",
