@@ -125,34 +125,32 @@ class DailyPublisherTests(unittest.TestCase):
         self.assertEqual(index["entries"][0]["source_status"], "delivered_verified")
         self.assertEqual(len(list((self.root / "assets" / "daily-updates" / "2026-08-06").glob("*"))), 4)
 
-    def test_future_metrion_requires_package_bound_web_image_qa(self):
+    def test_future_metrion_requires_sha_bound_four_sources_for_grid(self):
         payload = self.package(date="2026-08-12")
-        with self.assertRaisesRegex(ValueError, "web_image_delivery"):
+        payload["entries"][0]["image_sha256"][0] = "0" * 64
+        with self.assertRaisesRegex(ValueError, "digest"):
             self.publish(payload)
 
-    def test_future_metrion_derives_sha_bound_responsive_picture_chain(self):
+    def test_future_metrion_derives_sha_bound_single_grid(self):
         for index, image_name in enumerate(self.images):
             Image.new("RGB", (1400, 900), (20 + index, 40 + index, 60 + index)).save(image_name)
-        payload = self.add_future_delivery(self.package(date="2026-08-12"))
+        payload = self.package(date="2026-08-12")
+        payload["entries"][0]["image_sha256"] = [hashlib.sha256(Path(path).read_bytes()).hexdigest() for path in self.images]
         state = self.publish(payload)
         page = (self.root / state["entries"][0]).read_text(encoding="utf-8")
 
-        self.assertEqual(len(state["web_image_delivery"]), 4)
-        self.assertEqual(page.count("<picture>"), 4)
+        self.assertEqual(len(state["web_image_delivery"]), 1)
+        self.assertEqual(page.count("<picture>"), 0)
+        self.assertEqual(page.count("<img "), 1)
         self.assertEqual(page.count('loading="eager"'), 1)
         self.assertEqual(page.count('fetchpriority="high"'), 1)
-        self.assertEqual(page.count('loading="lazy"'), 3)
-        self.assertEqual(page.count('sizes="(max-width: 680px) 100vw, 50vw"'), 8)
-        self.assertIn(" 480w", page)
-        self.assertIn(" 768w", page)
-        self.assertIn(" 1280w", page)
-        for manifest in state["web_image_delivery"]:
-            self.assertEqual([row["width"] for row in manifest["derivatives"]], [480, 768, 1280])
-            self.assertTrue(manifest["require_text_qa"])
-            self.assertEqual(set(manifest["qa_receipts"]), {"480", "768", "1280", "fallback"})
-            self.assertTrue(all(row["width"] <= manifest["original_width"] for row in manifest["derivatives"]))
-            publisher.validate_web_image_manifest(manifest, require_qa=True)
-        self.assertTrue(all((self.root / asset).is_file() for asset in state["assets"]))
+        self.assertEqual(page.count('loading="lazy"'), 0)
+        manifest = state["web_image_delivery"][0]
+        self.assertEqual(manifest["layout"], "grid-2x2-v1")
+        self.assertEqual(manifest["source_sha256"], payload["entries"][0]["image_sha256"])
+        self.assertEqual([manifest["width"], manifest["height"]], [1200, 1200])
+        self.assertLessEqual(manifest["bytes"], 450 * 1024)
+        self.assertTrue((self.root / manifest["path"]).is_file())
 
     def test_future_art_image_is_responsive_without_canonical_text_qa(self):
         image = self.art_approved / "future-art.png"

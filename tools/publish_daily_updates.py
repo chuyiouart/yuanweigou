@@ -21,6 +21,8 @@ import zlib
 from pathlib import Path
 from typing import Iterable
 
+from PIL import Image, ImageOps
+
 HERMES_ROOT = Path(__file__).resolve().parents[3]
 if str(HERMES_ROOT / "lib") not in sys.path:
     sys.path.insert(0, str(HERMES_ROOT / "lib"))
@@ -347,7 +349,7 @@ def validate_package(
         item["image_files"] = approved_images
         item["image_sha256"] = list(declared_image_hashes)
         item["_validated_images"] = validated_images
-        if package_date >= RESPONSIVE_IMAGE_EFFECTIVE_DATE and validated_images:
+        if package_date >= RESPONSIVE_IMAGE_EFFECTIVE_DATE and validated_images and kind != "metrion":
             delivery = raw.get("web_image_delivery")
             if not isinstance(delivery, list) or len(delivery) != len(validated_images):
                 raise ValueError("web_image_delivery must contain one SHA-bound record per image")
@@ -495,6 +497,69 @@ def deliver_responsive_images(site_root: Path, entry: dict, original_urls: list[
     return pictures, manifests, public_assets
 
 
+def build_metrion_grid(site_root: Path, entry: dict) -> tuple[str, dict, list[str]]:
+    """Create one deterministic 2x2 WebP from four immutable validated sources."""
+    if len(entry.get("_validated_images", [])) != 4:
+        raise ValueError("METRION grid requires four validated sources")
+    sources = []
+    for row in entry["_validated_images"]:
+        if hashlib.sha256(row["bytes"]).hexdigest() != row["sha256"]:
+            raise ValueError("METRION grid source identity drift")
+        with Image.open(io.BytesIO(row["bytes"])) as opened:
+            opened.verify()
+        with Image.open(io.BytesIO(row["bytes"])) as opened:
+            image = ImageOps.exif_transpose(opened).convert("RGB")
+            image.load()
+        sources.append(image)
+    target_dir = site_root / "assets" / "daily-updates" / entry["date"]
+    target_dir.mkdir(parents=True, exist_ok=True)
+    cell, gap, canvas_size = 584, 16, 1200
+    background = (235, 232, 226)
+    canvas = Image.new("RGB", (canvas_size, canvas_size), background)
+    for index, source in enumerate(sources):
+        contained = ImageOps.contain(source, (cell, cell), Image.Resampling.LANCZOS)
+        tile = Image.new("RGB", (cell, cell), background)
+        tile.paste(contained, ((cell - contained.width) // 2, (cell - contained.height) // 2))
+        x = 0 if index % 2 == 0 else cell + gap
+        y = 0 if index < 2 else cell + gap
+        canvas.paste(tile, (x, y))
+    source_hashes = [row["sha256"] for row in entry["_validated_images"]]
+    stem = f"{entry['kind']}-grid-{hashlib.sha256(''.join(source_hashes).encode()).hexdigest()[:12]}"
+    target = target_dir / f"{stem}.webp"
+    accepted = None
+    for quality in (82, 78, 72):
+        buffer = io.BytesIO()
+        canvas.save(buffer, format="WEBP", quality=quality, method=6, exact=True)
+        data = buffer.getvalue()
+        if len(data) <= 450 * 1024:
+            accepted = (quality, data)
+            break
+    if accepted is None:
+        raise ValueError("METRION grid exceeds 450KB budget")
+    quality, data = accepted
+    with Image.open(io.BytesIO(data)) as verification:
+        verification.load()
+        if verification.format != "WEBP" or verification.size != (1200, 1200):
+            raise ValueError("METRION grid decode verification failed")
+    atomic_write_bytes(target, data)
+    output_sha = hashlib.sha256(data).hexdigest()
+    relative = str(target.relative_to(site_root)).replace("\\", "/")
+    manifest = {
+        "schema_version": 1, "layout": "grid-2x2-v1", "date": entry["date"],
+        "source_sha256": source_hashes, "output_sha256": output_sha,
+        "path": relative, "width": 1200, "height": 1200,
+        "gap_px": 16, "background": "#ebe8e2", "format": "webp",
+        "quality": quality, "bytes": len(data), "budget_bytes": 450 * 1024,
+        "source_preserved": True,
+    }
+    url = f"../{relative}?v={output_sha[:12]}"
+    markup = (
+        f'<img src="{html.escape(url, quote=True)}" alt="{html.escape(entry["title"])} 四图合图" '
+        'width="1200" height="1200" loading="eager" decoding="async" fetchpriority="high" />'
+    )
+    return markup, manifest, [relative]
+
+
 def article_html(entry: dict, image_urls: Iterable[str]) -> str:
     date_cn = dt.date.fromisoformat(entry["date"]).strftime("%Y年%m月%d日").replace("年0", "年").replace("月0", "月")
     gallery = ""
@@ -502,7 +567,7 @@ def article_html(entry: dict, image_urls: Iterable[str]) -> str:
     if urls:
         caption = "合作方向场景示意" if entry["kind"] == "metrion" else "来源文章配图"
         def render_figure(url: str, index: int) -> str:
-            if url.startswith("<picture>"):
+            if url.startswith("<picture>") or url.startswith("<img "):
                 image_markup = url
             else:
                 image_markup = (
@@ -605,13 +670,20 @@ def publish(
         entries = validate_package(payload, allowed_image_root, art_allowed_image_root)
         validate_against_existing_index(site_root, entries)
         for entry in entries:
-            image_urls = copy_images(site_root, entry)
-            written_assets.extend(url.removeprefix("../") for url in image_urls)
-            rendered_images = image_urls
-            if entry["date"] >= RESPONSIVE_IMAGE_EFFECTIVE_DATE and image_urls:
-                rendered_images, manifests, responsive_assets = deliver_responsive_images(site_root, entry, image_urls)
-                web_image_delivery.extend(manifests)
-                written_assets.extend(responsive_assets)
+            rendered_images: list[str] = []
+            if entry["date"] >= RESPONSIVE_IMAGE_EFFECTIVE_DATE and entry["kind"] == "metrion":
+                grid_markup, grid_manifest, grid_assets = build_metrion_grid(site_root, entry)
+                rendered_images = [grid_markup]
+                web_image_delivery.append(grid_manifest)
+                written_assets.extend(grid_assets)
+            else:
+                image_urls = copy_images(site_root, entry)
+                written_assets.extend(url.removeprefix("../") for url in image_urls)
+                rendered_images = image_urls
+                if entry["date"] >= RESPONSIVE_IMAGE_EFFECTIVE_DATE and image_urls:
+                    rendered_images, manifests, responsive_assets = deliver_responsive_images(site_root, entry, image_urls)
+                    web_image_delivery.extend(manifests)
+                    written_assets.extend(responsive_assets)
             target = site_root / "daily-updates" / f'{entry["slug"]}.html'
             atomic_write(target, article_html(entry, rendered_images))
             written.append(str(target.relative_to(site_root)).replace("\\", "/"))
