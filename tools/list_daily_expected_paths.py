@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -14,6 +15,13 @@ def expected_paths(package: dict[str, Any]) -> list[str]:
     paths = ["daily-updates/index.json"]
     paths.extend(f"daily-updates/{entry['slug']}.html" for entry in entries)
     for entry in entries:
+        if entry.get("kind") == "metrion" and date >= "2026-08-12":
+            digests = entry.get("image_sha256", [])
+            if not isinstance(digests, list) or len(digests) != 4:
+                raise ValueError("METRION grid requires four source digests")
+            stem = hashlib.sha256("".join(digests).encode()).hexdigest()[:12]
+            paths.append(f"assets/daily-updates/{date}/metrion-grid-{stem}.webp")
+            continue
         for index, image_name in enumerate(entry.get("image_files", []), 1):
             suffix = Path(image_name).suffix.lower()
             paths.append(

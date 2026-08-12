@@ -116,6 +116,8 @@ validate_manifest_structure() {
       :
     elif [[ "$public_path" =~ ^daily-updates/${DATE}-[a-z0-9]+(-[a-z0-9]+)*\.html$ ]]; then
       :
+    elif [[ "$public_path" =~ ^assets/daily-updates/${DATE}/metrion-grid-[0-9a-f]{12}\.webp$ ]]; then
+      :
     elif [[ "$public_path" =~ ^assets/daily-updates/${DATE}/(metrion|art-briefing)-[0-9]{2}\.(jpg|jpeg|png)$ ]]; then
       :
     else
