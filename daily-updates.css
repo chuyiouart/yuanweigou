@@ -314,6 +314,10 @@
   margin: 34px 0 44px;
 }
 
+.daily-article-gallery--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .daily-article-gallery figure {
   margin: 0;
   overflow: hidden;

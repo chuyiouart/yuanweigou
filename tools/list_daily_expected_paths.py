@@ -15,7 +15,7 @@ def expected_paths(package: dict[str, Any]) -> list[str]:
     paths = ["daily-updates/index.json"]
     paths.extend(f"daily-updates/{entry['slug']}.html" for entry in entries)
     for entry in entries:
-        if entry.get("kind") == "metrion" and date >= "2026-08-12":
+        if entry.get("kind") == "metrion" and date >= "2026-08-11":
             digests = entry.get("image_sha256", [])
             if not isinstance(digests, list) or len(digests) != 4:
                 raise ValueError("METRION grid requires four source digests")

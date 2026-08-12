@@ -78,7 +78,7 @@ def validate(
     grid_by_date = {row.get("date"): row for row in web_records if isinstance(row, dict) and row.get("layout") == "grid-2x2-v1"}
     for entry in entries:
         article_urls: list[str] = []
-        if entry["kind"] == "metrion" and date >= publisher.RESPONSIVE_IMAGE_EFFECTIVE_DATE:
+        if entry["kind"] == "metrion" and date >= publisher.METRION_GRID_EFFECTIVE_DATE:
             record = grid_by_date.get(date)
             if not isinstance(record, dict):
                 raise ValueError("METRION grid publication record missing")

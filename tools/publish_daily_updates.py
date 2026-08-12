@@ -45,6 +45,7 @@ FORBIDDEN_PATH_PATTERNS = (
     re.compile(r"(?i)appdata[\\/]local[\\/]hermes(?:[\\/]|\b)"),
 )
 KIND_LABEL = {"metrion": "元维构项目日更", "art-briefing": "视觉艺术早报"}
+METRION_GRID_EFFECTIVE_DATE = "2026-08-11"
 MARKDOWN_LINK = re.compile(r"\[([^\]\r\n]+)\]\((https?://[^\s<>\"']+?)\)")
 
 
@@ -577,7 +578,8 @@ def article_html(entry: dict, image_urls: Iterable[str]) -> str:
             return f"<figure>{image_markup}<figcaption>{caption} {index}</figcaption></figure>"
 
         figures = "".join(render_figure(url, index) for index, url in enumerate(urls, 1))
-        gallery = f'<div class="daily-article-gallery" aria-label="文章配图">{figures}</div>'
+        gallery_class = "daily-article-gallery daily-article-gallery--single" if len(urls) == 1 else "daily-article-gallery"
+        gallery = f'<div class="{gallery_class}" aria-label="文章配图">{figures}</div>'
     body = markdown_to_html(entry["body_markdown"])
     aside_title = "从作品开始判断" if entry["kind"] == "metrion" else "阅读说明"
     aside_copy = "提交作品类型、预计用途和公开边界，先判断合作入口。" if entry["kind"] == "metrion" else "早报内容基于公开来源整理；分析与来源立场相互区分。"
@@ -586,7 +588,7 @@ def article_html(entry: dict, image_urls: Iterable[str]) -> str:
     return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{html.escape(entry["title"])}｜每日新构</title><meta name="description" content="{html.escape(entry["summary"])}" />
-<link rel="canonical" href="{canonical}" /><link rel="stylesheet" href="../daily-updates.css?v=20260807-daily-v1" /></head>
+<link rel="canonical" href="{canonical}" /><link rel="stylesheet" href="../daily-updates.css?v=20260812-single-gallery-v1" /></head>
 <body class="daily-page"><nav class="daily-page-nav" aria-label="文章导航"><a class="daily-page-brand" href="../index.html">元维构 METRION</a><div><a href="./index.html">每日新构</a><a href="../submit-check.html">提交作品</a></div></nav>
 <header class="daily-article-hero"><div><p class="daily-article-kicker">{KIND_LABEL[entry["kind"]]}</p><h1>{html.escape(entry["title"])}</h1><p class="daily-article-deck">{html.escape(entry["deck"])}</p><p class="daily-article-meta"><time datetime="{entry["date"]}">{date_cn}</time></p></div></header>
 <main class="daily-article-layout"><article class="daily-article-body">{gallery}{body}</article><aside class="daily-article-aside"><strong>{aside_title}</strong><p>{aside_copy}</p>{aside_link}</aside></main>
@@ -671,7 +673,7 @@ def publish(
         validate_against_existing_index(site_root, entries)
         for entry in entries:
             rendered_images: list[str] = []
-            if entry["date"] >= RESPONSIVE_IMAGE_EFFECTIVE_DATE and entry["kind"] == "metrion":
+            if entry["date"] >= METRION_GRID_EFFECTIVE_DATE and entry["kind"] == "metrion":
                 grid_markup, grid_manifest, grid_assets = build_metrion_grid(site_root, entry)
                 rendered_images = [grid_markup]
                 web_image_delivery.append(grid_manifest)

@@ -34,16 +34,16 @@ class MetrionGridPublisherTests(unittest.TestCase):
     def tearDown(self):
         self.temp.cleanup()
 
-    def package(self):
+    def package(self, date="2026-08-12"):
         entry = {
-            "date": "2026-08-12", "kind": "metrion", "title": "测试标题",
+            "date": date, "kind": "metrion", "title": "测试标题",
             "summary": "正式摘要。", "deck": "正式导语", "body_markdown": "## 正文\n\n正式正文。",
-            "slug": "2026-08-12-metrion-daily-construction", "website_eligible": True,
+            "slug": f"{date}-metrion-daily-construction", "website_eligible": True,
             "source_status": "delivered_verified", "images_approved": True,
             "image_files": [str(path) for path in self.sources],
             "image_sha256": [hashlib.sha256(path.read_bytes()).hexdigest() for path in self.sources],
         }
-        return {"schema_version": 2, "date": "2026-08-12", "entries": [entry]}
+        return {"schema_version": 2, "date": date, "entries": [entry]}
 
     def test_four_sources_become_one_deterministic_budgeted_grid_without_source_mutation(self):
         before = [path.read_bytes() for path in self.sources]
@@ -71,6 +71,28 @@ class MetrionGridPublisherTests(unittest.TestCase):
         self.assertEqual(output_bytes, output.read_bytes())
         self.assertEqual(manifest["output_sha256"], second["web_image_delivery"][0]["output_sha256"])
         self.assertEqual(before, [path.read_bytes() for path in self.sources])
+
+    def test_2026_08_11_migration_uses_one_full_width_grid(self):
+        before = [path.read_bytes() for path in self.sources]
+        package = self.root / "package-0811.json"
+        package.write_text(json.dumps(self.package("2026-08-11"), ensure_ascii=False), encoding="utf-8")
+        state = publisher.publish(package, self.root, self.approved)
+        page = (self.root / state["entries"][0]).read_text(encoding="utf-8")
+        self.assertEqual(page.count("<img "), 1)
+        self.assertEqual(page.count(".png"), 0)
+        self.assertIn('class="daily-article-gallery daily-article-gallery--single"', page)
+        manifest = state["web_image_delivery"][0]
+        self.assertEqual(manifest["date"], "2026-08-11")
+        self.assertEqual(manifest["layout"], "grid-2x2-v1")
+        self.assertLessEqual(manifest["bytes"], 450 * 1024)
+        self.assertEqual(before, [path.read_bytes() for path in self.sources])
+
+    def test_single_gallery_css_contract_is_one_column(self):
+        css = (ROOT / "daily-updates.css").read_text(encoding="utf-8")
+        self.assertRegex(
+            css,
+            r"\.daily-article-gallery--single\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)",
+        )
 
     def test_source_sha_mismatch_fails_before_grid_publish(self):
         payload = self.package()

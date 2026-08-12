@@ -32,6 +32,25 @@ class ExpectedPathOrderTests(unittest.TestCase):
                 "assets/daily-updates/2026-08-09/metrion-02.png",
             ],
         )
+    def test_2026_08_11_grid_path_uses_source_digest(self):
+        digests = [f"{index:064x}" for index in range(1, 5)]
+        package = {
+            "date": "2026-08-11",
+            "entries": [{
+                "kind": "metrion", "slug": "2026-08-11-metrion",
+                "image_files": ["a.png", "b.png", "c.png", "d.png"],
+                "image_sha256": digests,
+            }],
+        }
+        expected_stem = __import__("hashlib").sha256("".join(digests).encode()).hexdigest()[:12]
+        spec = importlib.util.spec_from_file_location("expected_paths_0811", MODULE_PATH)
+        assert spec is not None and spec.loader is not None
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        self.assertEqual(
+            module.expected_paths(package)[-1],
+            f"assets/daily-updates/2026-08-11/metrion-grid-{expected_stem}.webp",
+        )
 
 
 if __name__ == "__main__":
