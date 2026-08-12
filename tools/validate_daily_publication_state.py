@@ -23,6 +23,28 @@ def sha256_bytes(content: bytes) -> str:
     return hashlib.sha256(content).hexdigest()
 
 
+def validate_grid_encoder_contract(record: dict, date: str) -> None:
+    if date < publisher.ENCODER_MANIFEST_EFFECTIVE_DATE:
+        return
+    parameters = record.get("encoding_parameters")
+    valid = (
+        record.get("encoder") == "pillow-webp"
+        and type(record.get("encoder")) is str
+        and record.get("pillow_version") == "10.2.0"
+        and type(record.get("pillow_version")) is str
+        and record.get("libwebp_version") == "1.3.2"
+        and type(record.get("libwebp_version")) is str
+        and isinstance(parameters, dict)
+        and set(parameters) == {"method", "exact"}
+        and type(parameters.get("method")) is int
+        and parameters.get("method") == 6
+        and type(parameters.get("exact")) is bool
+        and parameters.get("exact") is True
+    )
+    if not valid:
+        raise ValueError("METRION grid encoder contract mismatch")
+
+
 def derive_allowed_root(package: dict, explicit_root: Path | None, site_root: Path) -> Path:
     if explicit_root is not None:
         return explicit_root.resolve(strict=True)
@@ -87,6 +109,7 @@ def validate(
                 raise ValueError("METRION grid source or geometry mismatch")
             if record.get("format") != "webp" or not isinstance(record.get("bytes"), int) or record["bytes"] > 450 * 1024:
                 raise ValueError("METRION grid format or budget mismatch")
+            validate_grid_encoder_contract(record, date)
             asset = record.get("path")
             if not isinstance(asset, str) or not re.fullmatch(rf"assets/daily-updates/{re.escape(date)}/metrion-grid-[0-9a-f]{{12}}\.webp", asset):
                 raise ValueError("METRION grid path mismatch")

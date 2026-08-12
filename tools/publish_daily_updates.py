@@ -34,6 +34,17 @@ build_picture_html = _web_image_delivery.build_picture_html
 derive_responsive_assets = _web_image_delivery.derive_responsive_assets
 validate_web_image_manifest = _web_image_delivery.validate_web_image_manifest
 
+WEBP_ENCODER_CONTRACT_PATH = Path(__file__).resolve().with_name("webp_encoder_contract.py")
+_encoder_spec = importlib.util.spec_from_file_location("yuanweigou_webp_encoder_contract", WEBP_ENCODER_CONTRACT_PATH)
+if _encoder_spec is None or _encoder_spec.loader is None:
+    raise ImportError(f"cannot load WebP encoder contract: {WEBP_ENCODER_CONTRACT_PATH}")
+_webp_encoder_contract = importlib.util.module_from_spec(_encoder_spec)
+_encoder_spec.loader.exec_module(_webp_encoder_contract)
+assert_encoder_contract = _webp_encoder_contract.assert_encoder_contract
+encoder_manifest_fields = _webp_encoder_contract.manifest_fields
+ENCODER_MANIFEST_EFFECTIVE_DATE = _webp_encoder_contract.MANIFEST_EFFECTIVE_DATE
+WEBP_ENCODING_PARAMETERS = _webp_encoder_contract.ENCODING_PARAMETERS
+
 ALLOWED_KINDS = {"metrion", "art-briefing"}
 FORBIDDEN_KINDS = {"ai-evening", "art-evening", "evening-briefing"}
 FORBIDDEN_PUBLIC_TEXT = ("/root/.hermes", "FAIL_CLOSED", "TELEGRAM_API", "BOT_TOKEN", "api_hash")
@@ -531,7 +542,13 @@ def build_metrion_grid(site_root: Path, entry: dict) -> tuple[str, dict, list[st
     accepted = None
     for quality in (82, 78, 72):
         buffer = io.BytesIO()
-        canvas.save(buffer, format="WEBP", quality=quality, method=6, exact=True)
+        canvas.save(
+            buffer,
+            format="WEBP",
+            quality=quality,
+            method=WEBP_ENCODING_PARAMETERS["method"],
+            exact=WEBP_ENCODING_PARAMETERS["exact"],
+        )
         data = buffer.getvalue()
         if len(data) <= 450 * 1024:
             accepted = (quality, data)
@@ -554,6 +571,8 @@ def build_metrion_grid(site_root: Path, entry: dict) -> tuple[str, dict, list[st
         "quality": quality, "bytes": len(data), "budget_bytes": 450 * 1024,
         "source_preserved": True,
     }
+    if entry["date"] >= ENCODER_MANIFEST_EFFECTIVE_DATE:
+        manifest.update(encoder_manifest_fields())
     url = f"../{relative}?v={output_sha[:12]}"
     markup = (
         f'<img src="{html.escape(url, quote=True)}" alt="{html.escape(entry["title"])} 四图合图" '
@@ -663,6 +682,7 @@ def publish(
     lock_fd: int | None = None,
     art_allowed_image_root: Path | None = None,
 ) -> dict:
+    assert_encoder_contract()
     written = []
     written_assets = []
     web_image_delivery = []

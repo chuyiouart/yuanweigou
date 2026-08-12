@@ -16,6 +16,7 @@ if [[ ! -f "$PACKAGE" ]]; then
   exit 2
 fi
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
+python3 -B "$ROOT/tools/check_webp_encoder.py"
 ALLOWED_IMAGE_ROOT=${DAILY_IMAGE_ROOT:-/root/.hermes/context-pack/metrion/outputs/final-accepted}
 ART_ALLOWED_IMAGE_ROOT=${DAILY_ART_IMAGE_ROOT:-/root/.hermes/context-pack/visual-art-briefing/source-images}
 STATE="$ROOT/.daily-sync-state"

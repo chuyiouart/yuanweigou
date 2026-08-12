@@ -16,9 +16,10 @@ class PortableCheckoutTests(unittest.TestCase):
             tools = checkout / "tools"
             tools.mkdir(parents=True)
             shutil.copy2(ROOT / "tools" / "publish_daily_updates.py", tools)
-            vendored = ROOT / "tools" / "web_image_delivery.py"
-            if vendored.exists():
-                shutil.copy2(vendored, tools)
+            for name in ("web_image_delivery.py", "webp_encoder_contract.py"):
+                vendored = ROOT / "tools" / name
+                if vendored.exists():
+                    shutil.copy2(vendored, tools)
             spec = importlib.util.spec_from_file_location(
                 "portable_daily_publisher", tools / "publish_daily_updates.py"
             )
