@@ -11,11 +11,11 @@ import contextlib
 import datetime as dt
 import hashlib
 import html
+import importlib.util
 import io
 import json
 import os
 import re
-import sys
 import tempfile
 import zlib
 from pathlib import Path
@@ -23,15 +23,16 @@ from typing import Iterable
 
 from PIL import Image, ImageOps
 
-HERMES_ROOT = Path(__file__).resolve().parents[3]
-if str(HERMES_ROOT / "lib") not in sys.path:
-    sys.path.insert(0, str(HERMES_ROOT / "lib"))
-from web_image_delivery import (  # noqa: E402
-    EFFECTIVE_DATE as RESPONSIVE_IMAGE_EFFECTIVE_DATE,
-    build_picture_html,
-    derive_responsive_assets,
-    validate_web_image_manifest,
-)
+WEB_IMAGE_DELIVERY_PATH = Path(__file__).resolve().with_name("web_image_delivery.py")
+_web_spec = importlib.util.spec_from_file_location("yuanweigou_web_image_delivery", WEB_IMAGE_DELIVERY_PATH)
+if _web_spec is None or _web_spec.loader is None:
+    raise ImportError(f"cannot load repository web image module: {WEB_IMAGE_DELIVERY_PATH}")
+_web_image_delivery = importlib.util.module_from_spec(_web_spec)
+_web_spec.loader.exec_module(_web_image_delivery)
+RESPONSIVE_IMAGE_EFFECTIVE_DATE = _web_image_delivery.EFFECTIVE_DATE
+build_picture_html = _web_image_delivery.build_picture_html
+derive_responsive_assets = _web_image_delivery.derive_responsive_assets
+validate_web_image_manifest = _web_image_delivery.validate_web_image_manifest
 
 ALLOWED_KINDS = {"metrion", "art-briefing"}
 FORBIDDEN_KINDS = {"ai-evening", "art-evening", "evening-briefing"}
