@@ -22,7 +22,7 @@ STATE="$ROOT/.daily-sync-state"
 mkdir -p "$STATE"
 
 if [[ ${DAILY_LOCK_ACTIVE:-0} != 1 ]]; then
-  exec python "$ROOT/tools/run_daily_sync_locked.py" --site-root "$ROOT" -- bash "$0" "$PACKAGE"
+  exec python3 "$ROOT/tools/run_daily_sync_locked.py" --site-root "$ROOT" -- bash "$0" "$PACKAGE"
 fi
 : "${DAILY_LOCK_FD:?missing inherited daily publish lock descriptor}"
 
@@ -47,7 +47,7 @@ verify_frozen_package() {
   }
 }
 verify_frozen_package
-DATE=$(python -c 'import json,sys; value=json.load(open(sys.argv[1], encoding="utf-8"))["date"]; assert isinstance(value,str) and value; print(value)' "$PACKAGE")
+DATE=$(python3 -c 'import json,sys; value=json.load(open(sys.argv[1], encoding="utf-8"))["date"]; assert isinstance(value,str) and value; print(value)' "$PACKAGE")
 
 controlled_dirty=0
 unsafe_dirty=()
@@ -80,14 +80,14 @@ FROZEN_PREVIOUS_INDEX_SHA=$(sha256sum "$PREVIOUS_INDEX" | cut -d ' ' -f 1)
   printf 'working index does not match trusted HEAD before publication\n' >&2
   exit 3
 }
-python tools/publish_daily_updates.py --package "$PACKAGE" --site-root "$ROOT" --allowed-image-root "$ALLOWED_IMAGE_ROOT" --art-allowed-image-root "$ART_ALLOWED_IMAGE_ROOT" --lock-fd "$DAILY_LOCK_FD"
+python3 tools/publish_daily_updates.py --package "$PACKAGE" --site-root "$ROOT" --allowed-image-root "$ALLOWED_IMAGE_ROOT" --art-allowed-image-root "$ART_ALLOWED_IMAGE_ROOT" --lock-fd "$DAILY_LOCK_FD"
 verify_frozen_package
-python -m unittest discover -s tests -p 'test_*.py'
-python -m json.tool daily-updates/index.json >/dev/null
+python3 -m unittest discover -s tests -p 'test_*.py'
+python3 -m json.tool daily-updates/index.json >/dev/null
 
 PUBLICATION_STATE="$STATE/${DATE}.json"
 mapfile -t VERIFIED_PUBLIC_FILES < <(
-  python tools/validate_daily_publication_state.py \
+  python3 tools/validate_daily_publication_state.py \
     --site-root "$ROOT" --package "$PACKAGE" --state "$PUBLICATION_STATE" \
     --allowed-image-root "$ALLOWED_IMAGE_ROOT" --art-allowed-image-root "$ART_ALLOWED_IMAGE_ROOT" --previous-index "$PREVIOUS_INDEX" \
     --previous-index-sha256 "$FROZEN_PREVIOUS_INDEX_SHA"
@@ -95,7 +95,7 @@ mapfile -t VERIFIED_PUBLIC_FILES < <(
 (( ${#VERIFIED_PUBLIC_FILES[@]} > 0 )) || { printf 'verified public manifest is empty\n' >&2; exit 3; }
 verify_frozen_package
 mapfile -t EXPECTED_PUBLIC_PATHS < <(
-  python tools/list_daily_expected_paths.py "$PACKAGE"
+  python3 tools/list_daily_expected_paths.py "$PACKAGE"
 )
 
 validate_manifest_structure() {
