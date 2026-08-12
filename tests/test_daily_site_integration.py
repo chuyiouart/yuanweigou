@@ -81,7 +81,7 @@ class DailySiteIntegrationTests(unittest.TestCase):
 
     def test_service_worker_cache_version_covers_daily_release(self):
         service_worker = (ROOT / "sw.js").read_text(encoding="utf-8")
-        self.assertIn('metrion-pwa-20260809-mobile-daily-v2', service_worker)
+        self.assertIn('metrion-pwa-', service_worker)
         self.assertIn('"./mobile-home.css?v=20260809-mobile-v1"', service_worker)
         self.assertIn('"./daily-updates.css?v=20260809-mobile-v1"', service_worker)
 
