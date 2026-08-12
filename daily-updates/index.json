@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-10T19:28:12+08:00",
-  "content_through": "2026-08-10",
+  "updated_at": "2026-08-12T16:21:14+08:00",
+  "content_through": "2026-08-11",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,22 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-08-11",
+      "kind": "metrion",
+      "title": "月牙里的方星，先留一圈空",
+      "summary": "一张已经完成、来源与权利边界清楚的双色版画里，一枚不对称的炭黑月牙向右张开，开口中悬着一枚琥珀色小方块。",
+      "url": "daily-updates/2026-08-11-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-11",
+      "kind": "art-briefing",
+      "title": "2026-08-11 视觉艺术每日早报",
+      "summary": "今天的主线，是**大型文化基础设施继续扩张，但“谁能进入、谁有权讲述、谁承担长期成本”正变得比建筑本身更重要**：佛罗伦萨和巴西启动巨型博物馆项目，洛杉矶新馆却因票价受到质疑；与此同时，文物返还、来源研究、公共艺术与博物馆教育都在把机构责任推向更具体的实践。",
+      "url": "daily-updates/2026-08-11-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-08-10",
       "kind": "metrion",
