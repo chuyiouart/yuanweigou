@@ -58,7 +58,11 @@ FORBIDDEN_PATH_PATTERNS = (
 )
 KIND_LABEL = {"metrion": "元维构项目日更", "art-briefing": "视觉艺术早报"}
 METRION_GRID_EFFECTIVE_DATE = "2026-08-11"
-MARKDOWN_LINK = re.compile(r"\[([^\]\r\n]+)\]\((https?://[^\s<>\"']+?)\)")
+ART_STORY_IMAGE_EFFECTIVE_DATE = "2026-08-13"
+ART_STORY_IMAGE_MAX_EDGE = 480
+ART_STORY_IMAGE_BUDGET = 80 * 1024
+MARKDOWN_LINK = re.compile(r"\[([^\]]+)\]\((https?://[^ )<>]+)\)")
+SAFE_HTTP_URL = re.compile(r"https?://\S+")
 
 
 def valid_image_dimensions(path: Path, data: bytes | None = None) -> tuple[int, int] | None:
@@ -328,8 +332,8 @@ def validate_package(
             raise ValueError("image_sha256 contains an invalid digest")
         if kind == "metrion" and len(image_files) != 4:
             raise ValueError("METRION website entry requires exactly four approved images")
-        if kind == "art-briefing" and len(image_files) > 1:
-            raise ValueError("art briefing website entry allows at most one source image")
+        if kind == "art-briefing" and package_date < ART_STORY_IMAGE_EFFECTIVE_DATE and len(image_files) > 1:
+            raise ValueError("legacy art briefing website entry allows at most one source image")
         if kind == "metrion" and raw.get("images_approved") is not True:
             raise ValueError("METRION requires images_approved=true")
         approved_images = []
@@ -362,7 +366,34 @@ def validate_package(
         item["image_files"] = approved_images
         item["image_sha256"] = list(declared_image_hashes)
         item["_validated_images"] = validated_images
-        if package_date >= RESPONSIVE_IMAGE_EFFECTIVE_DATE and validated_images and kind != "metrion":
+        if kind == "art-briefing" and package_date >= ART_STORY_IMAGE_EFFECTIVE_DATE:
+            story_headings = extract_art_news_headings(item["body_markdown"])
+            story_images = raw.get("story_images")
+            if not story_headings or not isinstance(story_images, list) or len(story_images) != len(story_headings):
+                raise ValueError("art briefing requires one image per news item")
+            if len(validated_images) != len(story_headings):
+                raise ValueError("art briefing requires one image per news item")
+            checked_story_images = []
+            for index, (heading, metadata) in enumerate(zip(story_headings, story_images, strict=True)):
+                if not isinstance(metadata, dict) or set(metadata) != {
+                    "heading", "alt", "credit", "source_url", "rights_url", "thematic"
+                }:
+                    raise ValueError("art briefing story image metadata structure mismatch")
+                if metadata.get("heading") != heading:
+                    raise ValueError("art briefing story image heading order mismatch")
+                checked = {
+                    key: clean_text(metadata.get(key), f"story_images[{index}].{key}")
+                    for key in ("heading", "alt", "credit", "source_url", "rights_url")
+                }
+                for key in ("source_url", "rights_url"):
+                    if not SAFE_HTTP_URL.fullmatch(checked[key]):
+                        raise ValueError(f"art briefing {key} must be HTTP(S)")
+                if metadata.get("thematic") is not True:
+                    raise ValueError("art briefing image must disclose thematic=true")
+                checked["thematic"] = True
+                checked_story_images.append(checked)
+            item["_story_images"] = checked_story_images
+        if package_date >= RESPONSIVE_IMAGE_EFFECTIVE_DATE and validated_images and kind != "metrion" and package_date < ART_STORY_IMAGE_EFFECTIVE_DATE:
             delivery = raw.get("web_image_delivery")
             if not isinstance(delivery, list) or len(delivery) != len(validated_images):
                 raise ValueError("web_image_delivery must contain one SHA-bound record per image")
@@ -461,6 +492,59 @@ def markdown_to_html(markdown: str) -> str:
         paragraph.append(line)
     flush_paragraph(); close_list()
     return "\n".join(output)
+
+
+def extract_art_news_headings(markdown: str) -> list[str]:
+    headings: list[str] = []
+    in_news_section = False
+    for raw_line in markdown.splitlines():
+        line = raw_line.strip()
+        section = re.match(r"^([一二三四五六七八九十]+)、", line)
+        if section:
+            in_news_section = section.group(1) in {"一", "二", "三", "四"}
+            continue
+        numbered = re.match(r"^\d+[.)]\s+(.+)$", line)
+        if in_news_section and numbered:
+            headings.append(numbered.group(1))
+    return headings
+
+
+def derive_art_story_asset_bytes(source_bytes: bytes) -> tuple[bytes, int, int, int]:
+    with Image.open(io.BytesIO(source_bytes)) as opened:
+        opened.verify()
+    with Image.open(io.BytesIO(source_bytes)) as opened:
+        image = ImageOps.exif_transpose(opened).convert("RGB")
+        image.thumbnail((ART_STORY_IMAGE_MAX_EDGE, ART_STORY_IMAGE_MAX_EDGE), Image.Resampling.LANCZOS)
+        image.load()
+    for quality in (76, 70, 64, 58):
+        buffer = io.BytesIO()
+        image.save(buffer, format="WEBP", quality=quality, method=6, exact=True)
+        data = buffer.getvalue()
+        if len(data) <= ART_STORY_IMAGE_BUDGET:
+            with Image.open(io.BytesIO(data)) as verification:
+                verification.load()
+                if verification.format != "WEBP" or verification.size != image.size:
+                    raise ValueError("art story image decode verification failed")
+            return data, image.width, image.height, quality
+    raise ValueError("art story image exceeds 80KB budget")
+
+
+def build_art_story_images(site_root: Path, entry: dict) -> tuple[list[dict], list[str]]:
+    target_dir = site_root / "assets" / "daily-updates" / entry["date"]
+    target_dir.mkdir(parents=True, exist_ok=True)
+    records, assets = [], []
+    pairs = zip(entry["_validated_images"], entry["_story_images"], strict=True)
+    for index, (validated, metadata) in enumerate(pairs, 1):
+        data, width, height, quality = derive_art_story_asset_bytes(validated["bytes"])
+        digest = hashlib.sha256(data).hexdigest()
+        target = target_dir / f"art-briefing-story-{index:02d}-{digest[:12]}.webp"
+        atomic_write_bytes(target, data)
+        relative = str(target.relative_to(site_root)).replace("\\", "/")
+        records.append({**metadata, "path": relative, "sha256": digest, "bytes": len(data),
+                        "width": width, "height": height, "quality": quality,
+                        "source_sha256": validated["sha256"]})
+        assets.append(relative)
+    return records, assets
 
 
 def copy_images(site_root: Path, entry: dict) -> list[str]:
@@ -581,7 +665,7 @@ def build_metrion_grid(site_root: Path, entry: dict) -> tuple[str, dict, list[st
     return markup, manifest, [relative]
 
 
-def article_html(entry: dict, image_urls: Iterable[str]) -> str:
+def article_html(entry: dict, image_urls: Iterable[str], story_images: list[dict] | None = None) -> str:
     date_cn = dt.date.fromisoformat(entry["date"]).strftime("%Y年%m月%d日").replace("年0", "年").replace("月0", "月")
     gallery = ""
     urls = list(image_urls)
@@ -601,6 +685,19 @@ def article_html(entry: dict, image_urls: Iterable[str]) -> str:
         gallery_class = "daily-article-gallery daily-article-gallery--single" if len(urls) == 1 else "daily-article-gallery"
         gallery = f'<div class="{gallery_class}" aria-label="文章配图">{figures}</div>'
     body = markdown_to_html(entry["body_markdown"])
+    for story in story_images or []:
+        disclosure = "主题配图，非事件现场" if story["thematic"] else "事件配图"
+        figure = (
+            '<figure class="daily-news-image">'
+            f'<img src="../{html.escape(story["path"], quote=True)}?v={story["sha256"][:12]}" '
+            f'alt="{html.escape(story["alt"], quote=True)}" width="{story["width"]}" height="{story["height"]}" loading="lazy" decoding="async" />'
+            f'<figcaption>{disclosure} · 图片：<a href="{html.escape(story["source_url"], quote=True)}" rel="external nofollow noopener">{html.escape(story["credit"])}</a> · '
+            f'<a href="{html.escape(story["rights_url"], quote=True)}" rel="external nofollow noopener">授权说明</a></figcaption></figure>'
+        )
+        marker = f'<h3>{inline_markdown_to_html(story["heading"])}</h3>'
+        if body.count(marker) != 1:
+            raise ValueError("art briefing story heading cannot be bound to image")
+        body = body.replace(marker, marker + figure, 1)
     aside_title = "从作品开始判断" if entry["kind"] == "metrion" else "阅读说明"
     aside_copy = "提交作品类型、预计用途和公开边界，先判断合作入口。" if entry["kind"] == "metrion" else "早报内容基于公开来源整理；分析与来源立场相互区分。"
     aside_link = '<a href="../submit-check.html">提交作品判断 →</a>' if entry["kind"] == "metrion" else '<a href="./index.html">返回每日新构 →</a>'
@@ -608,7 +705,7 @@ def article_html(entry: dict, image_urls: Iterable[str]) -> str:
     return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{html.escape(entry["title"])}｜每日新构</title><meta name="description" content="{html.escape(entry["summary"])}" />
-<link rel="canonical" href="{canonical}" /><link rel="stylesheet" href="../daily-updates.css?v=20260812-single-gallery-v1" /></head>
+<link rel="canonical" href="{canonical}" /><link rel="stylesheet" href="../daily-updates.css?v=20260813-news-images-v1" /></head>
 <body class="daily-page"><nav class="daily-page-nav" aria-label="文章导航"><a class="daily-page-brand" href="../index.html">元维构 METRION</a><div><a href="./index.html">每日新构</a><a href="../submit-check.html">提交作品</a></div></nav>
 <header class="daily-article-hero"><div><p class="daily-article-kicker">{KIND_LABEL[entry["kind"]]}</p><h1>{html.escape(entry["title"])}</h1><p class="daily-article-deck">{html.escape(entry["deck"])}</p><p class="daily-article-meta"><time datetime="{entry["date"]}">{date_cn}</time></p></div></header>
 <main class="daily-article-layout"><article class="daily-article-body">{gallery}{body}</article><aside class="daily-article-aside"><strong>{aside_title}</strong><p>{aside_copy}</p>{aside_link}</aside></main>
@@ -694,11 +791,15 @@ def publish(
         validate_against_existing_index(site_root, entries)
         for entry in entries:
             rendered_images: list[str] = []
+            story_images: list[dict] = []
             if entry["date"] >= METRION_GRID_EFFECTIVE_DATE and entry["kind"] == "metrion":
                 grid_markup, grid_manifest, grid_assets = build_metrion_grid(site_root, entry)
                 rendered_images = [grid_markup]
                 web_image_delivery.append(grid_manifest)
                 written_assets.extend(grid_assets)
+            elif entry["kind"] == "art-briefing" and entry["date"] >= ART_STORY_IMAGE_EFFECTIVE_DATE:
+                story_images, story_assets = build_art_story_images(site_root, entry)
+                written_assets.extend(story_assets)
             else:
                 image_urls = copy_images(site_root, entry)
                 written_assets.extend(url.removeprefix("../") for url in image_urls)
@@ -708,7 +809,7 @@ def publish(
                     web_image_delivery.extend(manifests)
                     written_assets.extend(responsive_assets)
             target = site_root / "daily-updates" / f'{entry["slug"]}.html'
-            atomic_write(target, article_html(entry, rendered_images))
+            atomic_write(target, article_html(entry, rendered_images, story_images))
             written.append(str(target.relative_to(site_root)).replace("\\", "/"))
         update_index(site_root, entries)
         public_paths = ["daily-updates/index.json", *written, *written_assets]

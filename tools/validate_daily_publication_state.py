@@ -123,6 +123,24 @@ def validate(
                 f'<img src="{versioned}" alt="{entry["title"]} 四图合图" width="1200" height="1200" loading="eager" decoding="async" fetchpriority="high" />'
             )
         else:
+            if entry["kind"] == "art-briefing" and date >= publisher.ART_STORY_IMAGE_EFFECTIVE_DATE:
+                story_records = []
+                pairs = zip(entry["_validated_images"], entry["_story_images"], strict=True)
+                for index, (image, metadata) in enumerate(pairs, 1):
+                    data, width, height, quality = publisher.derive_art_story_asset_bytes(image["bytes"])
+                    digest = sha256_bytes(data)
+                    asset = f"assets/daily-updates/{date}/art-briefing-story-{index:02d}-{digest[:12]}.webp"
+                    expected_assets.append(asset)
+                    independently_expected[asset] = data
+                    story_records.append({
+                        **metadata, "path": asset, "sha256": digest, "bytes": len(data),
+                        "width": width, "height": height, "quality": quality,
+                        "source_sha256": image["sha256"],
+                    })
+                article = f"daily-updates/{entry['slug']}.html"
+                expected_articles.append(article)
+                independently_expected[article] = publisher.article_html(entry, [], story_records).encode("utf-8")
+                continue
             for index, image in enumerate(entry["_validated_images"], 1):
                 suffix = Path(image["path"]).suffix.lower()
                 asset = f"assets/daily-updates/{date}/{entry['kind']}-{index:02d}{suffix}"

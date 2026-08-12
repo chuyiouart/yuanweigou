@@ -169,6 +169,97 @@ class DailyPublisherTests(unittest.TestCase):
         self.assertLessEqual(manifest["fallback"]["bytes"], 1024 * 1024)
         publisher.validate_web_image_manifest(manifest, require_qa=False)
 
+    def test_future_art_brief_requires_one_small_attributed_image_per_news_item(self):
+        date = "2026-08-13"
+        payload = self.package("art-briefing", "formal_archived", date=date)
+        payload["entries"][0]["body_markdown"] = (
+            "一、必看头条（2 条）\n\n"
+            "1. 第一条新闻\n\n- 来源：[机构甲](https://example.com/a)\n\n"
+            "2. 第二条新闻\n\n- 来源：[机构乙](https://example.com/b)\n\n"
+            "五、今日组合观察\n\n1. 这是综合观察，不是新闻条目"
+        )
+        images = []
+        metadata = []
+        for index, heading in enumerate(("第一条新闻", "第二条新闻"), 1):
+            image = self.art_approved / f"story-{index}.jpg"
+            Image.new("RGB", (1200, 800), (30 * index, 50, 80)).save(image, quality=90)
+            images.append(str(image))
+            metadata.append({
+                "heading": heading,
+                "alt": f"{heading}主题配图",
+                "credit": f"开放图像机构{index}",
+                "source_url": f"https://example.com/object/{index}",
+                "rights_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "thematic": True,
+            })
+        payload["entries"][0]["image_files"] = images
+        payload["entries"][0]["image_sha256"] = [hashlib.sha256(Path(path).read_bytes()).hexdigest() for path in images]
+        payload["entries"][0]["story_images"] = metadata
+
+        state = publisher.publish(
+            self.write_package(payload), self.root, self.approved,
+            art_allowed_image_root=self.art_approved,
+        )
+        page = (self.root / state["entries"][0]).read_text(encoding="utf-8")
+        self.assertEqual(page.count('class="daily-news-image"'), 2)
+        self.assertEqual(page.count("主题配图，非事件现场"), 2)
+        self.assertIn("开放图像机构1", page)
+        self.assertIn("creativecommons.org/publicdomain/zero/1.0", page)
+        self.assertEqual(len(state["assets"]), 2)
+        for asset in state["assets"]:
+            self.assertRegex(asset, rf"assets/daily-updates/{date}/art-briefing-story-\d{{2}}-[0-9a-f]{{12}}\.webp")
+            self.assertLessEqual((self.root / asset).stat().st_size, 80 * 1024)
+            with Image.open(self.root / asset) as result:
+                result.load()
+                self.assertLessEqual(max(result.size), 480)
+
+    def test_future_art_brief_fails_closed_when_any_news_item_lacks_image(self):
+        payload = self.package("art-briefing", "formal_archived", date="2026-08-13")
+        payload["entries"][0]["body_markdown"] = (
+            "一、必看头条（2 条）\n\n1. 第一条新闻\n\n- 来源：甲\n\n"
+            "2. 第二条新闻\n\n- 来源：乙\n\n五、今日组合观察\n\n1. 综合观察"
+        )
+        image = self.art_approved / "only-one.jpg"
+        Image.new("RGB", (800, 600), (20, 30, 40)).save(image)
+        payload["entries"][0]["image_files"] = [str(image)]
+        payload["entries"][0]["image_sha256"] = [hashlib.sha256(image.read_bytes()).hexdigest()]
+        payload["entries"][0]["story_images"] = [{
+            "heading": "第一条新闻", "alt": "第一条新闻配图", "credit": "机构",
+            "source_url": "https://example.com/object/1",
+            "rights_url": "https://creativecommons.org/licenses/by/4.0/", "thematic": True,
+        }]
+        with self.assertRaisesRegex(ValueError, "one image per news item"):
+            publisher.publish(
+                self.write_package(payload), self.root, self.approved,
+                art_allowed_image_root=self.art_approved,
+            )
+
+    def test_future_art_brief_rejects_unattributed_or_undisclosed_images(self):
+        payload = self.package("art-briefing", "formal_archived", date="2026-08-13")
+        payload["entries"][0]["body_markdown"] = "一、必看头条（1 条）\n\n1. 新闻\n\n- 来源：机构"
+        image = self.art_approved / "story.jpg"
+        Image.new("RGB", (800, 600), (30, 40, 50)).save(image)
+        payload["entries"][0]["image_files"] = [str(image)]
+        payload["entries"][0]["image_sha256"] = [hashlib.sha256(image.read_bytes()).hexdigest()]
+        base = {
+            "heading": "新闻", "alt": "新闻主题配图", "credit": "开放机构",
+            "source_url": "https://example.com/object/1",
+            "rights_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "thematic": True,
+        }
+        for field, value, message in (
+            ("credit", "", "non-empty text"),
+            ("source_url", "javascript:alert(1)", "must be HTTP"),
+            ("rights_url", "file:///license", "must be HTTP"),
+            ("thematic", False, "thematic=true"),
+        ):
+            payload["entries"][0]["story_images"] = [{**base, field: value}]
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, message):
+                publisher.publish(
+                    self.write_package(payload), self.root, self.approved,
+                    art_allowed_image_root=self.art_approved,
+                )
+
     def test_accepts_formal_art_brief_without_images(self):
         payload = self.package("art-briefing", "formal_archived")
         payload["entries"][0]["body_markdown"] = "一、必看头条（1条）\n\n1. 新闻标题\n\n- 来源：机构\n\n五、今日组合观察\n\n1. 保持为列表"

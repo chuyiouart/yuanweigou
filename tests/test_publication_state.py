@@ -40,7 +40,7 @@ class PublicationStateValidatorTests(unittest.TestCase):
     def tearDown(self):
         self.temp.cleanup()
 
-    def write_case(self, kind="metrion", image_count=4):
+    def write_case(self, kind="metrion", image_count=4, date="2026-08-06"):
         for generated in (
             self.root / "daily-updates",
             self.root / "assets" / "daily-updates",
@@ -48,7 +48,6 @@ class PublicationStateValidatorTests(unittest.TestCase):
         ):
             if generated.exists():
                 shutil.rmtree(generated)
-        date = "2026-08-06"
         slug = f"{date}-{kind}"
         images = []
         for index in range(1, image_count + 1):
@@ -70,6 +69,18 @@ class PublicationStateValidatorTests(unittest.TestCase):
             "image_files": images,
             "image_sha256": [hashlib.sha256(Path(image).read_bytes()).hexdigest() for image in images],
         }
+        if kind == "art-briefing" and date >= publisher.ART_STORY_IMAGE_EFFECTIVE_DATE:
+            headings = [f"新闻{index}" for index in range(1, image_count + 1)]
+            entry["body_markdown"] = "一、必看头条（%d 条）\n\n%s\n\n五、今日组合观察\n\n1. 综合观察" % (
+                image_count,
+                "\n\n".join(f"{index}. {heading}\n\n- 来源：机构" for index, heading in enumerate(headings, 1)),
+            )
+            entry["story_images"] = [{
+                "heading": heading, "alt": f"{heading}主题配图", "credit": "开放机构",
+                "source_url": f"https://example.com/object/{index}",
+                "rights_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "thematic": True,
+            } for index, heading in enumerate(headings, 1)]
         package = {"schema_version": 2, "date": date, "entries": [entry]}
         package_bytes = (json.dumps(package, ensure_ascii=False) + "\n").encode()
         self.package_path.write_bytes(package_bytes)
@@ -139,6 +150,23 @@ class PublicationStateValidatorTests(unittest.TestCase):
         asset = "assets/daily-updates/2026-08-06/art-briefing-01.png"
         self.assertIn(asset, [item["path"] for item in manifest])
         self.assertIn(asset, state["assets"])
+
+    def test_future_art_story_derivatives_are_reconstructed_from_package(self):
+        state = self.write_case("art-briefing", 2, date="2026-08-13")
+        manifest = self.validate()
+        assets = [item["path"] for item in manifest if item["path"].endswith(".webp")]
+        self.assertEqual(len(assets), 2)
+        self.assertEqual(assets, state["assets"])
+        article = (self.root / state["entries"][0]).read_text(encoding="utf-8")
+        self.assertEqual(article.count('class="daily-news-image"'), 2)
+
+        tampered = json.loads(json.dumps(state))
+        asset = assets[0]
+        (self.root / asset).write_bytes(b"not-the-package-derived-webp")
+        self.update_file_digest(tampered, asset)
+        self.write_state(tampered)
+        with self.assertRaisesRegex(ValueError, "asset does not match immutable package"):
+            self.validate()
 
     def test_rejects_missing_or_tampered_article_even_if_state_digest_changes(self):
         state = self.write_case()

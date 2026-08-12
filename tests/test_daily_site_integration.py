@@ -151,6 +151,7 @@ class DailySiteIntegrationTests(unittest.TestCase):
         self.assertIn('^[0-9a-f]{64}$', script)
         self.assertIn('duplicate verified manifest path', script)
         self.assertIn('verify_frozen_manifest', script)
+        self.assertIn('^assets/daily-updates/${DATE}/art-briefing-story-[0-9]{2}-[0-9a-f]{12}\\.webp$', script)
         self.assertIn('git show "$COMMIT:$public_path"', script)
         self.assertIn('git ls-remote --exit-code origin refs/heads/main', script)
         self.assertIn('"$REMOTE_COMMIT" == "$COMMIT"', script)
