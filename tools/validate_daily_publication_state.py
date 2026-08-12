@@ -49,9 +49,9 @@ def validate(
     package_bytes = package_path.read_bytes()
     package = json.loads(package_bytes)
     state = json.loads(state_path.read_text(encoding="utf-8"))
-    if not isinstance(state, dict) or set(state) != {
-        "date", "status", "entries", "assets", "files", "package_sha256"
-    }:
+    required_state_keys = {"date", "status", "entries", "assets", "files", "package_sha256"}
+    optional_state_keys = {"web_image_delivery"}
+    if not isinstance(state, dict) or not required_state_keys.issubset(state) or not set(state).issubset(required_state_keys | optional_state_keys):
         raise ValueError("publication state structure mismatch")
     if state.get("status") != "published_locally":
         raise ValueError("publication state status mismatch")
@@ -72,14 +72,40 @@ def validate(
     expected_assets: list[str] = []
     independently_expected: dict[str, bytes] = {}
 
+    web_records = state.get("web_image_delivery", [])
+    if not isinstance(web_records, list):
+        raise ValueError("publication web image manifest malformed")
+    grid_by_date = {row.get("date"): row for row in web_records if isinstance(row, dict) and row.get("layout") == "grid-2x2-v1"}
     for entry in entries:
         article_urls: list[str] = []
-        for index, image in enumerate(entry["_validated_images"], 1):
-            suffix = Path(image["path"]).suffix.lower()
-            asset = f"assets/daily-updates/{date}/{entry['kind']}-{index:02d}{suffix}"
+        if entry["kind"] == "metrion" and date >= publisher.RESPONSIVE_IMAGE_EFFECTIVE_DATE:
+            record = grid_by_date.get(date)
+            if not isinstance(record, dict):
+                raise ValueError("METRION grid publication record missing")
+            source_sha = [row["sha256"] for row in entry["_validated_images"]]
+            if record.get("source_sha256") != source_sha or record.get("width") != 1200 or record.get("height") != 1200:
+                raise ValueError("METRION grid source or geometry mismatch")
+            if record.get("format") != "webp" or not isinstance(record.get("bytes"), int) or record["bytes"] > 450 * 1024:
+                raise ValueError("METRION grid format or budget mismatch")
+            asset = record.get("path")
+            if not isinstance(asset, str) or not re.fullmatch(rf"assets/daily-updates/{re.escape(date)}/metrion-grid-[0-9a-f]{{12}}\.webp", asset):
+                raise ValueError("METRION grid path mismatch")
+            asset_bytes = (site_root / asset).read_bytes()
+            if len(asset_bytes) != record["bytes"] or sha256_bytes(asset_bytes) != record.get("output_sha256"):
+                raise ValueError("METRION grid output identity mismatch")
             expected_assets.append(asset)
-            article_urls.append(f"../{asset}")
-            independently_expected[asset] = image["bytes"]
+            independently_expected[asset] = asset_bytes
+            versioned = f"../{asset}?v={record['output_sha256'][:12]}"
+            article_urls.append(
+                f'<img src="{versioned}" alt="{entry["title"]} 四图合图" width="1200" height="1200" loading="eager" decoding="async" fetchpriority="high" />'
+            )
+        else:
+            for index, image in enumerate(entry["_validated_images"], 1):
+                suffix = Path(image["path"]).suffix.lower()
+                asset = f"assets/daily-updates/{date}/{entry['kind']}-{index:02d}{suffix}"
+                expected_assets.append(asset)
+                article_urls.append(f"../{asset}")
+                independently_expected[asset] = image["bytes"]
         article = f"daily-updates/{entry['slug']}.html"
         expected_articles.append(article)
         independently_expected[article] = publisher.article_html(entry, article_urls).encode("utf-8")
