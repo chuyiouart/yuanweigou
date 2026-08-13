@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-12T16:53:20+08:00",
-  "content_through": "2026-08-12",
+  "updated_at": "2026-08-14T00:37:33+08:00",
+  "content_through": "2026-08-13",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-08-13",
+      "kind": "metrion",
+      "title": "一笔鸟形，长出一片空翼",
+      "summary": "一张已经完成、来源与权利边界清楚的墨色符号画里，鸟的身体只由一条下弯弧线和一片上扬翼形组成。",
+      "url": "daily-updates/2026-08-13-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-08-12",
       "kind": "metrion",
