@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-14T00:37:33+08:00",
-  "content_through": "2026-08-13",
+  "updated_at": "2026-08-14T14:25:39+08:00",
+  "content_through": "2026-08-14",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-08-14",
+      "kind": "metrion",
+      "title": "三层水彩，站成透光薄片",
+      "summary": "一张已经完成、来源与权利边界清楚的透明水彩习作里，有三道方向不同的色带：钴蓝竖向、琥珀斜向、烟灰横向。",
+      "url": "daily-updates/2026-08-14-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-08-13",
       "kind": "metrion",
