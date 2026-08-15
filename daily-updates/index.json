@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-14T14:25:39+08:00",
-  "content_through": "2026-08-14",
+  "updated_at": "2026-08-15T17:22:23+08:00",
+  "content_through": "2026-08-15",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-08-15",
+      "kind": "metrion",
+      "title": "两条刻线，立出一条空隙",
+      "summary": "一张已经完成、来源与权利边界清楚的单色线刻习作里，有两条从左下向右上延伸的开口弧线：外侧一条宽，内侧一条窄。",
+      "url": "daily-updates/2026-08-15-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-08-14",
       "kind": "metrion",
