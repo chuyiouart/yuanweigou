@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-16T10:30:30+08:00",
-  "content_through": "2026-08-15",
+  "updated_at": "2026-08-16T13:38:38+08:00",
+  "content_through": "2026-08-16",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,22 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-08-16",
+      "kind": "metrion",
+      "title": "四张蓝片，按缺口咬合",
+      "summary": "一张已经完成、来源与权利边界清楚的彩铅拼贴里，四张钴蓝色长片从左下向右上错位排开。",
+      "url": "daily-updates/2026-08-16-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-16",
+      "kind": "art-briefing",
+      "title": "2026-08-16 视觉艺术每日早报",
+      "summary": "过去72小时的主线，一端是文化遗产的“可见性与归还”——从《奥德赛》纸草、叙利亚罗马文物到塞古宝藏；另一端是艺术基础设施的重新分配——艺博会换场、机构关闭、灾害停馆、旧校舍改住宅。",
+      "url": "daily-updates/2026-08-16-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-08-15",
       "kind": "metrion",
