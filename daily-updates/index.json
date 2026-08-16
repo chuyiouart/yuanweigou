@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-15T17:22:23+08:00",
+  "updated_at": "2026-08-16T10:30:30+08:00",
   "content_through": "2026-08-15",
   "scope": {
     "included": [
@@ -21,11 +21,27 @@
       "source_status": "delivered_verified"
     },
     {
+      "date": "2026-08-15",
+      "kind": "art-briefing",
+      "title": "2026-08-15 视觉艺术每日早报",
+      "summary": "今天的主线是“文化基础设施如何承受现实压力”：哥伦比亚地震让区域博物馆停摆，法国新法为殖民掠夺物返还打开程序通道，首尔艺博会迁址与洛杉矶 AI 艺术博物馆则在重新定义展示空间。",
+      "url": "daily-updates/2026-08-15-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
       "date": "2026-08-14",
       "kind": "metrion",
       "title": "三层水彩，站成透光薄片",
       "summary": "一张已经完成、来源与权利边界清楚的透明水彩习作里，有三道方向不同的色带：钴蓝竖向、琥珀斜向、烟灰横向。",
       "url": "daily-updates/2026-08-14-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-14",
+      "kind": "art-briefing",
+      "title": "2026-08-14 视觉艺术每日早报",
+      "summary": "博物馆的公共责任成为今日主线：一边是 ICOM 为史密森尼的研究与叙事独立性发声、乌克兰文化遗产损毁继续扩大，另一边是非洲机构换帅、拉美研究扩容以及数字艺术与来源研究工具打开新的知识入口。",
+      "url": "daily-updates/2026-08-14-visual-art-morning-briefing.html",
       "source_status": "delivered_verified"
     },
     {
