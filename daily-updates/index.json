@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-16T13:38:38+08:00",
-  "content_through": "2026-08-16",
+  "updated_at": "2026-08-17T13:36:51+08:00",
+  "content_through": "2026-08-17",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-08-17",
+      "kind": "metrion",
+      "title": "墨点疏密，立成高度场",
+      "summary": "一张已经完成、来源与权利边界清楚的水墨点阵习作里，墨点从左下的稀疏小点，逐渐聚到画面中部，再向右上散开。",
+      "url": "daily-updates/2026-08-17-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-08-16",
       "kind": "metrion",
