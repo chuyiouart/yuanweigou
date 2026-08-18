@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-17T13:36:51+08:00",
-  "content_through": "2026-08-17",
+  "updated_at": "2026-08-18T13:39:40+08:00",
+  "content_through": "2026-08-18",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-08-18",
+      "kind": "metrion",
+      "title": "炭笔灰带，立成三层表面",
+      "summary": "一张已经完成、来源与权利边界清楚的炭笔擦痕习作里，横向灰带从左侧柔和散开，到中部逐渐压实，右侧则收成一道清楚的硬边。",
+      "url": "daily-updates/2026-08-18-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-08-17",
       "kind": "metrion",
