@@ -32,6 +32,25 @@ class ExpectedPathOrderTests(unittest.TestCase):
                 "assets/daily-updates/2026-08-09/metrion-02.png",
             ],
         )
+
+    def test_modern_text_only_art_briefing_has_no_required_asset(self):
+        spec = importlib.util.spec_from_file_location("expected_paths_text_only", MODULE_PATH)
+        assert spec is not None and spec.loader is not None
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        package = {
+            "date": "2026-08-28",
+            "entries": [{
+                "kind": "art-briefing",
+                "slug": "2026-08-28-visual-art-morning-briefing",
+                "image_files": [],
+            }],
+        }
+        self.assertEqual(module.expected_paths(package), [
+            "daily-updates/index.json",
+            "daily-updates/2026-08-28-visual-art-morning-briefing.html",
+        ])
+
     def test_2026_08_11_grid_path_uses_source_digest(self):
         digests = [f"{index:064x}" for index in range(1, 5)]
         package = {

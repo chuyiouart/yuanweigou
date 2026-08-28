@@ -31,8 +31,8 @@ def expected_paths(package: dict[str, Any]) -> list[str]:
             continue
         if entry.get("kind") == "art-briefing" and date >= publisher.ART_STORY_IMAGE_EFFECTIVE_DATE:
             images = entry.get("image_files", [])
-            if not isinstance(images, list) or not images:
-                raise ValueError("art briefing requires one image per news item")
+            if not isinstance(images, list):
+                raise ValueError("art briefing image_files must be a list")
             for index, image_name in enumerate(images, 1):
                 data, _, _, _ = publisher.derive_art_story_asset_bytes(Path(image_name).read_bytes())
                 digest = hashlib.sha256(data).hexdigest()
