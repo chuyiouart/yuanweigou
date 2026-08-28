@@ -389,9 +389,9 @@ def validate_package(
                 for key in ("source_url", "rights_url"):
                     if not SAFE_HTTP_URL.fullmatch(checked[key]):
                         raise ValueError(f"art briefing {key} must be HTTP(S)")
-                if metadata.get("thematic") is not True:
-                    raise ValueError("art briefing image must disclose thematic=true")
-                checked["thematic"] = True
+                if not isinstance(metadata.get("thematic"), bool):
+                    raise ValueError("art briefing image thematic must be a boolean")
+                checked["thematic"] = metadata["thematic"]
                 checked_story_images.append(checked)
             item["_story_images"] = checked_story_images
         elif kind == "art-briefing" and package_date >= ART_STORY_IMAGE_EFFECTIVE_DATE:
@@ -437,8 +437,9 @@ def inline_markdown_to_html(value: str) -> str:
         output.append(html.escape(value[cursor:match.start()]))
         label, href = match.groups()
         output.append(
-            f'<a href="{html.escape(href, quote=True)}" rel="external nofollow noopener">'
-            f'{html.escape(label)}</a>'
+            f'<a href="{html.escape(href, quote=True)}" target="_blank" '
+            'style="color:#0f6b52;text-decoration:underline;text-underline-offset:.18em;" '
+            f'rel="external nofollow noopener">{html.escape(label)} ↗</a>'
         )
         cursor = match.end()
     output.append(html.escape(value[cursor:]))
@@ -689,13 +690,24 @@ def article_html(entry: dict, image_urls: Iterable[str], story_images: list[dict
         gallery = f'<div class="{gallery_class}" aria-label="文章配图">{figures}</div>'
     body = markdown_to_html(entry["body_markdown"])
     for story in story_images or []:
-        disclosure = "主题配图，非事件现场" if story["thematic"] else "事件配图"
+        if story["thematic"]:
+            disclosure = "主题配图，非事件现场"
+            attribution = (
+                f'图片：<a href="{html.escape(story["source_url"], quote=True)}" target="_blank" rel="external nofollow noopener">{html.escape(story["credit"])}</a> · '
+                f'<a href="{html.escape(story["rights_url"], quote=True)}" target="_blank" rel="external nofollow noopener">授权说明</a>'
+            )
+        else:
+            disclosure = "事件相关配图"
+            attribution = (
+                f'图片来源：<a href="{html.escape(story["source_url"], quote=True)}" target="_blank" '
+                f'style="color:#0f6b52;text-decoration:underline;text-underline-offset:.18em;" '
+                f'rel="external nofollow noopener">{html.escape(story["credit"])} ↗</a>'
+            )
         figure = (
             '<figure class="daily-news-image">'
             f'<img src="../{html.escape(story["path"], quote=True)}?v={story["sha256"][:12]}" '
             f'alt="{html.escape(story["alt"], quote=True)}" width="{story["width"]}" height="{story["height"]}" loading="lazy" decoding="async" />'
-            f'<figcaption>{disclosure} · 图片：<a href="{html.escape(story["source_url"], quote=True)}" rel="external nofollow noopener">{html.escape(story["credit"])}</a> · '
-            f'<a href="{html.escape(story["rights_url"], quote=True)}" rel="external nofollow noopener">授权说明</a></figcaption></figure>'
+            f'<figcaption>{disclosure} · {attribution}</figcaption></figure>'
         )
         marker = f'<h3>{inline_markdown_to_html(story["heading"])}</h3>'
         if body.count(marker) != 1:

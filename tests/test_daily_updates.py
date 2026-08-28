@@ -251,7 +251,7 @@ class DailyPublisherTests(unittest.TestCase):
             ("credit", "", "non-empty text"),
             ("source_url", "javascript:alert(1)", "must be HTTP"),
             ("rights_url", "file:///license", "must be HTTP"),
-            ("thematic", False, "thematic=true"),
+            ("thematic", "not-a-boolean", "must be a boolean"),
         ):
             payload["entries"][0]["story_images"] = [{**base, field: value}]
             with self.subTest(field=field), self.assertRaisesRegex(ValueError, message):
@@ -295,7 +295,7 @@ class DailyPublisherTests(unittest.TestCase):
         state = self.publish(payload)
         page = (self.root / state["entries"][0]).read_text(encoding="utf-8")
         self.assertIn(
-            '<a href="https://www.metmuseum.org/art/collection/search/123" rel="external nofollow noopener">The Met</a>',
+            '<a href="https://www.metmuseum.org/art/collection/search/123" target="_blank" style="color:#0f6b52;text-decoration:underline;text-underline-offset:.18em;" rel="external nofollow noopener">The Met ↗</a>',
             page,
         )
         self.assertNotIn('href="javascript:', page)
