@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-18T13:39:40+08:00",
-  "content_through": "2026-08-18",
+  "updated_at": "2026-08-28T10:01:07+08:00",
+  "content_through": "2026-08-27",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,22 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-08-27",
+      "kind": "metrion",
+      "title": "一朵墨云，凿出两扇光",
+      "summary": "一张已经完成、来源与权利边界清楚的木刻习作里，深墨色云形横向铺开，内部留着两枚大小不同的水滴形纸白，下面还有一道短短的朱橙缺口。",
+      "url": "daily-updates/2026-08-27-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-27",
+      "kind": "art-briefing",
+      "title": "2026-08-27 视觉艺术每日早报",
+      "summary": "过去 72 小时的主线，是艺术不再只是“展什么”，而是同时被政治命名、公共收藏治理、跨国流通与制度风险所塑造；与此同时，首尔、光州、釜山、香港、拉各斯等亚洲与全球南方节点正在密集提出新的展览和策展方法。",
+      "url": "daily-updates/2026-08-27-visual-art-morning-briefing.html",
+      "source_status": "formal_archived"
+    },
     {
       "date": "2026-08-18",
       "kind": "metrion",
