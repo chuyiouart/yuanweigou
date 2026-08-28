@@ -366,7 +366,8 @@ def validate_package(
         item["image_files"] = approved_images
         item["image_sha256"] = list(declared_image_hashes)
         item["_validated_images"] = validated_images
-        if kind == "art-briefing" and package_date >= ART_STORY_IMAGE_EFFECTIVE_DATE:
+        if (kind == "art-briefing" and package_date >= ART_STORY_IMAGE_EFFECTIVE_DATE
+                and (raw.get("story_images") is not None or validated_images)):
             story_headings = extract_art_news_headings(item["body_markdown"])
             story_images = raw.get("story_images")
             if not story_headings or not isinstance(story_images, list) or len(story_images) != len(story_headings):
@@ -393,6 +394,8 @@ def validate_package(
                 checked["thematic"] = True
                 checked_story_images.append(checked)
             item["_story_images"] = checked_story_images
+        elif kind == "art-briefing" and package_date >= ART_STORY_IMAGE_EFFECTIVE_DATE:
+            item["_story_images"] = []
         if package_date >= RESPONSIVE_IMAGE_EFFECTIVE_DATE and validated_images and kind != "metrion" and package_date < ART_STORY_IMAGE_EFFECTIVE_DATE:
             delivery = raw.get("web_image_delivery")
             if not isinstance(delivery, list) or len(delivery) != len(validated_images):
@@ -797,7 +800,7 @@ def publish(
                 rendered_images = [grid_markup]
                 web_image_delivery.append(grid_manifest)
                 written_assets.extend(grid_assets)
-            elif entry["kind"] == "art-briefing" and entry["date"] >= ART_STORY_IMAGE_EFFECTIVE_DATE:
+            elif entry["kind"] == "art-briefing" and entry.get("_story_images"):
                 story_images, story_assets = build_art_story_images(site_root, entry)
                 written_assets.extend(story_assets)
             else:
