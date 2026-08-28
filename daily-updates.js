@@ -3,6 +3,7 @@
   const ROOT_URL = new URL("./", scriptUrl);
   const DATA_URL = new URL("daily-updates/index.json", ROOT_URL);
   const DAILY_ROOT_URL = new URL("daily-updates/", ROOT_URL);
+  const LEGACY_GITHUB_ORIGIN = "https://chuyiouart.github.io";
   const kindLabel = (kind) => kind === "art-briefing" ? "视觉艺术早报" : "元维构项目日更";
   const dateLabel = (value) => {
     const date = new Date(`${value}T12:00:00+08:00`);
@@ -11,13 +12,18 @@
 
   const safeEntryUrl = (value) => {
     const resolved = new URL(value, ROOT_URL);
-    const sameOrigin = resolved.origin === DAILY_ROOT_URL.origin;
-    const insideDailyArchive = resolved.pathname.startsWith(DAILY_ROOT_URL.pathname);
     const safeProtocol = resolved.protocol === "https:" || resolved.protocol === "http:";
-    if (!sameOrigin || !insideDailyArchive || !safeProtocol) {
-      throw new Error("每日新构文章链接越过允许范围");
+    const sameOrigin = resolved.origin === ROOT_URL.origin;
+    const insideDailyArchive = resolved.pathname.startsWith(DAILY_ROOT_URL.pathname);
+    if (safeProtocol && sameOrigin && insideDailyArchive) return resolved.href;
+    const legacyGithubArchive =
+      resolved.protocol === "https:" &&
+      resolved.origin === LEGACY_GITHUB_ORIGIN &&
+      resolved.pathname.startsWith("/yuanweigou/daily-updates/");
+    if (legacyGithubArchive) {
+      return new URL(resolved.pathname + resolved.search + resolved.hash, ROOT_URL.origin).href;
     }
-    return resolved.href;
+    throw new Error("每日新构文章链接越过允许范围");
   };
 
   const createCard = (entry) => {

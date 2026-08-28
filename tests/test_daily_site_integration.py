@@ -115,11 +115,15 @@ class DailySiteIntegrationTests(unittest.TestCase):
             self.assertNotIn("FAIL_CLOSED", content)
             self.assertNotIn("BOT_TOKEN", content)
 
-    def test_client_restricts_article_links_to_same_origin_archive(self):
+    def test_client_keeps_current_links_same_origin_and_maps_legacy_github_archive(self):
         script = (ROOT / "daily-updates.js").read_text(encoding="utf-8")
-        self.assertIn('resolved.origin === DAILY_ROOT_URL.origin', script)
+        self.assertIn('LEGACY_GITHUB_ORIGIN = "https://chuyiouart.github.io"', script)
+        self.assertIn('resolved.origin === ROOT_URL.origin', script)
         self.assertIn('resolved.pathname.startsWith(DAILY_ROOT_URL.pathname)', script)
+        self.assertIn('safeProtocol && sameOrigin && insideDailyArchive', script)
         self.assertIn('resolved.protocol === "https:"', script)
+        self.assertIn('resolved.origin === LEGACY_GITHUB_ORIGIN', script)
+        self.assertIn('return new URL(resolved.pathname + resolved.search + resolved.hash, ROOT_URL.origin).href', script)
 
     def test_sync_uses_shared_lock_and_exact_content_verification(self):
         script = (ROOT / "tools" / "sync_daily_updates.sh").read_text(encoding="utf-8")
