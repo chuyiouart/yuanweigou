@@ -16,6 +16,14 @@
     const sameOrigin = resolved.origin === ROOT_URL.origin;
     const insideDailyArchive = resolved.pathname.startsWith(DAILY_ROOT_URL.pathname);
     if (safeProtocol && sameOrigin && insideDailyArchive) return resolved.href;
+    const sameOriginOuartUpdate =
+      sameOrigin &&
+      resolved.pathname === "/" &&
+      resolved.searchParams.get("post_type") === "ouart_update" &&
+      /^\d+$/.test(resolved.searchParams.get("p") || "");
+    if (safeProtocol && sameOriginOuartUpdate) {
+      return resolved.href;
+    }
     const legacyGithubArchive =
       resolved.protocol === "https:" &&
       resolved.origin === LEGACY_GITHUB_ORIGIN &&
