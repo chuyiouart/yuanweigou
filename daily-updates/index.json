@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-28T14:42:02+08:00",
+  "updated_at": "2026-08-28T18:17:05+08:00",
   "content_through": "2026-08-28",
   "scope": {
     "included": [
@@ -18,6 +18,14 @@
       "title": "一条窄缝，把色带错开",
       "summary": "一张已经完成、来源与权利边界清楚的水粉刮色习作里，一道朱红宽色带横穿纸面，中间被一条极窄的钴蓝竖痕切开。",
       "url": "daily-updates/2026-08-28-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-28",
+      "kind": "art-briefing",
+      "title": "2026-08-28 视觉艺术每日早报",
+      "summary": "今天的主线是“文化机构如何重新分配可见性与解释权”：草间弥生去世引发对全球艺术品牌化与公众参与的回望；光州双年展恢复台湾馆名称、美国使馆撤下 Kehinde Wiley 作品，则把命名、外交展示与政治权力推到台前。",
+      "url": "daily-updates/2026-08-28-visual-art-morning-briefing.html",
       "source_status": "delivered_verified"
     },
     {
