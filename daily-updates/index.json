@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-29T13:33:10+08:00",
+  "updated_at": "2026-08-29T15:06:38+08:00",
   "content_through": "2026-08-29",
   "scope": {
     "included": [
@@ -18,6 +18,14 @@
       "title": "两块拼贴，找到一根平衡轴",
       "summary": "一张已经完成、来源与权利边界清楚的儿童剪纸拼贴里，左侧是一枚较大的群青月牙，右侧是一块较小的赭黄方片；一条细朱红线从两者上方穿过，在偏左的位置落下一枚黑色圆点。",
       "url": "daily-updates/2026-08-29-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-29",
+      "kind": "art-briefing",
+      "title": "2026-08-29 视觉艺术每日早报",
+      "summary": "过去 24 小时的主线，是艺术机构同时面对地缘政治、治理与数字责任：光州双年展的命名争议、澳大利亚新馆开幕前的人事震荡、欧洲馆藏与珠宝安全，都把“谁有权命名、保管和代表文化”推到台前。",
+      "url": "daily-updates/2026-08-29-visual-art-morning-briefing.html",
       "source_status": "delivered_verified"
     },
     {
