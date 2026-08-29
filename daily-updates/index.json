@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-28T18:17:05+08:00",
-  "content_through": "2026-08-28",
+  "updated_at": "2026-08-29T13:33:10+08:00",
+  "content_through": "2026-08-29",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-08-29",
+      "kind": "metrion",
+      "title": "两块拼贴，找到一根平衡轴",
+      "summary": "一张已经完成、来源与权利边界清楚的儿童剪纸拼贴里，左侧是一枚较大的群青月牙，右侧是一块较小的赭黄方片；一条细朱红线从两者上方穿过，在偏左的位置落下一枚黑色圆点。",
+      "url": "daily-updates/2026-08-29-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-08-28",
       "kind": "metrion",
