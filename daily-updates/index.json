@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-29T15:06:38+08:00",
-  "content_through": "2026-08-29",
+  "updated_at": "2026-08-30T09:36:19+08:00",
+  "content_through": "2026-08-30",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-08-30",
+      "kind": "art-briefing",
+      "title": "2026-08-30 视觉艺术每日早报",
+      "summary": "过去 72 小时的视觉艺术现场，一端在纪念两位以图像建立公共记忆的艺术家——草间弥生与 Sliman Mansour，另一端则集中暴露了艺术制度与现实政治、数据安全、著作权及公共收藏之间的摩擦。",
+      "url": "daily-updates/2026-08-30-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-08-29",
       "kind": "metrion",
