@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-30T09:36:19+08:00",
+  "updated_at": "2026-08-30T13:37:56+08:00",
   "content_through": "2026-08-30",
   "scope": {
     "included": [
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-08-30",
+      "kind": "metrion",
+      "title": "一条水彩带，转出三面光",
+      "summary": "薄荷青的一条水彩色带，从一张已经完成、来源与权利边界清楚的抽象习作左下方起笔，连续转过三个方向，最后在右上收成雾紫色短边。",
+      "url": "daily-updates/2026-08-30-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-08-30",
       "kind": "art-briefing",
