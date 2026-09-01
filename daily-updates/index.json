@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-31T12:14:35+08:00",
-  "content_through": "2026-08-31",
+  "updated_at": "2026-09-01T09:31:17+08:00",
+  "content_through": "2026-09-01",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-01",
+      "kind": "art-briefing",
+      "title": "2026-09-01 视觉艺术每日早报",
+      "summary": "今天的主线是“机构责任与媒介扩张”同时升温：大都会艺术博物馆因伦理争议撤回 Galliano 展，博物馆安全与劳动治理受到追问；与此同时，首尔把城市屏幕变成展场，约翰内斯堡和阿布扎比的艺博会继续重画全球艺术版图。",
+      "url": "daily-updates/2026-09-01-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-08-31",
       "kind": "metrion",
