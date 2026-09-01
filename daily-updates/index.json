@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-01T09:31:17+08:00",
+  "updated_at": "2026-09-01T13:33:14+08:00",
   "content_through": "2026-09-01",
   "scope": {
     "included": [
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-01",
+      "kind": "metrion",
+      "title": "两面小帆，留住一线风",
+      "summary": "一张完成、来源与权利边界清楚的蜡笔拼贴习作里，靛蓝船身压在画面下方，两面大小不同的橙红三角帆向上展开。",
+      "url": "daily-updates/2026-09-01-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-01",
       "kind": "art-briefing",
