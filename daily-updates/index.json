@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-02T17:04:29+08:00",
+  "updated_at": "2026-09-02T17:47:25+08:00",
   "content_through": "2026-09-02",
   "scope": {
     "included": [
@@ -14,14 +14,6 @@
   "entries": [
     {
       "date": "2026-09-02",
-      "kind": "metrion",
-      "title": "五片竹叶，错开三层风",
-      "summary": "一张完成、来源与权利边界清楚的水墨竹叶习作里，五片浓淡不同的叶子从同一段细枝向外展开。",
-      "url": "daily-updates/2026-09-02-metrion-daily-construction.html",
-      "source_status": "delivered_verified"
-    },
-    {
-      "date": "2026-09-02",
       "kind": "art-briefing",
       "title": "2026-09-02 视觉艺术每日早报",
       "summary": "今天的主线不是单一展览，而是艺术制度本身受到检验：从机构治理、赞助伦理和市场监管，到双年展命名争议、跨国历史叙事及新型线上流通，艺术的公共性正越来越具体地落在资金、程序与话语权上。",
@@ -29,11 +21,11 @@
       "source_status": "delivered_verified"
     },
     {
-      "date": "2026-09-01",
+      "date": "2026-09-02",
       "kind": "metrion",
-      "title": "两面小帆，留住一线风",
-      "summary": "一张完成、来源与权利边界清楚的蜡笔拼贴习作里，靛蓝船身压在画面下方，两面大小不同的橙红三角帆向上展开。",
-      "url": "daily-updates/2026-09-01-metrion-daily-construction.html",
+      "title": "五片竹叶，错开三层风",
+      "summary": "一张完成、来源与权利边界清楚的水墨竹叶习作里，五片浓淡不同的叶子从同一段细枝向外展开。",
+      "url": "daily-updates/2026-09-02-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
@@ -45,11 +37,11 @@
       "source_status": "delivered_verified"
     },
     {
-      "date": "2026-08-31",
+      "date": "2026-09-01",
       "kind": "metrion",
-      "title": "四道炭笔线，点亮一圈影",
-      "summary": "一张完成的炭笔与水粉习作里，赭黄色圆形落在画面偏下，四道长短不同的炭笔线从外围向外放射，一条钴蓝细弧从圆形上方穿过。",
-      "url": "daily-updates/2026-08-31-metrion-daily-construction.html",
+      "title": "两面小帆，留住一线风",
+      "summary": "一张完成、来源与权利边界清楚的蜡笔拼贴习作里，靛蓝船身压在画面下方，两面大小不同的橙红三角帆向上展开。",
+      "url": "daily-updates/2026-09-01-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
@@ -61,11 +53,11 @@
       "source_status": "delivered_verified"
     },
     {
-      "date": "2026-08-30",
+      "date": "2026-08-31",
       "kind": "metrion",
-      "title": "一条水彩带，转出三面光",
-      "summary": "薄荷青的一条水彩色带，从一张已经完成、来源与权利边界清楚的抽象习作左下方起笔，连续转过三个方向，最后在右上收成雾紫色短边。",
-      "url": "daily-updates/2026-08-30-metrion-daily-construction.html",
+      "title": "四道炭笔线，点亮一圈影",
+      "summary": "一张完成的炭笔与水粉习作里，赭黄色圆形落在画面偏下，四道长短不同的炭笔线从外围向外放射，一条钴蓝细弧从圆形上方穿过。",
+      "url": "daily-updates/2026-08-31-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
@@ -77,11 +69,11 @@
       "source_status": "delivered_verified"
     },
     {
-      "date": "2026-08-29",
+      "date": "2026-08-30",
       "kind": "metrion",
-      "title": "两块拼贴，找到一根平衡轴",
-      "summary": "一张已经完成、来源与权利边界清楚的儿童剪纸拼贴里，左侧是一枚较大的群青月牙，右侧是一块较小的赭黄方片；一条细朱红线从两者上方穿过，在偏左的位置落下一枚黑色圆点。",
-      "url": "daily-updates/2026-08-29-metrion-daily-construction.html",
+      "title": "一条水彩带，转出三面光",
+      "summary": "薄荷青的一条水彩色带，从一张已经完成、来源与权利边界清楚的抽象习作左下方起笔，连续转过三个方向，最后在右上收成雾紫色短边。",
+      "url": "daily-updates/2026-08-30-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
@@ -93,11 +85,11 @@
       "source_status": "delivered_verified"
     },
     {
-      "date": "2026-08-28",
+      "date": "2026-08-29",
       "kind": "metrion",
-      "title": "一条窄缝，把色带错开",
-      "summary": "一张已经完成、来源与权利边界清楚的水粉刮色习作里，一道朱红宽色带横穿纸面，中间被一条极窄的钴蓝竖痕切开。",
-      "url": "daily-updates/2026-08-28-metrion-daily-construction.html",
+      "title": "两块拼贴，找到一根平衡轴",
+      "summary": "一张已经完成、来源与权利边界清楚的儿童剪纸拼贴里，左侧是一枚较大的群青月牙，右侧是一块较小的赭黄方片；一条细朱红线从两者上方穿过，在偏左的位置落下一枚黑色圆点。",
+      "url": "daily-updates/2026-08-29-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
@@ -109,11 +101,11 @@
       "source_status": "delivered_verified"
     },
     {
-      "date": "2026-08-27",
+      "date": "2026-08-28",
       "kind": "metrion",
-      "title": "一朵墨云，凿出两扇光",
-      "summary": "一张已经完成、来源与权利边界清楚的木刻习作里，深墨色云形横向铺开，内部留着两枚大小不同的水滴形纸白，下面还有一道短短的朱橙缺口。",
-      "url": "daily-updates/2026-08-27-metrion-daily-construction.html",
+      "title": "一条窄缝，把色带错开",
+      "summary": "一张已经完成、来源与权利边界清楚的水粉刮色习作里，一道朱红宽色带横穿纸面，中间被一条极窄的钴蓝竖痕切开。",
+      "url": "daily-updates/2026-08-28-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
@@ -123,6 +115,14 @@
       "summary": "过去 72 小时的主线，是艺术不再只是“展什么”，而是同时被政治命名、公共收藏治理、跨国流通与制度风险所塑造；与此同时，首尔、光州、釜山、香港、拉各斯等亚洲与全球南方节点正在密集提出新的展览和策展方法。",
       "url": "daily-updates/2026-08-27-visual-art-morning-briefing.html",
       "source_status": "formal_archived"
+    },
+    {
+      "date": "2026-08-27",
+      "kind": "metrion",
+      "title": "一朵墨云，凿出两扇光",
+      "summary": "一张已经完成、来源与权利边界清楚的木刻习作里，深墨色云形横向铺开，内部留着两枚大小不同的水滴形纸白，下面还有一道短短的朱橙缺口。",
+      "url": "daily-updates/2026-08-27-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
     },
     {
       "date": "2026-08-18",
@@ -142,14 +142,6 @@
     },
     {
       "date": "2026-08-16",
-      "kind": "metrion",
-      "title": "四张蓝片，按缺口咬合",
-      "summary": "一张已经完成、来源与权利边界清楚的彩铅拼贴里，四张钴蓝色长片从左下向右上错位排开。",
-      "url": "daily-updates/2026-08-16-metrion-daily-construction.html",
-      "source_status": "delivered_verified"
-    },
-    {
-      "date": "2026-08-16",
       "kind": "art-briefing",
       "title": "2026-08-16 视觉艺术每日早报",
       "summary": "过去72小时的主线，一端是文化遗产的“可见性与归还”——从《奥德赛》纸草、叙利亚罗马文物到塞古宝藏；另一端是艺术基础设施的重新分配——艺博会换场、机构关闭、灾害停馆、旧校舍改住宅。",
@@ -157,11 +149,11 @@
       "source_status": "delivered_verified"
     },
     {
-      "date": "2026-08-15",
+      "date": "2026-08-16",
       "kind": "metrion",
-      "title": "两条刻线，立出一条空隙",
-      "summary": "一张已经完成、来源与权利边界清楚的单色线刻习作里，有两条从左下向右上延伸的开口弧线：外侧一条宽，内侧一条窄。",
-      "url": "daily-updates/2026-08-15-metrion-daily-construction.html",
+      "title": "四张蓝片，按缺口咬合",
+      "summary": "一张已经完成、来源与权利边界清楚的彩铅拼贴里，四张钴蓝色长片从左下向右上错位排开。",
+      "url": "daily-updates/2026-08-16-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
@@ -173,11 +165,11 @@
       "source_status": "delivered_verified"
     },
     {
-      "date": "2026-08-14",
+      "date": "2026-08-15",
       "kind": "metrion",
-      "title": "三层水彩，站成透光薄片",
-      "summary": "一张已经完成、来源与权利边界清楚的透明水彩习作里，有三道方向不同的色带：钴蓝竖向、琥珀斜向、烟灰横向。",
-      "url": "daily-updates/2026-08-14-metrion-daily-construction.html",
+      "title": "两条刻线，立出一条空隙",
+      "summary": "一张已经完成、来源与权利边界清楚的单色线刻习作里，有两条从左下向右上延伸的开口弧线：外侧一条宽，内侧一条窄。",
+      "url": "daily-updates/2026-08-15-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
@@ -186,6 +178,14 @@
       "title": "2026-08-14 视觉艺术每日早报",
       "summary": "博物馆的公共责任成为今日主线：一边是 ICOM 为史密森尼的研究与叙事独立性发声、乌克兰文化遗产损毁继续扩大，另一边是非洲机构换帅、拉美研究扩容以及数字艺术与来源研究工具打开新的知识入口。",
       "url": "daily-updates/2026-08-14-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-14",
+      "kind": "metrion",
+      "title": "三层水彩，站成透光薄片",
+      "summary": "一张已经完成、来源与权利边界清楚的透明水彩习作里，有三道方向不同的色带：钴蓝竖向、琥珀斜向、烟灰横向。",
+      "url": "daily-updates/2026-08-14-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
@@ -198,14 +198,6 @@
     },
     {
       "date": "2026-08-12",
-      "kind": "metrion",
-      "title": "一根墨线，抬成三个高度",
-      "summary": "一张已经完成、来源与权利边界清楚的单线墨稿里，一根粗细不均的黑线从左下起笔，向上绕出宽弧，再折回右下。",
-      "url": "daily-updates/2026-08-12-metrion-daily-construction.html",
-      "source_status": "delivered_verified"
-    },
-    {
-      "date": "2026-08-12",
       "kind": "art-briefing",
       "title": "2026-08-12 视觉艺术每日早报",
       "summary": "过去 24—72 小时的主线不是单一“大展”，而是美术馆公共责任的多重拉扯：收藏扩容与空间升级同步发生，票价、策展自主权和公共资金使用则受到审视。",
@@ -213,11 +205,11 @@
       "source_status": "formal_archived"
     },
     {
-      "date": "2026-08-11",
+      "date": "2026-08-12",
       "kind": "metrion",
-      "title": "月牙里的方星，先留一圈空",
-      "summary": "一张已经完成、来源与权利边界清楚的双色版画里，一枚不对称的炭黑月牙向右张开，开口中悬着一枚琥珀色小方块。",
-      "url": "daily-updates/2026-08-11-metrion-daily-construction.html",
+      "title": "一根墨线，抬成三个高度",
+      "summary": "一张已经完成、来源与权利边界清楚的单线墨稿里，一根粗细不均的黑线从左下起笔，向上绕出宽弧，再折回右下。",
+      "url": "daily-updates/2026-08-12-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
@@ -229,11 +221,11 @@
       "source_status": "delivered_verified"
     },
     {
-      "date": "2026-08-10",
+      "date": "2026-08-11",
       "kind": "metrion",
-      "title": "三片纸岛，靠两处小桥站起来",
-      "summary": "一张已经完成、来源与权利边界清楚的手撕纸拼贴里，三片大小不同的赭黄纸岛沿对角线错开。",
-      "url": "daily-updates/2026-08-10-metrion-daily-construction.html",
+      "title": "月牙里的方星，先留一圈空",
+      "summary": "一张已经完成、来源与权利边界清楚的双色版画里，一枚不对称的炭黑月牙向右张开，开口中悬着一枚琥珀色小方块。",
+      "url": "daily-updates/2026-08-11-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
@@ -242,6 +234,14 @@
       "title": "2026-08-10 视觉艺术每日早报",
       "summary": "本周末的主线不是单一大展，而是**“如何重新解释、重新流通与重新看见文化遗产”**：从萨迪斯巨像、亚马孙雨林地景到《奥德赛》纸草残片，技术、修复与跨馆借展正在改写旧叙事；与此同时，博物馆基础设施、治理权和艺术家的生态责任成为不能回避的制度议题。",
       "url": "daily-updates/2026-08-10-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-08-10",
+      "kind": "metrion",
+      "title": "三片纸岛，靠两处小桥站起来",
+      "summary": "一张已经完成、来源与权利边界清楚的手撕纸拼贴里，三片大小不同的赭黄纸岛沿对角线错开。",
+      "url": "daily-updates/2026-08-10-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
@@ -270,14 +270,6 @@
     },
     {
       "date": "2026-08-06",
-      "kind": "metrion",
-      "title": "三枚三角形绕着一点站起来",
-      "summary": "从偏心轴点、三角形朝向与三段离墙层距，观察一张几何版画如何进入壁挂结构。",
-      "url": "daily-updates/2026-08-06-metrion-triangles-around-axis.html",
-      "source_status": "delivered_verified"
-    },
-    {
-      "date": "2026-08-06",
       "kind": "art-briefing",
       "title": "所有权、归还与全球艺术基础设施正在重组",
       "summary": "从阿布扎比新馆任命、跨馆借展与祖先遗存归还，到AI来源追踪和艺术市场监管。",
@@ -285,11 +277,11 @@
       "source_status": "delivered_verified"
     },
     {
-      "date": "2026-08-05",
+      "date": "2026-08-06",
       "kind": "metrion",
-      "title": "洋红布的三道折痕站起来",
-      "summary": "沿一条长脊、一条短谷和一道竖脊，把洋红布的光线变化转成可调整折面。",
-      "url": "daily-updates/2026-08-05-metrion-magenta-cloth-three-folds.html",
+      "title": "三枚三角形绕着一点站起来",
+      "summary": "从偏心轴点、三角形朝向与三段离墙层距，观察一张几何版画如何进入壁挂结构。",
+      "url": "daily-updates/2026-08-06-metrion-triangles-around-axis.html",
       "source_status": "delivered_verified"
     },
     {
@@ -301,11 +293,11 @@
       "source_status": "formal_archived"
     },
     {
-      "date": "2026-08-04",
+      "date": "2026-08-05",
       "kind": "metrion",
-      "title": "儿童画里的四格，站起来了",
-      "summary": "从偏心格线、四个不等色域和右下开放格，建立一套可调的全尺度结构样本。",
-      "url": "daily-updates/2026-08-04-metrion-four-color-fields-open-grid.html",
+      "title": "洋红布的三道折痕站起来",
+      "summary": "沿一条长脊、一条短谷和一道竖脊，把洋红布的光线变化转成可调整折面。",
+      "url": "daily-updates/2026-08-05-metrion-magenta-cloth-three-folds.html",
       "source_status": "delivered_verified"
     },
     {
@@ -315,6 +307,14 @@
       "summary": "财政、劳动、场馆适应与画廊网点重组，同时地方经验、参与式方法和跨学科教学进入国际平台。",
       "url": "daily-updates/2026-08-04-visual-art-morning-briefing.html",
       "source_status": "formal_archived"
+    },
+    {
+      "date": "2026-08-04",
+      "kind": "metrion",
+      "title": "儿童画里的四格，站起来了",
+      "summary": "从偏心格线、四个不等色域和右下开放格，建立一套可调的全尺度结构样本。",
+      "url": "daily-updates/2026-08-04-metrion-four-color-fields-open-grid.html",
+      "source_status": "delivered_verified"
     },
     {
       "date": "2026-08-03",
@@ -334,19 +334,19 @@
     },
     {
       "date": "2026-08-01",
-      "kind": "metrion",
-      "title": "燕尾的空隙怎样站起来",
-      "summary": "从燕尾V形负空间、前后折线梁与穿透开口，观察一张黑白木刻稿如何进入空间。",
-      "url": "daily-updates/2026-08-01-metrion-swallow-tail-negative-space.html",
-      "source_status": "delivered_verified"
-    },
-    {
-      "date": "2026-08-01",
       "kind": "art-briefing",
       "title": "扩容、经典重写与AI创作规则",
       "summary": "大型机构扩容与经典叙事重写并行，AI署名、竞赛规则和文化机构自主性同时受到检验。",
       "url": "daily-updates/2026-08-01-visual-art-morning-briefing.html",
       "source_status": "formal_archived"
+    },
+    {
+      "date": "2026-08-01",
+      "kind": "metrion",
+      "title": "燕尾的空隙怎样站起来",
+      "summary": "从燕尾V形负空间、前后折线梁与穿透开口，观察一张黑白木刻稿如何进入空间。",
+      "url": "daily-updates/2026-08-01-metrion-swallow-tail-negative-space.html",
+      "source_status": "delivered_verified"
     },
     {
       "date": "2026-07-23",

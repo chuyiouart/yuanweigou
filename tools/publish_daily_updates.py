@@ -57,6 +57,7 @@ FORBIDDEN_PATH_PATTERNS = (
     re.compile(r"(?i)appdata[\\/]local[\\/]hermes(?:[\\/]|\b)"),
 )
 KIND_LABEL = {"metrion": "元维构项目日更", "art-briefing": "视觉艺术早报"}
+INDEX_KIND_PRIORITY = {"art-briefing": 0, "metrion": 1}
 METRION_GRID_EFFECTIVE_DATE = "2026-08-11"
 ART_STORY_IMAGE_EFFECTIVE_DATE = "2026-08-13"
 ART_STORY_IMAGE_MAX_EDGE = 480
@@ -740,7 +741,13 @@ def update_index(site_root: Path, entries: list[dict]) -> None:
             "summary": entry["summary"], "url": f'daily-updates/{entry["slug"]}.html',
             "source_status": entry["source_status"],
         }
-    ordered = sorted(by_key.values(), key=lambda item: (item["date"], item["kind"] == "metrion"), reverse=True)
+    ordered = sorted(
+        by_key.values(),
+        key=lambda item: (
+            -dt.date.fromisoformat(item["date"]).toordinal(),
+            INDEX_KIND_PRIORITY.get(item["kind"], 9),
+        ),
+    )
     scope = {"included": ["metrion", "art-briefing"], "excluded": ["ai-evening"]}
     public_content_changed = ordered != current.get("entries", []) or scope != current.get("scope")
     updated_at = current.get("updated_at")

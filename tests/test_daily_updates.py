@@ -618,6 +618,43 @@ class DailyPublisherTests(unittest.TestCase):
         index = json.loads((self.root / "daily-updates" / "index.json").read_text(encoding="utf-8"))
         self.assertNotIn("ai-evening", {item["kind"] for item in index["entries"]})
 
+    def test_index_orders_art_before_metrion_for_same_date_regardless_of_publish_order(self):
+        def entry(kind: str) -> dict:
+            return {
+                "date": "2026-09-02", "kind": kind, "title": kind,
+                "summary": f"{kind} summary", "slug": f"2026-09-02-{kind}",
+                "source_status": "delivered_verified",
+            }
+
+        index_path = self.root / "daily-updates" / "index.json"
+        for publish_order in (("metrion", "art-briefing"), ("art-briefing", "metrion")):
+            index_path.write_text(json.dumps({"schema_version": 1, "entries": []}), encoding="utf-8")
+            for kind in publish_order:
+                publisher.update_index(self.root, [entry(kind)])
+            entries = json.loads(index_path.read_text(encoding="utf-8"))["entries"]
+            self.assertEqual(
+                [(row["date"], row["kind"]) for row in entries],
+                [("2026-09-02", "art-briefing"), ("2026-09-02", "metrion")],
+            )
+
+    def test_index_keeps_dates_descending_before_same_day_lane_priority(self):
+        entries = [
+            {
+                "date": "2026-09-01", "kind": "art-briefing", "title": "older art",
+                "summary": "older", "slug": "2026-09-01-art-briefing", "source_status": "delivered_verified",
+            },
+            {
+                "date": "2026-09-02", "kind": "metrion", "title": "newer metrion",
+                "summary": "newer", "slug": "2026-09-02-metrion", "source_status": "delivered_verified",
+            },
+        ]
+        publisher.update_index(self.root, list(reversed(entries)))
+        actual = json.loads((self.root / "daily-updates" / "index.json").read_text(encoding="utf-8"))["entries"]
+        self.assertEqual(
+            [(row["date"], row["kind"]) for row in actual],
+            [("2026-09-02", "metrion"), ("2026-09-01", "art-briefing")],
+        )
+
     def test_site_lock_rejects_concurrent_process_cleanly(self):
         code = (
             "import importlib.util,pathlib,time,sys;"
