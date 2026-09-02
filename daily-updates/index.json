@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-01T13:33:14+08:00",
-  "content_through": "2026-09-01",
+  "updated_at": "2026-09-02T13:32:18+08:00",
+  "content_through": "2026-09-02",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-02",
+      "kind": "metrion",
+      "title": "五片竹叶，错开三层风",
+      "summary": "一张完成、来源与权利边界清楚的水墨竹叶习作里，五片浓淡不同的叶子从同一段细枝向外展开。",
+      "url": "daily-updates/2026-09-02-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-01",
       "kind": "metrion",
