@@ -50,26 +50,28 @@ verify_frozen_package() {
 verify_frozen_package
 DATE=$(python3 -c 'import json,sys; value=json.load(open(sys.argv[1], encoding="utf-8"))["date"]; assert isinstance(value,str) and value; print(value)' "$PACKAGE")
 
-controlled_dirty=0
+controlled_dirty=()
 unsafe_dirty=()
-while IFS= read -r line; do
+while IFS= read -r -d '' line; do
   [[ -z "$line" ]] && continue
   path=${line:3}
   case "$path" in
-    daily-updates/*|assets/daily-updates/*) controlled_dirty=1 ;;
+    daily-updates/*|assets/daily-updates/*) controlled_dirty+=("$path") ;;
     *) unsafe_dirty+=("$path") ;;
   esac
-done < <(git status --porcelain)
+done < <(git status --porcelain=v1 -z --no-renames)
 
 if (( ${#unsafe_dirty[@]} )); then
   printf 'refusing to publish with unrelated worktree changes:\n' >&2
   printf '  %s\n' "${unsafe_dirty[@]}" >&2
   exit 3
 fi
-if (( controlled_dirty )); then
+if (( ${#controlled_dirty[@]} )); then
   printf 'recovering interrupted daily website publish\n'
-  git restore --source=HEAD --staged --worktree -- daily-updates assets/daily-updates
-  git clean -fd -- daily-updates assets/daily-updates
+  for path in "${controlled_dirty[@]}"; do
+    git restore --source=HEAD --staged --worktree -- "$path" 2>/dev/null || true
+    git clean -fd -- "$path"
+  done
 fi
 
 git pull --ff-only origin main
@@ -81,6 +83,26 @@ FROZEN_PREVIOUS_INDEX_SHA=$(sha256sum "$PREVIOUS_INDEX" | cut -d ' ' -f 1)
   printf 'working index does not match trusted HEAD before publication\n' >&2
   exit 3
 }
+mapfile -t EXPECTED_PUBLIC_PATHS < <(
+  python3 tools/list_daily_expected_paths.py "$PACKAGE"
+)
+(( ${#EXPECTED_PUBLIC_PATHS[@]} > 0 )) || { printf 'expected public path set is empty\n' >&2; exit 3; }
+
+ROLLBACK_PENDING=1
+rollback_uncommitted_publish() {
+  local rc=$?
+  trap - EXIT
+  if (( rc != 0 && ROLLBACK_PENDING )); then
+    printf 'rolling back uncommitted daily website publish\n' >&2
+    for path in "${EXPECTED_PUBLIC_PATHS[@]}"; do
+      git restore --source=HEAD --staged --worktree -- "$path" 2>/dev/null || true
+      git clean -fd -- "$path" >/dev/null
+    done
+  fi
+  exit "$rc"
+}
+trap rollback_uncommitted_publish EXIT
+
 python3 tools/publish_daily_updates.py --package "$PACKAGE" --site-root "$ROOT" --allowed-image-root "$ALLOWED_IMAGE_ROOT" --art-allowed-image-root "$ART_ALLOWED_IMAGE_ROOT" --lock-fd "$DAILY_LOCK_FD"
 verify_frozen_package
 python3 -m unittest discover -s tests -p 'test_*.py'
@@ -95,10 +117,6 @@ mapfile -t VERIFIED_PUBLIC_FILES < <(
 )
 (( ${#VERIFIED_PUBLIC_FILES[@]} > 0 )) || { printf 'verified public manifest is empty\n' >&2; exit 3; }
 verify_frozen_package
-mapfile -t EXPECTED_PUBLIC_PATHS < <(
-  python3 tools/list_daily_expected_paths.py "$PACKAGE"
-)
-
 validate_manifest_structure() {
   local line digest public_path tabless tab_count index=0
   local -A seen_paths=()
@@ -156,6 +174,7 @@ if ! git diff --cached --quiet; then
   ACTION=published
 fi
 COMMIT=$(git rev-parse HEAD)
+ROLLBACK_PENDING=0
 
 # Verify committed Git objects against the pre-commit immutable manifest.
 verify_frozen_manifest

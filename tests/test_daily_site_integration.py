@@ -168,6 +168,10 @@ class DailySiteIntegrationTests(unittest.TestCase):
         self.assertIn('remote_sha" != "$expected_sha', script)
         self.assertLess(script.index("validate_daily_publication_state.py"), script.index("git add -- daily-updates"))
         self.assertLess(script.index('git show "$COMMIT:$public_path"'), script.index("git push origin main"))
+        self.assertIn('git status --porcelain=v1 -z --no-renames', script)
+        self.assertIn('rollback_uncommitted_publish()', script)
+        self.assertIn('ROLLBACK_PENDING=1', script)
+        self.assertIn('ROLLBACK_PENDING=0', script)
         self.assertNotIn('LOCAL_INDEX_SHA=', script)
         self.assertNotIn('any(.entries[]; .date == $date)', script)
 

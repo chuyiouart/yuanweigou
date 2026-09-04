@@ -286,6 +286,53 @@ class PublicationStateValidatorTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "trusted previous index hash mismatch"):
             self.validate()
 
+    def test_validator_shares_art_first_order_with_publisher_across_dates(self):
+        self.write_case("metrion", 4, date="2026-09-03")
+        prior_entries = [
+            {
+                "date": "2026-09-02", "kind": "art-briefing", "title": "art",
+                "summary": "art summary", "url": "daily-updates/2026-09-02-art-briefing.html",
+                "source_status": "formal_archived",
+            },
+            {
+                "date": "2026-09-02", "kind": "metrion", "title": "metrion",
+                "summary": "metrion summary", "url": "daily-updates/2026-09-02-metrion.html",
+                "source_status": "delivered_verified",
+            },
+        ]
+        previous = {
+            "schema_version": 1, "updated_at": "2026-09-02T09:30:00+08:00",
+            "content_through": "2026-09-02",
+            "scope": {"included": ["metrion", "art-briefing"], "excluded": ["ai-evening"]},
+            "entries": prior_entries,
+        }
+        previous_bytes = (json.dumps(previous, ensure_ascii=False, indent=2) + "\n").encode()
+        self.previous_index_path.write_bytes(previous_bytes)
+        self.previous_index_sha256 = hashlib.sha256(previous_bytes).hexdigest()
+
+        index_path = self.root / "daily-updates" / "index.json"
+        current = json.loads(index_path.read_text(encoding="utf-8"))
+        current["entries"] = sorted(
+            [*current["entries"], *prior_entries],
+            key=publisher.index_sort_key,
+        )
+        index_path.write_text(json.dumps(current, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        state = publisher.publish(self.package_path, self.root, self.approved)
+        generated_state = self.root / ".daily-sync-state" / "2026-09-03.json"
+        self.state_path.write_bytes(generated_state.read_bytes())
+
+        manifest = self.validate()
+        self.assertEqual([item["path"] for item in manifest], [item["path"] for item in state["files"]])
+        ordered = json.loads(index_path.read_text(encoding="utf-8"))["entries"]
+        self.assertEqual(
+            [(item["date"], item["kind"]) for item in ordered],
+            [
+                ("2026-09-03", "metrion"),
+                ("2026-09-02", "art-briefing"),
+                ("2026-09-02", "metrion"),
+            ],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

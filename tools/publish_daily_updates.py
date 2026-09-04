@@ -66,6 +66,14 @@ MARKDOWN_LINK = re.compile(r"\[([^\]]+)\]\((https?://[^ )<>]+)\)")
 SAFE_HTTP_URL = re.compile(r"https?://\S+")
 
 
+def index_sort_key(item: dict) -> tuple[int, int]:
+    """Canonical archive ordering shared by the publisher and validator."""
+    return (
+        -dt.date.fromisoformat(item["date"]).toordinal(),
+        INDEX_KIND_PRIORITY.get(item["kind"], 9),
+    )
+
+
 def valid_image_dimensions(path: Path, data: bytes | None = None) -> tuple[int, int] | None:
     data = path.read_bytes() if data is None else data
     suffix = path.suffix.lower()
@@ -741,13 +749,7 @@ def update_index(site_root: Path, entries: list[dict]) -> None:
             "summary": entry["summary"], "url": f'daily-updates/{entry["slug"]}.html',
             "source_status": entry["source_status"],
         }
-    ordered = sorted(
-        by_key.values(),
-        key=lambda item: (
-            -dt.date.fromisoformat(item["date"]).toordinal(),
-            INDEX_KIND_PRIORITY.get(item["kind"], 9),
-        ),
-    )
+    ordered = sorted(by_key.values(), key=index_sort_key)
     scope = {"included": ["metrion", "art-briefing"], "excluded": ["ai-evening"]}
     public_content_changed = ordered != current.get("entries", []) or scope != current.get("scope")
     updated_at = current.get("updated_at")

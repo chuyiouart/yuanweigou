@@ -267,13 +267,12 @@ def validate(
         }
     expected_merged_entries = sorted(
         expected_by_key.values(),
-        key=lambda item: (item["date"], item["kind"] == "metrion"),
-        reverse=True,
+        key=publisher.index_sort_key,
     )
     if index_entries != expected_merged_entries:
         raise ValueError("public index does not match trusted previous index and immutable package")
 
-    if index_entries != sorted(index_entries, key=lambda item: (item["date"], item["kind"]), reverse=True):
+    if index_entries != sorted(index_entries, key=publisher.index_sort_key):
         raise ValueError("public index ordering mismatch")
     for entry in entries:
         expected_item = {
