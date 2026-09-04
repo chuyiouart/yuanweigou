@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-02T17:47:25+08:00",
-  "content_through": "2026-09-02",
+  "updated_at": "2026-09-04T17:25:18+08:00",
+  "content_through": "2026-09-04",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,22 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-04",
+      "kind": "art-briefing",
+      "title": "2026-09-04 视觉艺术每日早报",
+      "summary": "亚洲大型艺术活动与文化基础设施同时升温：光州双年展因“台湾馆”命名卷入外交争议，苏州当代美术馆则以园林式公共空间正式开放。",
+      "url": "daily-updates/2026-09-04-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-09-04",
+      "kind": "metrion",
+      "title": "六根彩线，在瓶口汇成一束",
+      "summary": "一张完成、来源与权利边界清楚的彩铅静物习作里，一只钴蓝瓶子压在纸面下方。",
+      "url": "daily-updates/2026-09-04-metrion-daily-construction.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-02",
       "kind": "art-briefing",
