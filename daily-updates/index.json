@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-04T17:25:18+08:00",
-  "content_through": "2026-09-04",
+  "updated_at": "2026-09-05T09:30:51+08:00",
+  "content_through": "2026-09-05",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-05",
+      "kind": "art-briefing",
+      "title": "2026-09-05 视觉艺术每日早报",
+      "summary": "今天的主线是“边界重新显形”：光州双年展遭遇命名与外交争议，纽约大都会博物馆因伦理反弹取消项目；与此同时，苏州新馆、鹿特丹移民博物馆扩建和中东新媒体艺术平台显示，机构仍在借建筑、技术与公共叙事扩大文化影响力。",
+      "url": "daily-updates/2026-09-05-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-04",
       "kind": "art-briefing",
