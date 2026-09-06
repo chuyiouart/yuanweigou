@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-05T13:31:04+08:00",
-  "content_through": "2026-09-05",
+  "updated_at": "2026-09-06T09:46:54+08:00",
+  "content_through": "2026-09-06",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-06",
+      "kind": "art-briefing",
+      "title": "2026-09-06 视觉艺术每日早报",
+      "summary": "今天的全球视觉艺术现场同时在追问“谁有权组织叙事”：洛杉矶新博物馆的宏大收藏框架、肯尼迪中心移除公共雕塑、美国执法机构扣押文物，都把机构权力推到台前；另一边，原住民艺术、海湾地区摄影、纺织与数字遗产项目正用更具体的社群经验修正单一叙事。",
+      "url": "daily-updates/2026-09-06-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-05",
       "kind": "art-briefing",
