@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-06T13:30:42+08:00",
-  "content_through": "2026-09-06",
+  "updated_at": "2026-09-07T09:36:43+08:00",
+  "content_through": "2026-09-07",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-07",
+      "kind": "art-briefing",
+      "title": "2026-09-07 视觉艺术每日早报",
+      "summary": "全球视觉艺术现场今天同时面对三种边界：双年展中的国家命名与文化外交、战争与跨境贸易对艺术流通的直接冲击，以及 AI 训练数据难以被逐项归因的新难题。",
+      "url": "daily-updates/2026-09-07-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-06",
       "kind": "art-briefing",
