@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-08T09:31:27+08:00",
+  "updated_at": "2026-09-08T13:30:13+08:00",
   "content_through": "2026-09-08",
   "scope": {
     "included": [
@@ -18,6 +18,14 @@
       "title": "2026-09-08 视觉艺术每日早报",
       "summary": "今天的主线是“谁有权定义、保存与讲述图像”：洛杉矶迎来十亿美元级叙事艺术博物馆，光州双年展因台湾馆命名出现退出风波，阿根廷法院则以刑事程序推进纳粹掠夺艺术返还。",
       "url": "daily-updates/2026-09-08-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-09-08",
+      "kind": "metrion",
+      "title": "小猫一回头，书包鼓起来",
+      "summary": "奶油色画纸上，一只薄荷绿小猫往右走，却把脸转回左边。",
+      "url": "daily-updates/2026-09-08-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
