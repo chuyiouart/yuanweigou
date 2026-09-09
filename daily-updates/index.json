@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-09T09:31:13+08:00",
+  "updated_at": "2026-09-09T13:30:55+08:00",
   "content_through": "2026-09-09",
   "scope": {
     "included": [
@@ -18,6 +18,14 @@
       "title": "2026-09-09 视觉艺术每日早报",
       "summary": "全球视觉艺术机构今天同时面对三种压力：领导层与资金结构的重组、归还与安保责任的再定义，以及从“建筑地标”转向“观众如何进入叙事”的展示革新。",
       "url": "daily-updates/2026-09-09-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-09-09",
+      "kind": "metrion",
+      "title": "灯笼花的圆肚子要鼓出来",
+      "summary": "一枝水粉灯笼花斜着垂下来：深绿色花茎有个小分叉，三只橙色花囊一高两低，两片蓝绿色尖叶朝相反方向伸开。",
+      "url": "daily-updates/2026-09-09-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
