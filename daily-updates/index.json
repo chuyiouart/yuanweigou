@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-09T13:30:55+08:00",
-  "content_through": "2026-09-09",
+  "updated_at": "2026-09-10T09:36:17+08:00",
+  "content_through": "2026-09-10",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-10",
+      "kind": "art-briefing",
+      "title": "2026-09-10 视觉艺术每日早报",
+      "summary": "今天的主线是“制度如何重写观看”：光州与釜山双年展把政治、倾听与行动放回展览核心，史密森尼领导层变动和卢卡斯博物馆诉讼则提醒我们，文化机构的独立性、公共属性与劳动责任同样决定观众最终看到什么。",
+      "url": "daily-updates/2026-09-10-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-09",
       "kind": "art-briefing",
