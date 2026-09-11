@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-10T18:10:53+08:00",
-  "content_through": "2026-09-10",
+  "updated_at": "2026-09-11T09:30:44+08:00",
+  "content_through": "2026-09-11",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-11",
+      "kind": "art-briefing",
+      "title": "2026-09-11 视觉艺术每日早报",
+      "summary": "今天的主线是“谁在定义公共记忆与文化基础设施”：多哈、阿布扎比以新馆和永久展亭重绘区域叙事，伦敦与光州把公共空间、原住民治理和身份政治推到前景；与此同时，古迹受损、博物馆劳资关系与艺术写作资助提醒我们，文化可见性始终依赖制度、劳动与保存条件。",
+      "url": "daily-updates/2026-09-11-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-10",
       "kind": "art-briefing",
