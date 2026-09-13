@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T15:21:04+08:00",
-  "content_through": "2026-09-12",
+  "updated_at": "2026-09-13T09:31:09+08:00",
+  "content_through": "2026-09-13",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-13",
+      "kind": "art-briefing",
+      "title": "2026-09-13 视觉艺术每日早报",
+      "summary": "今天的主线，是艺术机构同时向“更开放的公共空间”和“更精细的知识基础设施”转向：巴黎、布鲁塞尔与多哈都把建筑、花园和城市连接纳入展览叙事，而《夜巡》微生物研究、摄影教育收缩及材料再利用实验，则提醒从业者重新审视保存、教学与生产方式。",
+      "url": "daily-updates/2026-09-13-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-12",
       "kind": "art-briefing",
