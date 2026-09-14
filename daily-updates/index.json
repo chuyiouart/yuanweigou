@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T13:30:53+08:00",
-  "content_through": "2026-09-13",
+  "updated_at": "2026-09-14T09:30:56+08:00",
+  "content_through": "2026-09-14",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-14",
+      "kind": "art-briefing",
+      "title": "2026-09-14 视觉艺术每日早报",
+      "summary": "今天的视觉艺术现场，一端是公共权力直接介入纪念物、博物馆资金与行业统计，另一端是策展人和设计者借身体、劳动、废料与未竟人生修正既有叙事。",
+      "url": "daily-updates/2026-09-14-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-13",
       "kind": "art-briefing",
