@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-15T09:30:38+08:00",
-  "content_through": "2026-09-15",
+  "updated_at": "2026-09-16T09:31:23+08:00",
+  "content_through": "2026-09-16",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-16",
+      "kind": "art-briefing",
+      "title": "2026-09-16 视觉艺术每日早报",
+      "summary": "今天的主线是“基础设施与边界同时重写”：纽约大馆一边扩建、工会一边争取可持续劳动条件；从罗马古迹、加纳民间档案到 AI 陶瓷与画作微生物研究，视觉文化的保存、生产和展示正在被重新定义。",
+      "url": "daily-updates/2026-09-16-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-15",
       "kind": "art-briefing",
