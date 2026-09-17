@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-16T13:31:08+08:00",
-  "content_through": "2026-09-16",
+  "updated_at": "2026-09-17T09:31:14+08:00",
+  "content_through": "2026-09-17",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-17",
+      "kind": "art-briefing",
+      "title": "2026-09-17 视觉艺术每日早报",
+      "summary": "今天的主线是“基础设施正在改写艺术生态”：从纽约大都会艺术博物馆新翼动工、曼谷把双年展铺进整座城市，到大马士革以艺术周重建文化网络，空间、教育、出版与策展人才都被重新视为艺术生产的一部分。",
+      "url": "daily-updates/2026-09-17-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-16",
       "kind": "art-briefing",
