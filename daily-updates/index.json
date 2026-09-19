@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-19T09:31:20+08:00",
+  "updated_at": "2026-09-19T15:49:39+08:00",
   "content_through": "2026-09-19",
   "scope": {
     "included": [
@@ -18,6 +18,14 @@
       "title": "2026-09-19 视觉艺术每日早报",
       "summary": "公共机构正在同时面对两种“技术压力”：一边是 AI 生成内容进入城市视觉系统、肖像奖和博物馆收藏所引发的作者性与问责争论，另一边则是数字艺术保存、跨媒介教育和互动展示正在形成更扎实的机构方法。",
       "url": "daily-updates/2026-09-19-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-09-19",
+      "kind": "metrion",
+      "title": "三个圆窗，打开鱼肚里的舱",
+      "summary": "这是一份原创儿童画风格的 AI 转译设想：深蓝画纸上，一条橙红色鱼潜艇朝前游，鱼身排着三枚青绿色圆窗，尾部留着一弯白月牙。",
+      "url": "daily-updates/2026-09-19-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
