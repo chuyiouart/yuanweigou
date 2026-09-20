@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-19T15:49:39+08:00",
-  "content_through": "2026-09-19",
+  "updated_at": "2026-09-20T09:31:17+08:00",
+  "content_through": "2026-09-20",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-20",
+      "kind": "art-briefing",
+      "title": "2026-09-20 视觉艺术每日早报",
+      "summary": "过去 72 小时，视觉艺术界的主线不是单一风格，而是“机构如何承担现实”：佛罗伦萨暴雨暴露馆藏基础设施风险，documenta 16 与加沙议题继续牵动参展伦理；与此同时，从塔什干新机构、圣保罗本土艺术谱系到伊斯坦布尔的算法视觉文化，新的展示网络正在把地域经验、技术治理与公共责任放到同一张桌上。",
+      "url": "daily-updates/2026-09-20-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-19",
       "kind": "art-briefing",
