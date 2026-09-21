@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-20T13:30:53+08:00",
-  "content_through": "2026-09-20",
+  "updated_at": "2026-09-21T09:31:06+08:00",
+  "content_through": "2026-09-21",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-21",
+      "kind": "art-briefing",
+      "title": "2026-09-21 视觉艺术每日早报",
+      "summary": "过去 72 小时的主线，是“机构如何在高压现实中重新定义公共性”：卢浮宫与乌菲齐的安全、基础设施问题，documenta 的表达空间争议，与大都会、古根海姆、塔什干及伊斯坦布尔的新展共同表明，视觉艺术机构已无法只讨论作品，也必须同时处理治理、技术、记忆与观众关系。",
+      "url": "daily-updates/2026-09-21-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-20",
       "kind": "art-briefing",
