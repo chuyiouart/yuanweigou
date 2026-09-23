@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-23T09:34:19+08:00",
+  "updated_at": "2026-09-23T17:54:04+08:00",
   "content_through": "2026-09-23",
   "scope": {
     "included": [
@@ -18,6 +18,14 @@
       "title": "2026-09-23 视觉艺术每日早报",
       "summary": "今天的主线是“所有权、可见性与基础设施同时被重写”：尼日利亚文物、阿兹特克抄本和纳粹时期流散藏品让“谁拥有、谁解释”再次成为核心；从尤卡坦双年展到博物馆温湿度标准，机构也在重新分配地域话语权、奖金、能源与公共空间。",
       "url": "daily-updates/2026-09-23-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-09-23",
+      "kind": "metrion",
+      "title": "望远镜伸出去，脚跟抬起来",
+      "summary": "屋顶边缘，一个戴橙色针织帽的孩子踮着右脚，把薄荷绿望远镜指向左上方；另一只红靴向后抬起，像在努力保持平衡。",
+      "url": "daily-updates/2026-09-23-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
