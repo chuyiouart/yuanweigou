@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-23T17:54:04+08:00",
-  "content_through": "2026-09-23",
+  "updated_at": "2026-09-24T09:31:07+08:00",
+  "content_through": "2026-09-24",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-24",
+      "kind": "art-briefing",
+      "title": "2026-09-24 视觉艺术每日早报",
+      "summary": "今天的主线是“让制度重新变得可见”：大型艺博会用结构数据说明全球网络，博物馆通过收藏、归还与跨馆策展重写艺术史，而 AI、声音影像和材料分析正在迫使展览、竞赛与研究重新说明方法和责任。",
+      "url": "daily-updates/2026-09-24-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-23",
       "kind": "art-briefing",
