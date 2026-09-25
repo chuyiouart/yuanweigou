@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-24T13:30:51+08:00",
-  "content_through": "2026-09-24",
+  "updated_at": "2026-09-25T09:31:05+08:00",
+  "content_through": "2026-09-25",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-25",
+      "kind": "art-briefing",
+      "title": "2026-09-25 视觉艺术每日早报",
+      "summary": "今天的主线是“基础设施与责任同时升级”：博物馆扩建、摄影空间开馆和纽约艺博会集中发生，但预算削减、来源国权利、艺术家身后档案以及生成式 AI 的劳动伦理，也迫使机构重新回答“为谁保存、由谁解释、如何持续”。",
+      "url": "daily-updates/2026-09-25-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-24",
       "kind": "art-briefing",
