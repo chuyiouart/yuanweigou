@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-25T09:31:05+08:00",
-  "content_through": "2026-09-25",
+  "updated_at": "2026-09-26T09:30:37+08:00",
+  "content_through": "2026-09-26",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-26",
+      "kind": "art-briefing",
+      "title": "2026-09-26 视觉艺术每日早报",
+      "summary": "过去 24—72 小时的主线，是文化机构一面扩建、开馆并重塑公共叙事，一面直面归还、预算与治理责任；与此同时，AI 已从“是否进入博物馆”转向“如何被治理、由谁承担资源与劳动代价”的现实争论。",
+      "url": "daily-updates/2026-09-26-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-25",
       "kind": "art-briefing",
