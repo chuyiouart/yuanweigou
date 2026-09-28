@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-27T13:55:40+08:00",
-  "content_through": "2026-09-27",
+  "updated_at": "2026-09-28T09:31:05+08:00",
+  "content_through": "2026-09-28",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-28",
+      "kind": "art-briefing",
+      "title": "2026-09-28 视觉艺术每日早报",
+      "summary": "今天的主线是“机构如何把断裂转化为公共方法”：多伦多双年展以水路、迁徙与 rupture 组织城市网络，贝耶勒基金会用新建筑重写观看动线，而 AI 展览、博物馆实验与艺术财政争议则把授权、治理和公众信任推到台前。",
+      "url": "daily-updates/2026-09-28-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-27",
       "kind": "art-briefing",
