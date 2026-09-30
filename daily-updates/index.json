@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-29T14:35:39+08:00",
-  "content_through": "2026-09-29",
+  "updated_at": "2026-09-30T09:31:33+08:00",
+  "content_through": "2026-09-30",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-09-30",
+      "kind": "art-briefing",
+      "title": "2026-09-30 视觉艺术每日早报",
+      "summary": "过去 24—72 小时，艺术界的两条主线格外清晰：一边是艺博会、博物馆与双年展主动重做空间和组织结构，试图让观众、地区与新画廊获得更公平的可见度；另一边是劳工、原住民表达、战争记忆与被掠夺艺术品返还，把“谁有权展示、解释和拥有文化”重新推到台前。",
+      "url": "daily-updates/2026-09-30-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-29",
       "kind": "art-briefing",
