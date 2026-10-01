@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-30T09:31:33+08:00",
-  "content_through": "2026-09-30",
+  "updated_at": "2026-10-01T09:31:24+08:00",
+  "content_through": "2026-10-01",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-01",
+      "kind": "art-briefing",
+      "title": "2026-10-01 视觉艺术每日早报",
+      "summary": "机构正在同时重写三套基础设施：艺博会与城市艺术周重排线下流量，博物馆把馆藏、教育和导览迁入数字界面，AI 则从“作品媒介”升级为展陈系统与机构治理议题。",
+      "url": "daily-updates/2026-10-01-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-09-30",
       "kind": "art-briefing",
