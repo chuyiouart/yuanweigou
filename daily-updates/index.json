@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-01T09:31:24+08:00",
-  "content_through": "2026-10-01",
+  "updated_at": "2026-10-02T09:31:08+08:00",
+  "content_through": "2026-10-02",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-02",
+      "kind": "art-briefing",
+      "title": "2026-10-02 视觉艺术每日早报",
+      "summary": "今天的主线不是“更多展览”，而是文化机构如何承担公共责任：从遗产应对极端气候、无障碍解释与免费入馆，到劳资、返还和财政可持续性，艺术系统正被要求把价值主张落实为制度与资源配置。",
+      "url": "daily-updates/2026-10-02-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-01",
       "kind": "art-briefing",
