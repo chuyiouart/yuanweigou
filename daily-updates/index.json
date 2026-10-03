@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-02T11:30:08+08:00",
-  "content_through": "2026-10-02",
+  "updated_at": "2026-10-03T09:30:49+08:00",
+  "content_through": "2026-10-03",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-03",
+      "kind": "art-briefing",
+      "title": "2026-10-03 视觉艺术每日早报",
+      "summary": "今天的主线不是某一种风格的胜出，而是艺术基础设施的重新谈判：无障碍权利、劳动合同、来源研究、文化经费与气候风险同时进入机构治理；与此同时，从孟加拉国艺术、原住民设计到女性赞助史，展览与研究正在重写谁能进入艺术史。",
+      "url": "daily-updates/2026-10-03-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-02",
       "kind": "art-briefing",
