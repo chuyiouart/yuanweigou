@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-04T09:31:31+08:00",
-  "content_through": "2026-10-04",
+  "updated_at": "2026-10-05T11:16:20+08:00",
+  "content_through": "2026-10-05",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-05",
+      "kind": "art-briefing",
+      "title": "2026-10-05 视觉艺术每日早报",
+      "summary": "今天的主线不是单一“爆款新闻”，而是秋季展览季集中呈现的三组变化：影像艺术重新讨论历史与身份，跨文化现代主义被放回机构叙事，纸张、颜料、日常材料和档案再次成为反思数字时代观看方式的工具。",
+      "url": "daily-updates/2026-10-05-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-04",
       "kind": "art-briefing",
