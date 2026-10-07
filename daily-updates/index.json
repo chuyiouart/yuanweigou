@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-06T09:42:48+08:00",
-  "content_through": "2026-10-06",
+  "updated_at": "2026-10-07T10:20:22+08:00",
+  "content_through": "2026-10-07",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-07",
+      "kind": "art-briefing",
+      "title": "2026-10-07 视觉艺术每日早报",
+      "summary": "今天的主线是“机构扩容”与“规则重写”同时发生：迈阿密海滩巴塞尔重排展场、毕尔巴鄂美术馆完成新翼、纽约新博物馆公布三年展阵容；与此同时，AI 进入博物馆解释与修复流程，也迫使文化机构重新说明人的判断、出处透明度与版权边界。",
+      "url": "daily-updates/2026-10-07-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-06",
       "kind": "art-briefing",
