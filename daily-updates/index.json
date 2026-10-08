@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-07T13:30:29+08:00",
-  "content_through": "2026-10-07",
+  "updated_at": "2026-10-08T09:31:36+08:00",
+  "content_through": "2026-10-08",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-08",
+      "kind": "art-briefing",
+      "title": "2026-10-08 视觉艺术每日早报",
+      "summary": "全球艺术机构正在同时重写三套关系：明星收藏正在把新观众带进博物馆，归还与艺术家遗产争议迫使市场重审“合法拥有”，而开源创意软件、AI 伦理与机器人材料实验则把“谁能创作、用什么创作”推到前台。",
+      "url": "daily-updates/2026-10-08-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-07",
       "kind": "art-briefing",
