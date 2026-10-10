@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-09T22:33:43+08:00",
-  "content_through": "2026-10-09",
+  "updated_at": "2026-10-10T09:41:05+08:00",
+  "content_through": "2026-10-10",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-10",
+      "kind": "art-briefing",
+      "title": "2026-10-10 视觉艺术每日早报",
+      "summary": "今天的主线是视觉艺术基础设施的再配置：有的机构因政治与财务压力暂停或迁移，有的博物馆以修缮、数字馆和跨界收藏扩大触达；与此同时，艺博会、收藏调查与 AI 评分研究正在重新分配可见度、购买权和评价权。",
+      "url": "daily-updates/2026-10-10-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-09",
       "kind": "art-briefing",
