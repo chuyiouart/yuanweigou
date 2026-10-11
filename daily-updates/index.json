@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-11T09:30:43+08:00",
+  "updated_at": "2026-10-11T13:26:51+08:00",
   "content_through": "2026-10-11",
   "scope": {
     "included": [
@@ -18,6 +18,14 @@
       "title": "2026-10-11 视觉艺术每日早报",
       "summary": "今天的主线是“扩张”与“收缩”同时发生：迈阿密海滩巴塞尔扩充数字板块、罗马启用媒体艺术馆，但日惹双年展主动停摆、画廊债务与博物馆维修资金也在暴露文化基础设施的脆弱。",
       "url": "daily-updates/2026-10-11-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-10-11",
+      "kind": "metrion",
+      "title": "触手绕过瓶身，前后分开了",
+      "summary": "一幅原创墨线淡彩里，一只紫灰色章鱼抱着海绿色细颈瓶，从砖红海草后探出来。",
+      "url": "daily-updates/2026-10-11-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
