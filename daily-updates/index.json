@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-11T13:26:51+08:00",
-  "content_through": "2026-10-11",
+  "updated_at": "2026-10-12T09:31:27+08:00",
+  "content_through": "2026-10-12",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-12",
+      "kind": "art-briefing",
+      "title": "2026-10-12 视觉艺术每日早报",
+      "summary": "今天的主线，是把“看见”从视觉效果推进到制度与劳动：Joana Vasconcelos 以欢愉和手工劳动重写女性主义纪念碑，Deana Lawson 反转监控图像的凝视关系；从原住民收藏空间到数据中心清洁游戏，越来越多项目都在追问作品背后谁在工作、谁被观看、谁能进入公共文化。",
+      "url": "daily-updates/2026-10-12-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-11",
       "kind": "art-briefing",
