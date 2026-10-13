@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-12T13:31:06+08:00",
-  "content_through": "2026-10-12",
+  "updated_at": "2026-10-13T10:01:43+08:00",
+  "content_through": "2026-10-13",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-13",
+      "kind": "art-briefing",
+      "title": "2026-10-13 视觉艺术每日早报",
+      "summary": "全球艺术机构正同时面对三种压力：文化预算与治理立场的政治化、历史藏品的来源伦理，以及 AI 对“作者性”的重新追问；与之并行的，是从泰特涡轮大厅的声音装置到首尔亲子舞蹈项目，对观众身体、空间和参与方式的持续重构。",
+      "url": "daily-updates/2026-10-13-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-12",
       "kind": "art-briefing",
