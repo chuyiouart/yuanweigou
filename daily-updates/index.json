@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-15T09:30:43+08:00",
+  "updated_at": "2026-10-15T13:31:04+08:00",
   "content_through": "2026-10-15",
   "scope": {
     "included": [
@@ -18,6 +18,14 @@
       "title": "2026-10-15 视觉艺术每日早报",
       "summary": "全球视觉艺术现场今天同时面对“基础设施”与“信任基础”的压力：卢浮宫警告老化设施可能迫使其闭馆，Getty Images 进入破产重组，卡拉奇双年展又因地区冲突取消；另一方面，从巴黎新馆、马德里艺术家故居扩建到医院策展网络，机构仍在试验更开放、更具照护意识的公共文化空间。",
       "url": "daily-updates/2026-10-15-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-10-15",
+      "kind": "metrion",
+      "title": "尾巴卷起来，中间可以看穿",
+      "summary": "这只穿山甲睡觉时把身体卷成一圈：赭黄色鳞片都镶着深靛蓝边，眼睛外有一块湖绿色面罩，尾巴末端则留着珊瑚粉。",
+      "url": "daily-updates/2026-10-15-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
