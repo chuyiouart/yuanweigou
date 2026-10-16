@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-16T09:31:13+08:00",
+  "updated_at": "2026-10-16T13:30:43+08:00",
   "content_through": "2026-10-16",
   "scope": {
     "included": [
@@ -18,6 +18,14 @@
       "title": "2026-10-16 视觉艺术每日早报",
       "summary": "今天的主线，是艺术机构同时重写“价值”的三层含义：里昂双年展把经济扩展为劳动、照护与交换的诗学，非洲与亚洲项目借跨地域协作重设叙事中心，而佳士得强劲成交又提醒我们，文化价值与市场价格依然在同一现场彼此拉扯。",
       "url": "daily-updates/2026-10-16-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-10-16",
+      "kind": "metrion",
+      "title": "茶水离开壶嘴，弯进杯里",
+      "summary": "烟紫色茶壶正朝一只珊瑚红杯倾斜。",
+      "url": "daily-updates/2026-10-16-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
