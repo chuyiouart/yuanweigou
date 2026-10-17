@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-16T13:30:43+08:00",
-  "content_through": "2026-10-16",
+  "updated_at": "2026-10-17T09:36:28+08:00",
+  "content_through": "2026-10-17",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-17",
+      "kind": "art-briefing",
+      "title": "2026-10-17 视觉艺术每日早报",
+      "summary": "今天的视觉艺术现场同时在扩张与收缩：巴黎、纽约、伦敦及台中继续以新场馆、城市艺术周和跨馆合作扩大公共入口，巴西与南亚项目却因行政、资金或战争条件延迟、暂停。",
+      "url": "daily-updates/2026-10-17-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-16",
       "kind": "art-briefing",
