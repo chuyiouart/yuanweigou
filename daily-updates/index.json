@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-17T09:36:28+08:00",
-  "content_through": "2026-10-17",
+  "updated_at": "2026-10-18T09:31:33+08:00",
+  "content_through": "2026-10-18",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-18",
+      "kind": "art-briefing",
+      "title": "2026-10-18 视觉艺术每日早报",
+      "summary": "全球视觉艺术今天呈现两条相互牵引的主线：一边是卡塔尔、光州等大型展览以跨地域协作重写“国际性”，另一边是战争、财政与治理现实直接改变双年展和新馆计划。",
+      "url": "daily-updates/2026-10-18-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-17",
       "kind": "art-briefing",
