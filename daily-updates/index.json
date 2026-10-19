@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-18T09:31:33+08:00",
-  "content_through": "2026-10-18",
+  "updated_at": "2026-10-19T09:33:52+08:00",
+  "content_through": "2026-10-19",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-19",
+      "kind": "art-briefing",
+      "title": "2026-10-19 视觉艺术每日早报",
+      "summary": "本周末的主线不是单一风格，而是“基础设施”同时被重写：图像授权巨头进入重整、私人收藏转向常设展示、公共艺术深入城市日常，非洲影像网络与无障碍策展也从项目层面走向长期机制。",
+      "url": "daily-updates/2026-10-19-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-18",
       "kind": "art-briefing",
