@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-19T09:33:52+08:00",
-  "content_through": "2026-10-19",
+  "updated_at": "2026-10-20T09:31:13+08:00",
+  "content_through": "2026-10-20",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-20",
+      "kind": "art-briefing",
+      "title": "2026-10-20 视觉艺术每日早报",
+      "summary": "过去 24 小时的主线，是文化机构同时成为公共冲突、城市竞争与资金再分配的现场：巴黎与波哥大的抗议直接进入博物馆空间，迈阿密用租金让步留住艺博会，阿布扎比则继续加码文化基础设施。",
+      "url": "daily-updates/2026-10-20-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-19",
       "kind": "art-briefing",
