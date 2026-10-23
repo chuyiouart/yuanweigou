@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T09:30:44+08:00",
-  "content_through": "2026-10-22",
+  "updated_at": "2026-10-23T09:31:27+08:00",
+  "content_through": "2026-10-23",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-23",
+      "kind": "art-briefing",
+      "title": "2026-10-23 视觉艺术每日早报",
+      "summary": "巴黎抗议使艺博会与机构提前闭馆、哥伦比亚国家博物馆的陈列删改引发法律与公共争议，显示艺术机构正被迫重新回答“安全、自治与公共记忆由谁决定”。",
+      "url": "daily-updates/2026-10-23-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-22",
       "kind": "art-briefing",
