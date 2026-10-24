@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-23T13:31:02+08:00",
-  "content_through": "2026-10-23",
+  "updated_at": "2026-10-24T09:31:14+08:00",
+  "content_through": "2026-10-24",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-24",
+      "kind": "art-briefing",
+      "title": "2026-10-24 视觉艺术每日早报",
+      "summary": "今天的主线，是艺术机构被迫同时回答三类问题：公共空间如何应对现实政治与安全压力，资本如何进入教育和文化基础设施，以及 AI、数字档案与科学工具如何改写“作者”“传统”和艺术史证据。",
+      "url": "daily-updates/2026-10-24-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-23",
       "kind": "art-briefing",
