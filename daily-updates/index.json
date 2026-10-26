@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-25T13:30:36+08:00",
-  "content_through": "2026-10-25",
+  "updated_at": "2026-10-26T09:40:11+08:00",
+  "content_through": "2026-10-26",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-26",
+      "kind": "art-briefing",
+      "title": "2026-10-26 视觉艺术每日早报",
+      "summary": "过去一个周末，视觉艺术现场同时遭遇三种“边界重写”：巴黎抗议迫使艺博会与博物馆调整开放，哥伦比亚国家博物馆的展陈删改引发公共记忆之争，而从首尔到巴黎的展览则把 AI 从“替代创作者”的抽象焦虑，拉回到训练材料、作者决策与机构责任等具体问题。",
+      "url": "daily-updates/2026-10-26-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-25",
       "kind": "art-briefing",
