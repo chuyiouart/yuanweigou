@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-26T13:30:21+08:00",
-  "content_through": "2026-10-26",
+  "updated_at": "2026-10-27T09:42:23+08:00",
+  "content_through": "2026-10-27",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-27",
+      "kind": "art-briefing",
+      "title": "2026-10-27 视觉艺术每日早报",
+      "summary": "全球艺术机构今天同时面对三种压力：治理与劳动关系需要重建信任，收藏和资金正重新分配文化可见性，而展览则把技术、生态与历史材料转化为新的公共讨论界面。",
+      "url": "daily-updates/2026-10-27-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-26",
       "kind": "art-briefing",
