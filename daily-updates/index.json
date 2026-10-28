@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-27T09:42:23+08:00",
-  "content_through": "2026-10-27",
+  "updated_at": "2026-10-28T09:31:15+08:00",
+  "content_through": "2026-10-28",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-28",
+      "kind": "art-briefing",
+      "title": "2026-10-28 视觉艺术每日早报",
+      "summary": "全球艺术机构今天同时面对“扩张”与“校准”：卡塔尔艺博会、首尔媒体城市双年展继续搭建跨区域网络，而 V&A 劳资谈判、Pace 财务收缩、掠夺文物交易争议则提醒我们，文化生产的基础设施、伦理与成本同样是作品之外的核心议题。",
+      "url": "daily-updates/2026-10-28-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-27",
       "kind": "art-briefing",
