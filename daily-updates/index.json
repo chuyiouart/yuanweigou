@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-28T09:31:15+08:00",
-  "content_through": "2026-10-28",
+  "updated_at": "2026-10-29T09:30:54+08:00",
+  "content_through": "2026-10-29",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-10-29",
+      "kind": "art-briefing",
+      "title": "2026-10-29 视觉艺术每日早报",
+      "summary": "过去 24—72 小时的主线，是艺术机构同时把资源投向“长期基础设施”与“公共解释权”：从全球遗产保护基金扩容、博物馆无障碍诠释，到非洲艺术图书流通与城市文化机构入宪，文化系统正重新回答谁能进入、谁来解释、谁获得长期支持。",
+      "url": "daily-updates/2026-10-29-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-10-28",
       "kind": "art-briefing",
