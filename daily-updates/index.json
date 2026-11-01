@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-01T09:30:45+08:00",
+  "updated_at": "2026-11-01T13:30:19+08:00",
   "content_through": "2026-11-01",
   "scope": {
     "included": [
@@ -18,6 +18,14 @@
       "title": "2026-11-01 视觉艺术每日早报",
       "summary": "今天的主线是“共享、维护与责任”：三家跨洲现代艺术机构尝试把馆藏当作一个共同资源池，Documenta 与威尼斯双年展美国馆则同时暴露出大型国际展事在言论环境、治理和资金链上的压力。",
       "url": "daily-updates/2026-11-01-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-11-01",
+      "kind": "metrion",
+      "title": "裙摆翻起，里面还有一层蓝",
+      "summary": "珊瑚红上衣的短发舞者正在旋身，芥末黄长裙向外扬起，裙里露出一圈钴蓝内衬；右腕还系着奶油白丝带。",
+      "url": "daily-updates/2026-11-01-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
