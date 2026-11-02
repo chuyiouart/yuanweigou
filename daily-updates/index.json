@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-02T09:31:31+08:00",
+  "updated_at": "2026-11-02T13:31:02+08:00",
   "content_through": "2026-11-02",
   "scope": {
     "included": [
@@ -18,6 +18,14 @@
       "title": "2026-11-02 视觉艺术每日早报",
       "summary": "过去 72 小时最清晰的主线，是艺术机构一面通过跨国联盟、私人博物馆与区域收藏补齐基础设施，一面被迫重新回答“作品如何被运输、追索、传播与识别”。",
       "url": "daily-updates/2026-11-02-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-11-02",
+      "kind": "metrion",
+      "title": "这团长毛，侧面会漏光",
+      "summary": "一只原创长毛角色正慢慢往前走：乱发垂到脚边，两只大眼睛围着奶油白眼圈，钴蓝色嘴巴从毛缝里探出来，下面露着两只珊瑚红脚。",
+      "url": "daily-updates/2026-11-02-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
