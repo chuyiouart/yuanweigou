@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-02T13:31:02+08:00",
-  "content_through": "2026-11-02",
+  "updated_at": "2026-11-03T09:31:08+08:00",
+  "content_through": "2026-11-03",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-11-03",
+      "kind": "art-briefing",
+      "title": "2026-11-03 视觉艺术每日早报",
+      "summary": "全球视觉艺术机构正在同时重写三种边界：跨馆藏合作取代“各自为政”，文化表达与公共权力的冲突进入司法和劳工现场，而世界模型、数字复原与生物材料又把“展示”扩展为可交互、可生长的环境。",
+      "url": "daily-updates/2026-11-03-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-11-02",
       "kind": "art-briefing",
