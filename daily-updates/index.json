@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-03T09:31:08+08:00",
-  "content_through": "2026-11-03",
+  "updated_at": "2026-11-04T09:30:50+08:00",
+  "content_through": "2026-11-04",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-11-04",
+      "kind": "art-briefing",
+      "title": "2026-11-04 视觉艺术每日早报",
+      "summary": "今天的主线是“制度如何重新组织可见性”：意大利拟建立纳粹掠夺艺术返还机制，法国博物馆用公共传播寻回失窃画作；与此同时，东京、威尼斯、拉各斯与香港的项目都在把展览从静态陈列扩展为社交空间、记忆场域、表演与技术实验。",
+      "url": "daily-updates/2026-11-04-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-11-03",
       "kind": "art-briefing",
