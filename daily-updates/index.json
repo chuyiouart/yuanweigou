@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-04T22:26:09+08:00",
-  "content_through": "2026-11-04",
+  "updated_at": "2026-11-05T09:31:31+08:00",
+  "content_through": "2026-11-05",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-11-05",
+      "kind": "art-briefing",
+      "title": "2026-11-05 视觉艺术每日早报",
+      "summary": "今天的主线是“责任与基础设施”：一边是德国、意大利和土耳其以返还、来源研究及技术追踪重新处理文化财产；另一边是艺术机构通过城市双年展、免费艺术空间、区域收藏与低碳展陈，重新回答艺术如何进入日常生活。",
+      "url": "daily-updates/2026-11-05-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-11-04",
       "kind": "art-briefing",
