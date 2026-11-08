@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-07T09:31:01+08:00",
-  "content_through": "2026-11-07",
+  "updated_at": "2026-11-08T09:30:46+08:00",
+  "content_through": "2026-11-08",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-11-08",
+      "kind": "art-briefing",
+      "title": "2026-11-08 视觉艺术每日早报",
+      "summary": "今天的主线不是“AI 能不能进入艺术机构”，而是它以何种证据、授权和问责机制进入：博物馆观众对 AI 展签的疑虑、原住民图像被模型挪用，以及意大利拟设纳粹劫掠艺术返还机制，共同把文化机构推向更透明的治理。",
+      "url": "daily-updates/2026-11-08-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-11-07",
       "kind": "art-briefing",
