@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-08T09:30:46+08:00",
-  "content_through": "2026-11-08",
+  "updated_at": "2026-11-09T09:31:29+08:00",
+  "content_through": "2026-11-09",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-11-09",
+      "kind": "art-briefing",
+      "title": "2026-11-09 视觉艺术每日早报",
+      "summary": "过去 72 小时的主线，是“公共性”重新成为艺术机构与创作方法的硬指标：从瑞典归还贝宁文物、法国法院推动纳粹劫掠作品返还，到监禁艺术、公共建筑和无障碍协作，作品如何进入公共记忆、由谁解释、谁能参与，正在比单纯扩张更重要。",
+      "url": "daily-updates/2026-11-09-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-11-08",
       "kind": "art-briefing",
