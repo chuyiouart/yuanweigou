@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-09T13:31:03+08:00",
-  "content_through": "2026-11-09",
+  "updated_at": "2026-11-10T09:31:16+08:00",
+  "content_through": "2026-11-10",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-11-10",
+      "kind": "art-briefing",
+      "title": "2026-11-10 视觉艺术每日早报",
+      "summary": "过去 24 小时的主线，是艺术机构从“展示作品”进一步走向“重写制度”：加拿大把艺术家税收、转售权与博物馆投入放进预算讨论，瑞典启动跨洲返还，公民议事、社区修复和公共艺术基础设施也都在重新分配资源与解释权。",
+      "url": "daily-updates/2026-11-10-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-11-09",
       "kind": "art-briefing",
