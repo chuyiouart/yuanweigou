@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-13T13:31:07+08:00",
-  "content_through": "2026-11-13",
+  "updated_at": "2026-11-14T09:31:18+08:00",
+  "content_through": "2026-11-14",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-11-14",
+      "kind": "art-briefing",
+      "title": "2026-11-14 视觉艺术每日早报",
+      "summary": "过去 24 小时的主线不是“更多内容”，而是文化基础设施如何重新取得控制权：博物馆面对更暴力的盗窃，数字艺术机构摆脱商业平台，修复师把 AI 限定为证据工具，市场则在谨慎成交与区域扩张之间寻找新平衡。",
+      "url": "daily-updates/2026-11-14-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-11-13",
       "kind": "art-briefing",
