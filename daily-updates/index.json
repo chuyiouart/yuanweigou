@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-14T13:30:52+08:00",
-  "content_through": "2026-11-14",
+  "updated_at": "2026-11-15T09:31:10+08:00",
+  "content_through": "2026-11-15",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-11-15",
+      "kind": "art-briefing",
+      "title": "2026-11-15 视觉艺术每日早报",
+      "summary": "过去 24—72 小时，视觉艺术界出现一条清晰主线：机构不再只“展示作品”，而是在重写纪念物、技术平台、公共服务与所有权的规则；与此同时，AI 正从通用生成器转向艺术家自有语料和修复证据工具。",
+      "url": "daily-updates/2026-11-15-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-11-14",
       "kind": "art-briefing",
