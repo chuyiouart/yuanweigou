@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-18T09:40:35+08:00",
+  "updated_at": "2026-11-18T13:30:47+08:00",
   "content_through": "2026-11-18",
   "scope": {
     "included": [
@@ -18,6 +18,14 @@
       "title": "2026-11-18 视觉艺术每日早报",
       "summary": "过去 72 小时的主线，是艺术系统同时向两端移动：一端通过跨境借展、双城项目和公共资助扩大可及性，另一端则借助 AI、数字影像与画廊软件重写生产和流通基础设施。",
       "url": "daily-updates/2026-11-18-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-11-18",
+      "kind": "metrion",
+      "title": "雨珠把荷叶边压低了",
+      "summary": "荷叶的卷边下面，一滴琥珀色雨珠停在半空。",
+      "url": "daily-updates/2026-11-18-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
