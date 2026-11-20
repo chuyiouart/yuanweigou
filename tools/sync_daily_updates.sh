@@ -202,6 +202,19 @@ REMOTE_COMMIT=$(git ls-remote --exit-code origin refs/heads/main | cut -f 1)
 }
 
 BASE='https://chuyiouart.github.io/yuanweigou'
+# Keep the hostname and TLS certificate check while trying each published IPv4
+# address. Some GitHub Pages edge IPs time out from this NAS network.
+mapfile -t PAGES_IPV4 < <({ printf "%s\n" 185.199.108.153 185.199.109.153; getent ahostsv4 chuyiouart.github.io | awk '$2 == "STREAM" {print $1}'; } | sort -u)
+fetch_old_public_file() {
+  local url=$1 output=$2 ip
+  for ip in "${PAGES_IPV4[@]}"; do
+    if curl --fail --silent --show-error --location --connect-timeout 4 --max-time 30 \
+      --resolve "chuyiouart.github.io:443:$ip" --output "$output" "$url"; then
+      return 0
+    fi
+  done
+  return 1
+}
 for attempt in $(seq 1 24); do
   verify_frozen_manifest
   all_match=1
