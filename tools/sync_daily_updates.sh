@@ -227,8 +227,7 @@ for attempt in $(seq 1 24); do
     fi
     file_number=$((file_number + 1))
     remote_file="$STATE/remote-public-${file_number}.bin"
-    if ! curl --fail --silent --show-error --location --max-time 30 \
-      --output "$remote_file" "$BASE/${public_path}?commit=$COMMIT"; then
+    if ! fetch_old_public_file "$BASE/${public_path}?commit=$COMMIT" "$remote_file"; then
       all_match=0
       break
     fi
