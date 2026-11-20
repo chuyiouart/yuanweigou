@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-20T09:30:54+08:00",
+  "updated_at": "2026-11-20T13:30:49+08:00",
   "content_through": "2026-11-20",
   "scope": {
     "included": [
@@ -18,6 +18,14 @@
       "title": "2026-11-20 视觉艺术每日早报",
       "summary": "今天的主线，是艺术生态正在同时重写“谁能持续创作、谁有权讲述历史、谁能进入文化空间”：悉尼试行无附加条件的艺术家生活补助，伊拉克国家博物馆完成改造重开，贝宁继续推动殖民掠夺物返还；与此同时，开放档案、免费入馆与跨机构影像委约，让公共性从口号转向基础设施。",
       "url": "daily-updates/2026-11-20-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
+    {
+      "date": "2026-11-20",
+      "kind": "metrion",
+      "title": "手风琴拉开后，多出一排深褶",
+      "summary": "戴赭红扁帽的黑发乐手向后仰身，把青绿色手风琴拉开；两端都画着奶油白菱形，姜黄色鞋尖一前一后踩住地面。",
+      "url": "daily-updates/2026-11-20-metrion-daily-construction.html",
       "source_status": "delivered_verified"
     },
     {
