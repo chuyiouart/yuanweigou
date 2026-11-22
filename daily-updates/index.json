@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-21T13:30:33+08:00",
-  "content_through": "2026-11-21",
+  "updated_at": "2026-11-22T09:31:41+08:00",
+  "content_through": "2026-11-22",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-11-22",
+      "kind": "art-briefing",
+      "title": "2026-11-22 视觉艺术每日早报",
+      "summary": "过去 72 小时的主线，是艺术制度正同时面对三种“基础设施”问题：战争中的文化遗产安全、艺术劳动者的收入与照护条件，以及 AI、修复和沉浸式展示背后的权力结构。",
+      "url": "daily-updates/2026-11-22-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-11-21",
       "kind": "art-briefing",
