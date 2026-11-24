@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-23T13:31:01+08:00",
-  "content_through": "2026-11-23",
+  "updated_at": "2026-11-24T09:31:22+08:00",
+  "content_through": "2026-11-24",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-11-24",
+      "kind": "art-briefing",
+      "title": "2026-11-24 视觉艺术每日早报",
+      "summary": "今天的主线是“机构扩张”与“公共责任”并行：摄影机构、艺博会和新博物馆继续布局，威尼斯双年展以高客流收官；与此同时，战时文化遗产、博物馆裁员、文物返还以及非人类共同创作，把艺术机构如何承担公共责任推到前台。",
+      "url": "daily-updates/2026-11-24-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-11-23",
       "kind": "art-briefing",
