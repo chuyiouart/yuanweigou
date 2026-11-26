@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-25T09:31:14+08:00",
-  "content_through": "2026-11-25",
+  "updated_at": "2026-11-26T09:31:13+08:00",
+  "content_through": "2026-11-26",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-11-26",
+      "kind": "art-briefing",
+      "title": "2026-11-26 视觉艺术每日早报",
+      "summary": "今天的主线是“制度与媒介同时换挡”：威尼斯双年展以观众奖重新分配评价权，格鲁吉亚、华盛顿与新加坡通过新机构或新项目扩张文化叙事；与此同时，算法编舞、链上档案与 AI 策展正在从技术演示转向可被观看、收藏和研究的制度化实践。",
+      "url": "daily-updates/2026-11-26-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-11-25",
       "kind": "art-briefing",
