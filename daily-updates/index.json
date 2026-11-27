@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-26T09:31:13+08:00",
-  "content_through": "2026-11-26",
+  "updated_at": "2026-11-27T09:35:43+08:00",
+  "content_through": "2026-11-27",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-11-27",
+      "kind": "art-briefing",
+      "title": "2026-11-27 视觉艺术每日早报",
+      "summary": "过去 24—72 小时的核心不是单一“爆款作品”，而是艺术基础设施的重新分配：沙迦策展人 Hoor Al Qasimi 将执掌 2028 威尼斯双年展，布鲁塞尔 KANAL 以工业遗产改造扩展公共文化空间，而美国史密森学会的独立性争议提醒人们，博物馆叙事从来与治理结构相连。",
+      "url": "daily-updates/2026-11-27-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-11-26",
       "kind": "art-briefing",
