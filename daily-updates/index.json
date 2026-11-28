@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-27T13:30:50+08:00",
-  "content_through": "2026-11-27",
+  "updated_at": "2026-11-28T09:31:07+08:00",
+  "content_through": "2026-11-28",
   "scope": {
     "included": [
       "metrion",
@@ -12,6 +12,14 @@
     ]
   },
   "entries": [
+    {
+      "date": "2026-11-28",
+      "kind": "art-briefing",
+      "title": "2026-11-28 视觉艺术每日早报",
+      "summary": "今天的主线是“机构重新分配权力与注意力”：威尼斯双年展把 2028 年策展权交给来自沙迦的 Hoor Al Qasimi，布鲁塞尔 KANAL 以巨型工业遗产改造重新定义公共文化空间，而艺术家与平台之间围绕 AI 训练、冒名账号和创作生计的矛盾进一步公开化。",
+      "url": "daily-updates/2026-11-28-visual-art-morning-briefing.html",
+      "source_status": "delivered_verified"
+    },
     {
       "date": "2026-11-27",
       "kind": "art-briefing",
